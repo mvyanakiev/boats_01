@@ -20,7 +20,6 @@ public class Boat extends BaseEntity {
     private int fuelTank;
     private LocalDate lastCheckedDate;
     private BigDecimal price;
-    private int buildYear;
     private boolean isPresent;
     private List<Equipment> equipment;
 
