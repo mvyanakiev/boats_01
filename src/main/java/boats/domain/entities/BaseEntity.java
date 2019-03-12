@@ -15,7 +15,6 @@ public abstract class BaseEntity {
     public BaseEntity() {
     }
 
-
     @Id
     @GeneratedValue(generator = "uuid-string")
     @GenericGenerator(
