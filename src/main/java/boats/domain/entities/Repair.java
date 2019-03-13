@@ -20,11 +20,11 @@ public class Repair extends BaseEntity {
     }
 
     @ManyToOne(targetEntity = Boat.class)
-    @JoinColumn(
-            name = "boat_id",
-            referencedColumnName = "id",
-            nullable = false
-    )
+//    @JoinColumn(
+//            name = "boat_id",
+//            referencedColumnName = "id",
+//            nullable = false
+//    )
     public Boat getBoat() {
         return this.boat;
     }

@@ -11,7 +11,6 @@ public class Equipment extends BaseEntity {
     private String serialNumber;
     private Boat boat;
     private LocalDate lastCheckedDate;
-    private LocalDate dateAdded;
 
     public Equipment() {
     }
@@ -35,10 +34,10 @@ public class Equipment extends BaseEntity {
     }
 
     @ManyToOne(targetEntity = Boat.class)
-    @JoinColumn(
-            name = "boat_id",
-            referencedColumnName = "id"
-    )
+//    @JoinColumn(
+//            name = "boat_id",
+//            referencedColumnName = "id"
+//    )
     public Boat getBoat() {
         return this.boat;
     }
@@ -54,14 +53,5 @@ public class Equipment extends BaseEntity {
 
     public void setLastCheckedDate(LocalDate lastCheckedDate) {
         this.lastCheckedDate = lastCheckedDate;
-    }
-
-    @Column(name = "date_added")
-    public LocalDate getDateAdded() {
-        return this.dateAdded;
-    }
-
-    public void setDateAdded(LocalDate dateAdded) {
-        this.dateAdded = dateAdded;
     }
 }
