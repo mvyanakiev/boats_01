@@ -20,7 +20,6 @@ public class Boat extends BaseEntity {
     private int fuelTank;
     private LocalDate lastCheckedDate;
     private BigDecimal price;
-    private boolean isPresent;
     private List<Equipment> equipment;
 
     public Boat() {
@@ -112,15 +111,6 @@ public class Boat extends BaseEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    @Column(name = "is_present")
-    public boolean isPresent() {
-        return this.isPresent;
-    }
-
-    public void setPresent(boolean present) {
-        isPresent = present;
     }
 
     @OneToMany(targetEntity = Equipment.class, mappedBy = "id")

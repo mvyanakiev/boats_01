@@ -12,7 +12,6 @@ public class Equipment extends BaseEntity {
     private Boat boat;
     private LocalDate lastCheckedDate;
     private LocalDate dateAdded;
-    private boolean isPresent;
 
     public Equipment() {
     }
@@ -64,14 +63,5 @@ public class Equipment extends BaseEntity {
 
     public void setDateAdded(LocalDate dateAdded) {
         this.dateAdded = dateAdded;
-    }
-
-    @Column(name = "is_present")
-    public boolean isPresent() {
-        return this.isPresent;
-    }
-
-    public void setPresent(boolean present) {
-        isPresent = present;
     }
 }
