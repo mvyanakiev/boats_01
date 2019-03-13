@@ -21,6 +21,7 @@ public class Boat extends BaseEntity {
     private LocalDate lastCheckedDate;
     private BigDecimal price;
     private List<Equipment> equipment;
+    private List<Repair> repairs;
 
     public Boat() {
         this.equipment = new ArrayList<>();
@@ -120,6 +121,15 @@ public class Boat extends BaseEntity {
 
     public void setEquipment(List<Equipment> equipment) {
         this.equipment = equipment;
+    }
+
+    @OneToMany(targetEntity = Repair.class, mappedBy = "id")
+    public List<Repair> getRepairs() {
+        return this.repairs;
+    }
+
+    public void setRepairs(List<Repair> repairs) {
+        this.repairs = repairs;
     }
 }
 
