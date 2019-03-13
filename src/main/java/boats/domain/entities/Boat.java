@@ -1,9 +1,9 @@
 package boats.domain.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,10 +24,113 @@ public class Boat extends BaseEntity {
     private List<Equipment> equipment;
 
     public Boat() {
+        this.equipment = new ArrayList<>();
     }
 
-    //todo
+    @Column(name = "producer", nullable = false)
+    public String getProducer() {
+        return this.producer;
+    }
 
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+
+    @Column(name = "model", nullable = false)
+    public String getModel() {
+        return this.model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+    @Column(name = "cabins", nullable = false)
+    public int getCabins() {
+        return this.cabins;
+    }
+
+    public void setCabins(int cabins) {
+        this.cabins = cabins;
+    }
+
+    @Column(name = "toilets", nullable = false)
+    public int getToilets() {
+        return this.toilets;
+    }
+
+    public void setToilets(int toilets) {
+        this.toilets = toilets;
+    }
+
+    @Column(name = "draft")
+    public double getDraft() {
+        return this.draft;
+    }
+
+    public void setDraft(double draft) {
+        this.draft = draft;
+    }
+    @Column(name = "overall_length")
+    public double getOverallLength() {
+        return this.overallLength;
+    }
+
+    public void setOverallLength(double overallLength) {
+        this.overallLength = overallLength;
+    }
+
+    @Column(name = "water_tank")
+    public int getWaterTank() {
+        return this.waterTank;
+    }
+
+    public void setWaterTank(int waterTank) {
+        this.waterTank = waterTank;
+    }
+    @Column(name = "fuel_tank")
+    public int getFuelTank() {
+        return this.fuelTank;
+    }
+
+    public void setFuelTank(int fuelTank) {
+        this.fuelTank = fuelTank;
+    }
+
+    @Column(name = "last_checked_date")
+    public LocalDate getLastCheckedDate() {
+        return this.lastCheckedDate;
+    }
+
+    public void setLastCheckedDate(LocalDate lastCheckedDate) {
+        this.lastCheckedDate = lastCheckedDate;
+    }
+
+    @Column(name = "price")
+    public BigDecimal getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    @Column(name = "is_present")
+    public boolean isPresent() {
+        return this.isPresent;
+    }
+
+    public void setPresent(boolean present) {
+        isPresent = present;
+    }
+
+    @OneToMany(targetEntity = Equipment.class, mappedBy = "id")
+    public List<Equipment> getEquipment() {
+        return this.equipment;
+    }
+
+    public void setEquipment(List<Equipment> equipment) {
+        this.equipment = equipment;
+    }
 }
 
 
