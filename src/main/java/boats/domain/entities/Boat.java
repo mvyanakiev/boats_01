@@ -20,11 +20,11 @@ public class Boat extends BaseEntity {
     private int fuelTank;
     private LocalDate lastCheckedDate;
     private BigDecimal price;
-    private List<Equipment> equipment;
-    private List<Repair> repairs;
+//    private List<Equipment> equipment;
+//    private List<Repair> repairs;
 
     public Boat() {
-        this.equipment = new ArrayList<>();
+//        this.equipment = new ArrayList<>();
     }
 
     @Column(name = "producer", nullable = false)
@@ -114,23 +114,23 @@ public class Boat extends BaseEntity {
         this.price = price;
     }
 
-    @OneToMany(targetEntity = Equipment.class, mappedBy = "id")
-    public List<Equipment> getEquipment() {
-        return this.equipment;
-    }
-
-    public void setEquipment(List<Equipment> equipment) {
-        this.equipment = equipment;
-    }
-
-    @OneToMany(targetEntity = Repair.class, mappedBy = "id")
-    public List<Repair> getRepairs() {
-        return this.repairs;
-    }
-
-    public void setRepairs(List<Repair> repairs) {
-        this.repairs = repairs;
-    }
+//    @OneToMany(targetEntity = Equipment.class, mappedBy = "id")
+//    public List<Equipment> getEquipment() {
+//        return this.equipment;
+//    }
+//
+//    public void setEquipment(List<Equipment> equipment) {
+//        this.equipment = equipment;
+//    }
+//
+//    @OneToMany(targetEntity = Repair.class, mappedBy = "id")
+//    public List<Repair> getRepairs() {
+//        return this.repairs;
+//    }
+//
+//    public void setRepairs(List<Repair> repairs) {
+//        this.repairs = repairs;
+//    }
 }
 
 
