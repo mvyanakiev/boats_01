@@ -10,7 +10,6 @@ public class Charter extends BaseEntity{
 
     private Boat boat;
     private LocalDate startDate;
-    private LocalDate endDate;
     private BigDecimal price;
     private People customer;
     private Direction direction;
@@ -38,15 +37,6 @@ public class Charter extends BaseEntity{
 
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
-    }
-
-    @Column(name = "end_date")
-    public LocalDate getEndDate() {
-        return this.endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
     }
 
     @Column(name = "price")
