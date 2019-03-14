@@ -16,7 +16,7 @@ public class User extends BaseEntity {
     public User() {
     }
 
-    @Column(name = "username", nullable = false, updatable = false)
+    @Column(name = "username", nullable = false)
     public String getUsername() {
         return this.username;
     }
@@ -34,7 +34,7 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, updatable = false, unique = true)
     public String getEmail() {
         return this.email;
     }

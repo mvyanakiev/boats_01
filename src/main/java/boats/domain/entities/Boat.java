@@ -12,10 +12,10 @@ public class Boat extends BaseEntity {
 
     private String producer;
     private String model;
+    private String name;
     private int cabins;
     private int toilets;
     private double draft;
-    private double overallLength;
     private int waterTank;
     private int fuelTank;
     private LocalDate lastCheckedDate;
@@ -44,7 +44,17 @@ public class Boat extends BaseEntity {
     public void setModel(String model) {
         this.model = model;
     }
-    @Column(name = "cabins", nullable = false)
+
+    @Column(name = "name", nullable = false, unique = true, updatable = false)
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Column(name = "cabins")
     public int getCabins() {
         return this.cabins;
     }
@@ -53,7 +63,7 @@ public class Boat extends BaseEntity {
         this.cabins = cabins;
     }
 
-    @Column(name = "toilets", nullable = false)
+    @Column(name = "toilets")
     public int getToilets() {
         return this.toilets;
     }
@@ -69,14 +79,6 @@ public class Boat extends BaseEntity {
 
     public void setDraft(double draft) {
         this.draft = draft;
-    }
-    @Column(name = "overall_length")
-    public double getOverallLength() {
-        return this.overallLength;
-    }
-
-    public void setOverallLength(double overallLength) {
-        this.overallLength = overallLength;
     }
 
     @Column(name = "water_tank")
@@ -105,7 +107,7 @@ public class Boat extends BaseEntity {
         this.lastCheckedDate = lastCheckedDate;
     }
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     public BigDecimal getPrice() {
         return this.price;
     }

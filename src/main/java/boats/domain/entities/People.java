@@ -43,7 +43,7 @@ public class People extends BaseEntity {
         this.phone = phone;
     }
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     public String getEmail() {
         return this.email;
     }
