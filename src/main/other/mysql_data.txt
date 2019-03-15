@@ -1,7 +1,8 @@
 http://convertcsv.com/csv-to-sql.htm
 
-INSERT INTO boats(id,model,producer,name,cabins, toilets, draft, water_tank, fuel_tank, last_checked_date, price ) VALUES ('07678800-464b-11e9-b210-d663bd873d93','Bavaria','35','Assante',3,1,'1.6',120,80,'2018-11-02',1200);
+
 INSERT INTO boats(id,producer,model,name,cabins,toilets,draft,water_tank,fuel_tank,last_checked_date,price) VALUES ('07678bfc-464b-11e9-b210-d663bd873d93','Bavaria','42','Himera',4,2,1.8,180,150,'03.11.2018',1400);
+INSERT INTO boats(id,producer,model,name,cabins,toilets,draft,water_tank,fuel_tank,last_checked_date,price) VALUES ('07678800-464b-11e9-b210-d663bd873d93','Bavaria','35','Assante',3,1,'1.6',120,80,'2018-11-02',1200);
 INSERT INTO boats(id,producer,model,name,cabins,toilets,draft,water_tank,fuel_tank,last_checked_date,price) VALUES ('07678e40-464b-11e9-b210-d663bd873d93','Benetau','50.5 Ciclades','Oceanis',5,4,2,240,200,'05.10.2017',2000);
 INSERT INTO boats(id,producer,model,name,cabins,toilets,draft,water_tank,fuel_tank,last_checked_date,price) VALUES ('07678fe4-464b-11e9-b210-d663bd873d93','Jeanneau','39','Escape',4,2,1.6,120,120,'01.01.2019',1800);
 INSERT INTO boats(id,producer,model,name,cabins,toilets,draft,water_tank,fuel_tank,last_checked_date,price) VALUES ('0767914c-464b-11e9-b210-d663bd873d93','Gip Sea','Duffor 372','Andromeda',3,1,1.8,180,130,'10.02.2019',2200);
@@ -132,7 +133,28 @@ INSERT INTO equipments(id,boat_id,item,last_checked_date,serial_number) VALUES (
 INSERT INTO equipments(id,boat_id,item,last_checked_date,serial_number) VALUES ('cca80920-4662-11e9-b210-d663bd873d93','0767b028-464b-11e9-b210-d663bd873d93','Spinaker boom','08.08.2018','n/a');
 INSERT INTO equipments(id,boat_id,item,last_checked_date,serial_number) VALUES ('cca80a88-4662-11e9-b210-d663bd873d93','0767b3d4-464b-11e9-b210-d663bd873d93','Solar panel','20.08.2017','4545SDF555');
 
+INSERT INTO directions(id,destination,distance,period,price) VALUES ('f78f6588-4659-11e9-b210-d663bd873d93','Zakintos',120,7,100);
+INSERT INTO directions(id,destination,distance,period,price) VALUES ('f78f688a-4659-11e9-b210-d663bd873d93','Santorini',240,14,200);
+INSERT INTO directions(id,destination,distance,period,price) VALUES ('f78f6a7e-4659-11e9-b210-d663bd873d93','Milos',200,10,150);
+INSERT INTO directions(id,destination,distance,period,price) VALUES ('f78f6c40-4659-11e9-b210-d663bd873d93','Tassos',50,7,100);
+INSERT INTO directions(id,destination,distance,period,price) VALUES ('f78f6db2-4659-11e9-b210-d663bd873d93','Mikonos',150,7,120);
+INSERT INTO directions(id,destination,distance,period,price) VALUES ('f78f6f10-4659-11e9-b210-d663bd873d93','Skiatos',130,10,110);
+INSERT INTO directions(id,destination,distance,period,price) VALUES ('f78f706e-4659-11e9-b210-d663bd873d93','Alonisoss',145,7,150);
+INSERT INTO directions(id,destination,distance,period,price) VALUES ('f78f758c-4659-11e9-b210-d663bd873d93','Skopelos',150,10,260);
+INSERT INTO directions(id,destination,distance,period,price) VALUES ('f78f7708-4659-11e9-b210-d663bd873d93','Samotraki',190,14,350);
+INSERT INTO directions(id,destination,distance,period,price) VALUES ('f78f791a-4659-11e9-b210-d663bd873d93','Limnos',200,14,300);
 
+INSERT INTO repairs(id,boat_id,start_date,end_date,price,note,supplier,repair_type) VALUES ('7d0d6a2a-4664-11e9-b210-d663bd873d93','0767a1fa-464b-11e9-b210-d663bd873d93','01.01.2018','05.01.2018',100,'Mast','John Smith','Planned');
+INSERT INTO repairs(id,boat_id,start_date,end_date,price,note,supplier,repair_type) VALUES ('7d0d7038-4664-11e9-b210-d663bd873d93','0767a34e-464b-11e9-b210-d663bd873d93','01.02.2018','03.02.2018',80,'Main sail','SCA Ltd.','Emergency');
+INSERT INTO repairs(id,boat_id,start_date,end_date,price,note,supplier,repair_type) VALUES ('7d0d71d2-4664-11e9-b210-d663bd873d93','0767a826-464b-11e9-b210-d663bd873d93','01.03.2018','01.03.2018',240,'Annual check','DMEA','Planned');
+INSERT INTO repairs(id,boat_id,start_date,end_date,price,note,supplier,repair_type) VALUES ('7d0d733a-4664-11e9-b210-d663bd873d93','0767a9a2-464b-11e9-b210-d663bd873d93','01.04.2018','10.04.2008',3200,'Keel','Peter Johnson','Emergency');
+
+INSERT INTO charters(id,boat_id,people_id,direction_id,start_date,price) VALUES ('63d3ec80-4666-11e9-b210-d663bd873d93','07678800-464b-11e9-b210-d663bd873d93','57c5f450-fc83-491c-9729-33aabe8948a9','f78f6588-4659-11e9-b210-d663bd873d93','02.05.2018',3500);
+INSERT INTO charters(id,boat_id,people_id,direction_id,start_date,price) VALUES ('63d3effa-4666-11e9-b210-d663bd873d93','07678bfc-464b-11e9-b210-d663bd873d93','efd657ec-562e-4cba-9479-df83c8b5d260','f78f688a-4659-11e9-b210-d663bd873d93','03.09.2018',2500);
+INSERT INTO charters(id,boat_id,people_id,direction_id,start_date,price) VALUES ('63d3f73e-4666-11e9-b210-d663bd873d93','07678e40-464b-11e9-b210-d663bd873d93','cc3b9555-12b2-46ab-a20d-5ed9b98f2567','f78f6a7e-4659-11e9-b210-d663bd873d93','05.08.2018',1280);
+INSERT INTO charters(id,boat_id,people_id,direction_id,start_date,price) VALUES ('63d3fa0e-4666-11e9-b210-d663bd873d93','07678fe4-464b-11e9-b210-d663bd873d93','600a8ae7-4ee0-480b-9c2a-7ef6cb901bbb','f78f6c40-4659-11e9-b210-d663bd873d93','06.08.2018',2360);
+INSERT INTO charters(id,boat_id,people_id,direction_id,start_date,price) VALUES ('63d3fce8-4666-11e9-b210-d663bd873d93','0767914c-464b-11e9-b210-d663bd873d93','309991ca-b9f7-473b-92e7-cdea364642d0','f78f6db2-4659-11e9-b210-d663bd873d93','09.07.2018',2000);
+INSERT INTO charters(id,boat_id,people_id,direction_id,start_date,price) VALUES ('63d3ff72-4666-11e9-b210-d663bd873d93','076797d2-464b-11e9-b210-d663bd873d93','05e3ce11-94d2-4267-97a1-484554a89252','f78f6f10-4659-11e9-b210-d663bd873d93','10.06.2018',2100);
 
 
 
