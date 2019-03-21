@@ -1,14 +1,15 @@
-package boats.domain.entities;
+package boats.domain.models.binding;
 
-import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
-@Table(name = "boats")
-public class Boat extends BaseEntity {
+public class BoatAddBindingModel {
 
     private String producer;
     private String model;
@@ -20,14 +21,14 @@ public class Boat extends BaseEntity {
     private int fuelTank;
     private LocalDate lastCheckedDate;
     private BigDecimal price;
-//    private List<Equipment> equipment;
-//    private List<Repair> repairs;
 
-    public Boat() {
-//        this.equipment = new ArrayList<>();
+    public BoatAddBindingModel() {
     }
 
-    @Column(name = "producer", nullable = false)
+    @NotNull
+    @NotEmpty
+    @Length(min = 2, message = "Producer must be at least 2 characters long.")
+    @Length(max = 50, message = "Producer must be at least 50 characters long.")
     public String getProducer() {
         return this.producer;
     }
@@ -36,7 +37,10 @@ public class Boat extends BaseEntity {
         this.producer = producer;
     }
 
-    @Column(name = "model", nullable = false)
+    @NotNull
+    @NotEmpty
+    @Length(min = 2, message = "Model must be at least 2 characters long.")
+    @Length(max = 50, message = "Model must be at least 50 characters long.")
     public String getModel() {
         return this.model;
     }
@@ -45,7 +49,10 @@ public class Boat extends BaseEntity {
         this.model = model;
     }
 
-    @Column(name = "name", nullable = false, unique = true)
+    @NotNull
+    @NotEmpty
+    @Length(min = 1, message = "Name must be at least 1 characters long.")
+    @Length(max = 70, message = "Name must be at least 70 characters long.")
     public String getName() {
         return this.name;
     }
@@ -54,7 +61,6 @@ public class Boat extends BaseEntity {
         this.name = name;
     }
 
-    @Column(name = "cabins")
     public int getCabins() {
         return this.cabins;
     }
@@ -63,7 +69,6 @@ public class Boat extends BaseEntity {
         this.cabins = cabins;
     }
 
-    @Column(name = "toilets")
     public int getToilets() {
         return this.toilets;
     }
@@ -72,7 +77,6 @@ public class Boat extends BaseEntity {
         this.toilets = toilets;
     }
 
-    @Column(name = "draft")
     public double getDraft() {
         return this.draft;
     }
@@ -81,7 +85,6 @@ public class Boat extends BaseEntity {
         this.draft = draft;
     }
 
-    @Column(name = "water_tank")
     public int getWaterTank() {
         return this.waterTank;
     }
@@ -89,7 +92,7 @@ public class Boat extends BaseEntity {
     public void setWaterTank(int waterTank) {
         this.waterTank = waterTank;
     }
-    @Column(name = "fuel_tank")
+
     public int getFuelTank() {
         return this.fuelTank;
     }
@@ -98,7 +101,7 @@ public class Boat extends BaseEntity {
         this.fuelTank = fuelTank;
     }
 
-    @Column(name = "last_checked_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate getLastCheckedDate() {
         return this.lastCheckedDate;
     }
@@ -107,7 +110,10 @@ public class Boat extends BaseEntity {
         this.lastCheckedDate = lastCheckedDate;
     }
 
-    @Column(name = "price", nullable = false)
+    @NotNull
+    @NotEmpty
+//    @Length(min = 1, message = "Name must be at least 1 characters long.")
+//    @Length(max = 70, message = "Name must be at least 70 characters long.")
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -115,27 +121,4 @@ public class Boat extends BaseEntity {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-
-//    @OneToMany(targetEntity = Equipment.class, mappedBy = "id")
-//    public List<Equipment> getEquipment() {
-//        return this.equipment;
-//    }
-//
-//    public void setEquipment(List<Equipment> equipment) {
-//        this.equipment = equipment;
-//    }
-//
-//    @OneToMany(targetEntity = Repair.class, mappedBy = "id")
-//    public List<Repair> getRepairs() {
-//        return this.repairs;
-//    }
-//
-//    public void setRepairs(List<Repair> repairs) {
-//        this.repairs = repairs;
-//    }
 }
-
-
-
-
-
