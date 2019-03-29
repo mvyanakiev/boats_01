@@ -1,9 +1,33 @@
-.re-background{
-    background-color: #900C45;
-    color: white;
+hr.hr-2 {
+    height: 2px;
+}
+
+.logout-button {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 1) !important;
+}
+
+.logout-button:hover {
+    cursor: pointer;
+}
+
+.logout-button:focus {
+    outline: none;
+}
+
+img.img-thumbnail {
+    border: 1px solid #ddd; /* Gray border */
+    border-radius: 4px; /* Rounded border */
+    padding: 5px; /* Some padding */
+    max-width: 40px;
+    max-height: 40px;
 }
 
 .boats-background{
     background-color: #031c79f5;
     color: white;
 }
+
+

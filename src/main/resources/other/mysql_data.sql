@@ -1,4 +1,4 @@
-http://convertcsv.com/csv-to-sql.htm
+# http://convertcsv.com/csv-to-sql.htm
 
 
 INSERT INTO boats(id,producer,model,name,cabins,toilets,draft,water_tank,fuel_tank,last_checked_date,price) VALUES ('07678bfc-464b-11e9-b210-d663bd873d93','Bavaria','42','Himera',4,2,1.8,180,150,'03.11.2018',1400);

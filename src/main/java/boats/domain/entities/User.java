@@ -1,22 +1,26 @@
 package boats.domain.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
 
     private String username;
     private String password;
     private String email;
-    private String phone;
+
+    private Set<Role> authorities;
 
     public User() {
     }
 
-    @Column(name = "username", nullable = false)
+    @Override
+    @Column(name = "username", nullable = false, unique = true, updatable = false)
     public String getUsername() {
         return this.username;
     }
@@ -25,6 +29,7 @@ public class User extends BaseEntity {
         this.username = username;
     }
 
+    @Override
     @Column(name = "password", nullable = false)
     public String getPassword() {
         return this.password;
@@ -34,7 +39,7 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    @Column(name = "email", nullable = false, updatable = false, unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     public String getEmail() {
         return this.email;
     }
@@ -43,12 +48,48 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
-    @Column(name = "phone")
-    public String getPhone() {
-        return this.phone;
+    @Override
+    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id",
+                    referencedColumnName = "id"
+            )
+    )
+    public Set<Role> getAuthorities() {
+        return this.authorities;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAuthorities(Set<Role> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isEnabled() {
+        return true;
     }
 }
