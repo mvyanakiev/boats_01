@@ -4,8 +4,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
     <th:block th:fragment>
-
-
         <nav class="navbar navbar-expand-lg boats-background">
             <a class="navbar-brand text-white" th:href="@{/home}">Boats</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -14,12 +12,11 @@
             </button>
 
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav">
                     <!--<li class="nav-item active">-->
                     <!--<a class="nav-link text-white" th:href="@{/}">Home <span class="sr-only">(current)</span></a>-->
                     <!--</li>-->
-
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownBoats" role="button"
@@ -51,24 +48,28 @@
                         </div>
                     </li>
 
-                    <!--<li class="nav-item active">-->
-                    <!--<form action="/logout?login" method="post"><input type="hidden" name="_csrf"-->
-                    <!--value="80417983-fe8b-45c7-963e-31f6915a1560">-->
-                    <!--<button class="logout-button nav-link">Logout</button>-->
-                    <!--</form>-->
-                    <!--</li>-->
 
-                    <form th:action="@{/logout}" method="post">
-                        <input type="submit" class="nav-link border-0 bg-transparent" style="color: white"
-                               th:value="|Logout, ${#authentication.getPrincipal().getUsername()}|"/>
-                    </form>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownProfile" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                           th:text="${#authentication.getPrincipal().getUsername()}">
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
 
+                            <a class="dropdown-item" th:href="@{/users/profile}">Profile</a>
+
+
+                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a class="dropdown-item" th:href="@{/users/all}">All Users</a>
+                            </th:block>
+
+                            <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                        </div>
+                    </li>
 
                 </ul>
             </div>
 
 
         </nav>
-
-
     </th:block>
