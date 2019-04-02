@@ -9,11 +9,11 @@ import java.time.LocalDate;
 public class Repair extends BaseEntity {
 
     private Boat boat;
+    private People supplier;
     private LocalDate startDate;
     private LocalDate endDate;
     private BigDecimal price;
     private String note;
-    private String supplier;
     private RepairType repairType;
 
     public Repair() {
@@ -31,6 +31,16 @@ public class Repair extends BaseEntity {
 
     public void setBoat(Boat boat) {
         this.boat = boat;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "people_id")
+    public People getSupplier() {
+        return this.supplier;
+    }
+
+    public void setSupplier(People supplier) {
+        this.supplier = supplier;
     }
 
     @Column(name = "start_date", nullable = false)
@@ -67,15 +77,6 @@ public class Repair extends BaseEntity {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    @Column(name = "supplier" , nullable = false)
-    public String getSupplier() {
-        return this.supplier;
-    }
-
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
     }
 
     @Enumerated(EnumType.STRING)

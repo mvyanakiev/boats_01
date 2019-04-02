@@ -1,15 +1,9 @@
-package boats.domain.models.binding;
+package boats.domain.models.serviceModels;
 
-import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class BoatAddBindingModel {
+public class BoatServiceModel extends BaseServiceModel {
 
     private String producer;
     private String model;
@@ -22,13 +16,9 @@ public class BoatAddBindingModel {
     private LocalDate lastCheckedDate;
     private BigDecimal price;
 
-    public BoatAddBindingModel() {
+    public BoatServiceModel() {
     }
 
-    @NotNull
-    @NotEmpty
-    @Length(min = 2, message = "Producer must be at least 2 characters long.")
-    @Length(max = 50, message = "Producer must be at least 50 characters long.")
     public String getProducer() {
         return this.producer;
     }
@@ -37,10 +27,6 @@ public class BoatAddBindingModel {
         this.producer = producer;
     }
 
-    @NotNull
-    @NotEmpty
-    @Length(min = 2, message = "Model must be at least 2 characters long.")
-    @Length(max = 50, message = "Model must be at least 50 characters long.")
     public String getModel() {
         return this.model;
     }
@@ -49,10 +35,6 @@ public class BoatAddBindingModel {
         this.model = model;
     }
 
-    @NotNull
-    @NotEmpty
-    @Length(min = 1, message = "Name must be at least 1 characters long.")
-    @Length(max = 70, message = "Name must be at least 70 characters long.")
     public String getName() {
         return this.name;
     }
@@ -101,7 +83,6 @@ public class BoatAddBindingModel {
         this.fuelTank = fuelTank;
     }
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate getLastCheckedDate() {
         return this.lastCheckedDate;
     }
@@ -110,9 +91,6 @@ public class BoatAddBindingModel {
         this.lastCheckedDate = lastCheckedDate;
     }
 
-    @NotNull
-    @NotEmpty
-    @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return this.price;
     }

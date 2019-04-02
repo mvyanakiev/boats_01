@@ -1,6 +1,6 @@
-package boats.domain.entities;
-
-public enum PeopleType {
-
-    Customer, Employee;
-}
+//package boats.domain.entities;
+//
+//public enum PeopleType {
+//
+//    Customer, Employee;
+//}

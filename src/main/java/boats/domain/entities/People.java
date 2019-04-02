@@ -11,7 +11,10 @@ public class People extends BaseEntity {
     private String phone;
     private String email;
     private String address;
-    private PeopleType type;
+    private boolean isEmployee;
+    private boolean isCustomer;
+    private boolean isSupplier;
+
 
     public People() {
     }
@@ -61,13 +64,27 @@ public class People extends BaseEntity {
         this.address = address;
     }
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
-    public PeopleType getType() {
-        return this.type;
+    public boolean isEmployee() {
+        return this.isEmployee;
     }
 
-    public void setType(PeopleType type) {
-        this.type = type;
+    public void setEmployee(boolean employee) {
+        isEmployee = employee;
+    }
+
+    public boolean isCustomer() {
+        return this.isCustomer;
+    }
+
+    public void setCustomer(boolean customer) {
+        isCustomer = customer;
+    }
+
+    public boolean isSupplier() {
+        return this.isSupplier;
+    }
+
+    public void setSupplier(boolean supplier) {
+        isSupplier = supplier;
     }
 }
