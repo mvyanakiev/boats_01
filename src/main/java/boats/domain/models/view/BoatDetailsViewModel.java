@@ -1,16 +1,13 @@
-package boats.domain.models.binding;
+package boats.domain.models.view;
 
-import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
-public class BoatAddBindingModel {
+public class BoatDetailsViewModel {
 
+    private String id;
     private String producer;
     private String model;
     private String name;
@@ -22,13 +19,17 @@ public class BoatAddBindingModel {
     private LocalDate lastCheckedDate;
     private BigDecimal price;
 
-    public BoatAddBindingModel() {
+    public BoatDetailsViewModel() {
     }
 
-    @NotNull
-    @NotEmpty
-    @Length(min = 2, message = "Producer must be at least 2 characters long.")
-    @Length(max = 50, message = "Producer must be at least 50 characters long.")
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getProducer() {
         return this.producer;
     }
@@ -37,10 +38,6 @@ public class BoatAddBindingModel {
         this.producer = producer;
     }
 
-    @NotNull
-    @NotEmpty
-    @Length(min = 2, message = "Model must be at least 2 characters long.")
-    @Length(max = 50, message = "Model must be at least 50 characters long.")
     public String getModel() {
         return this.model;
     }
@@ -49,10 +46,6 @@ public class BoatAddBindingModel {
         this.model = model;
     }
 
-    @NotNull
-    @NotEmpty
-    @Length(min = 1, message = "Name must be at least 1 characters long.")
-    @Length(max = 70, message = "Name must be at least 70 characters long.")
     public String getName() {
         return this.name;
     }
@@ -101,18 +94,15 @@ public class BoatAddBindingModel {
         this.fuelTank = fuelTank;
     }
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate getLastCheckedDate() {
-        return this.lastCheckedDate;
+    public Date getLastCheckedDate() {
+        Date date = Date.from(this.lastCheckedDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return date;
     }
 
     public void setLastCheckedDate(LocalDate lastCheckedDate) {
         this.lastCheckedDate = lastCheckedDate;
     }
 
-    @NotNull
-//    @NotEmpty
-    @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return this.price;
     }

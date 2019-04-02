@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+    </header>
+    <main>
+
+        <h2>Details for boat <strong th:text="${model.name}"></strong></h2>
+
+        <!--todo add table with rows here-->
+
+
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <a class="btn btn-outline-secondary"
+               th:href="@{/boats/edit/{id}(id=${model.id})}" th:text="Edit"></a>
+        </th:block>
+    </main>
+    <footer>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>

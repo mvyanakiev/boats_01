@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+    </header>
+    <main>
+        <h1>Boats</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Producer</th>
+                <th>Model</th>
+                <th>Last checked date</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="boat, iter : ${boats}">
+                <td th:text="${iter.index} + 1"></td>
+                <td th:text="${boat.name}"></td>
+                <td th:text="${boat.producer}"></td>
+                <td th:text="${boat.model}"></td>
+                <td th:text="${#dates.format(boat.lastCheckedDate, 'dd-MMM-yyyy')}"></td>
+                <td>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/boats/details/{id}(id=${boat.id})}" th:text="Details"></a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+    </main>
+
+    <footer>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>

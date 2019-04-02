@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+    </header>
+    <main>
+        <h1>Add a new Boat</h1>
+        <form th:action="@{/boats/add}" method="post" th:object="${bindingModel}">
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
+                <label for="inputBoatName">Name</label>
+                <input type="text" th:field="*{name}" class="form-control" id="inputBoatName" placeholder="Boat Name">
+                <small id="nameHelp" th:each="error : ${#fields.errors('name')}" th:text="${error}"></small>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
+                <label for="inputBoatProducer">Name</label>
+                <input type="text" th:field="*{producer}" class="form-control" id="inputBoatProducer"
+                       placeholder="Producer">
+                <small id="producerHelp" th:each="error : ${#fields.errors('producer')}" th:text="${error}"></small>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
+                <label for="inputBoatModel">Model</label>
+                <input type="text" th:field="*{model}" class="form-control" id="inputBoatModel" placeholder="Model">
+                <small id="modelHelp" th:each="error : ${#fields.errors('model')}" th:text="${error}"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="inputBoatNumberOfCabins">Number of Cabins</label>
+                <input type="number" th:field="*{cabins}" class="form-control" id="inputBoatNumberOfCabins"
+                       placeholder="Number of Cabins">
+            </div>
+
+            <div class="form-group">
+                <label for="inputBoatNumberOfToilets">Number of Toilets</label>
+                <input type="number" th:field="*{toilets}" class="form-control" id="inputBoatNumberOfToilets"
+                       placeholder="Number of Toilets">
+            </div>
+
+            <div class="form-group">
+                <label for="inputBoatDraft">Draft</label>
+                <input type="number" step="0.01" th:field="*{draft}" class="form-control" id="inputBoatDraft"
+                       placeholder="Draft">
+            </div>
+
+            <div class="form-group">
+                <label for="inputWaterTank">Water Tank</label>
+                <input type="number" th:field="*{waterTank}" class="form-control" id="inputWaterTank"
+                       placeholder="Water Tank">
+            </div>
+
+            <div class="form-group">
+                <label for="inputFuelTank">Water Tank</label>
+                <input type="number" th:field="*{fuelTank}" class="form-control" id="inputFuelTank"
+                       placeholder="Fuel Tank">
+            </div>
+
+            <div class="form-group">
+                <label for="inputLastCheckedDAte">Date of last check</label>
+                <input type="date" class="form-control" th:field="*{lastCheckedDate}" id="inputLastCheckedDAte">
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
+                <label for="inputBoatPrice">Price</label>
+                <input type="number" step="0.01" th:field="*{price}" class="form-control" id="inputBoatPrice"
+                       placeholder="Price">
+                <small id="priceHelp" th:each="error : ${#fields.errors('model')}" th:text="${error}"></small>
+            </div>
+            <button class="btn boats-background-background">Add Boat</button>
+        </form>
+    </main>
+    <footer>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>
