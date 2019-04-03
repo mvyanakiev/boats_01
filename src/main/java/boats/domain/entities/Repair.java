@@ -33,8 +33,7 @@ public class Repair extends BaseEntity {
         this.boat = boat;
     }
 
-    @OneToOne
-    @JoinColumn(name = "people_id")
+    @ManyToOne(targetEntity = People.class)
     public People getSupplier() {
         return this.supplier;
     }

@@ -64,6 +64,7 @@ public class People extends BaseEntity {
         this.address = address;
     }
 
+    @Column(name = "is_employee")
     public boolean isEmployee() {
         return this.isEmployee;
     }
@@ -72,6 +73,7 @@ public class People extends BaseEntity {
         isEmployee = employee;
     }
 
+    @Column(name = "is_customer")
     public boolean isCustomer() {
         return this.isCustomer;
     }
@@ -80,6 +82,7 @@ public class People extends BaseEntity {
         isCustomer = customer;
     }
 
+    @Column(name = "is_supplier")
     public boolean isSupplier() {
         return this.isSupplier;
     }
