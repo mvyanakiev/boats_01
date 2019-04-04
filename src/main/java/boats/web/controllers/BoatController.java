@@ -51,7 +51,7 @@ public class BoatController extends BaseController {
             throw new IllegalArgumentException("Boat not added!");
         }
 
-        return super.redirect("/show");
+        return super.redirect("/boats/show");
     }
 
     @GetMapping("/show")
@@ -99,7 +99,7 @@ public class BoatController extends BaseController {
             throw new IllegalArgumentException("Boat do not saved!");
         }
             return super.redirect("/boats/show");
-    }
+}
 
 
 

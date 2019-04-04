@@ -9,12 +9,57 @@
         <th:block th:include="~{fragments/navigation/navbar}"></th:block>
     </header>
     <main>
-
-        <h2>Details for boat <strong th:text="${model.name}"></strong></h2>
-
-        <!--todo add table with rows here-->
-
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <table class="table">
+                        <tr>
+                            <td>Boat name:</td>
+                            <td th:text="${model.name}"></td>
+                        </tr>
+                        <tr>
+                            <td>Producer:</td>
+                            <td th:text="${model.producer}"></td>
+                        </tr>
+                        <tr>
+                            <td>Model</td>
+                            <td th:text="${model.model}"></td>
+                        </tr>
+                        <tr>
+                            <td>Number of cabins:</td>
+                            <td th:text="${model.cabins}"></td>
+                        </tr>
+                        <tr>
+                            <td>Number of toilets:</td>
+                            <td th:text="${model.toilets}"></td>
+                        </tr>
+                        <tr>
+                            <td>Draft (m):</td>
+                            <td th:text="${model.draft}"></td>
+                        </tr>
+                        <tr>
+                            <td>Volume of water tank (L):</td>
+                            <td th:text="${model.waterTank}"></td>
+                        </tr>
+                        <tr>
+                            <td>Volume of fuel tank (L):</td>
+                            <td th:text="${model.fuelTank}"></td>
+                        </tr>
+                        <tr>
+                            <td>Date of last check:</td>
+                            <td th:text="${#dates.format(model.lastCheckedDate, 'dd-MMM-yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <td>Price (EUR):</td>
+                            <td th:text="${model.price}"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <img src="https://cdn.nautal.com/media/boats/537/x/537272.jpg" class="img-fluid" >
+                </div>
+            </div>
+        </div>
         <th:block sec:authorize="hasRole('ROLE_ADMIN')">
             <a class="btn btn-outline-secondary"
                th:href="@{/boats/edit/{id}(id=${model.id})}" th:text="Edit"></a>

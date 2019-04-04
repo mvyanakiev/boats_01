@@ -19,7 +19,7 @@
             </div>
 
             <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
-                <label for="inputBoatProducer">Name</label>
+                <label for="inputBoatProducer">Producer</label>
                 <input type="text" th:field="*{producer}" class="form-control" id="inputBoatProducer"
                        placeholder="Producer">
                 <small id="producerHelp" th:each="error : ${#fields.errors('producer')}" th:text="${error}"></small>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="form-group">
-                <label for="inputFuelTank">Water Tank</label>
+                <label for="inputFuelTank">Fuel Tank</label>
                 <input type="number" th:field="*{fuelTank}" class="form-control" id="inputFuelTank"
                        placeholder="Fuel Tank">
             </div>
