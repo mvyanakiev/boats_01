@@ -2,16 +2,24 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{fragments/head}"></th:block>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 </head>
 <body>
 <div class="container-fluid">
     <header>
         <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+        <script>
+            $(document).ready(function() {
+                $('#example').DataTable();
+            } );
+        </script>
     </header>
     <main>
         <h1>Boats</h1>
 
-        <table class="table">
+        <table class="table" id="example">
             <thead>
             <tr>
                 <th>#</th>
