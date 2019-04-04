@@ -20,13 +20,12 @@
                 <th>Model</th>
                 <th>Last checked date</th>
                 <th></th>
-                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="boat, iter : ${boats}">
-                <td th:text="${iter.index} + 1"></td>
-                <td th:text="${boat.name}"></td>
+                <td th:text="${iter.index} + 1" ></td>
+                <td th:text="${boat.name}" class="item"></td>
                 <td th:text="${boat.producer}"></td>
                 <td th:text="${boat.model}"></td>
                 <td th:text="${#dates.format(boat.lastCheckedDate, 'dd-MMM-yyyy')}"></td>
@@ -34,14 +33,10 @@
                     <a class="btn btn-outline-secondary"
                        th:href="@{/boats/details/{id}(id=${boat.id})}" th:text="Details"></a>
                 </td>
-
             </tr>
             </tbody>
         </table>
-
-
     </main>
-
     <footer>
         <th:block th:include="~{fragments/footer}"></th:block>
     </footer>
