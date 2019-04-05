@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{fragments/head}"></th:block>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 </head>
@@ -36,7 +35,7 @@
                 <td th:text="${boat.name}" class="item"></td>
                 <td th:text="${boat.producer}"></td>
                 <td th:text="${boat.model}"></td>
-                <td th:text="${#dates.format(boat.lastCheckedDate, 'dd-MMM-yyyy')}"></td>
+                <td th:text="${#dates.format(boat.lastCheckedDate, 'yyyy-MMM-dd')}"></td>
                 <td>
                     <a class="btn btn-outline-secondary"
                        th:href="@{/boats/details/{id}(id=${boat.id})}" th:text="Details"></a>
