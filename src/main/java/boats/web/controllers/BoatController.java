@@ -2,20 +2,21 @@ package boats.web.controllers;
 
 
 import boats.domain.models.binding.BoatAddBindingModel;
-import boats.domain.models.serviceModels.BaseServiceModel;
 import boats.domain.models.serviceModels.BoatServiceModel;
 import boats.domain.models.view.BoatAllViewModel;
 import boats.domain.models.view.BoatDetailsViewModel;
+import boats.domain.models.view.EqupmentViewModel;
 import boats.service.BoatService;
+import boats.service.EquipmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -24,11 +25,13 @@ public class BoatController extends BaseController {
 
     private final BoatService boatService;
     private final ModelMapper modelMapper;
+    private final EquipmentService equipmentService;
 
     @Autowired
-    public BoatController(BoatService boatService, ModelMapper modelMapper) {
+    public BoatController(BoatService boatService, ModelMapper modelMapper, EquipmentService equipmentService) {
         this.boatService = boatService;
         this.modelMapper = modelMapper;
+        this.equipmentService = equipmentService;
     }
 
     @GetMapping("/add")
@@ -70,6 +73,13 @@ public class BoatController extends BaseController {
     public ModelAndView boatDetailsView(@PathVariable("id") String id, ModelAndView modelAndView, BoatDetailsViewModel model) {
         model = this.modelMapper.map(this.boatService.findBoatById(id), BoatDetailsViewModel.class);
         modelAndView.addObject("model", model);
+
+        List<EqupmentViewModel> boatEquipments = this.equipmentService.findByBoatId(id).stream()
+                .map(e -> this.modelMapper.map(e, EqupmentViewModel.class))
+                .collect(Collectors.toList());
+
+        modelAndView.addObject("boatEquipments", boatEquipments);
+
 
         return super.view("/boats/boat-details", modelAndView);
     }
