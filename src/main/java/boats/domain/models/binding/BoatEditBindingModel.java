@@ -1,13 +1,15 @@
-package boats.domain.models.view;
+package boats.domain.models.binding;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 
-public class BoatDetailsViewModel {
+public class BoatEditBindingModel {
 
     private String id;
     private String producer;
@@ -21,7 +23,7 @@ public class BoatDetailsViewModel {
     private LocalDate lastCheckedDate;
     private BigDecimal price;
 
-    public BoatDetailsViewModel() {
+    public BoatEditBindingModel() {
     }
 
     public String getId() {
@@ -32,6 +34,10 @@ public class BoatDetailsViewModel {
         this.id = id;
     }
 
+    @NotNull
+    @NotEmpty
+    @Length(min = 2, message = "Producer must be at least 2 characters long.")
+    @Length(max = 50, message = "Producer must be at least 50 characters long.")
     public String getProducer() {
         return this.producer;
     }
@@ -40,6 +46,10 @@ public class BoatDetailsViewModel {
         this.producer = producer;
     }
 
+    @NotNull
+    @NotEmpty
+    @Length(min = 2, message = "Model must be at least 2 characters long.")
+    @Length(max = 50, message = "Model must be at least 50 characters long.")
     public String getModel() {
         return this.model;
     }
@@ -48,6 +58,10 @@ public class BoatDetailsViewModel {
         this.model = model;
     }
 
+    @NotNull
+    @NotEmpty
+    @Length(min = 1, message = "Name must be at least 1 characters long.")
+    @Length(max = 70, message = "Name must be at least 70 characters long.")
     public String getName() {
         return this.name;
     }
@@ -96,20 +110,18 @@ public class BoatDetailsViewModel {
         this.fuelTank = fuelTank;
     }
 
-    public Date getLastCheckedDate() {
-        Date date = Date.from(this.lastCheckedDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        return date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public LocalDate getLastCheckedDate() {
+        return this.lastCheckedDate;
     }
-
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    public LocalDate getLastCheckedDate() {
-//        return this.lastCheckedDate;
-//    }
 
     public void setLastCheckedDate(LocalDate lastCheckedDate) {
         this.lastCheckedDate = lastCheckedDate;
     }
 
+    @NotNull
+//    @NotEmpty
+    @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return this.price;
     }

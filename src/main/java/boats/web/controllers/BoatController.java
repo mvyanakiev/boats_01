@@ -2,6 +2,7 @@ package boats.web.controllers;
 
 
 import boats.domain.models.binding.BoatAddBindingModel;
+import boats.domain.models.binding.BoatEditBindingModel;
 import boats.domain.models.serviceModels.BoatServiceModel;
 import boats.domain.models.view.BoatAllViewModel;
 import boats.domain.models.view.BoatDetailsViewModel;
@@ -87,17 +88,27 @@ public class BoatController extends BaseController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView boatEditView(@PathVariable("id") String id, ModelAndView modelAndView, BoatDetailsViewModel model) {
-        model = this.modelMapper.map(this.boatService.findBoatById(id), BoatDetailsViewModel.class);
+    public ModelAndView boatEditView(@PathVariable("id") String id, ModelAndView modelAndView, BoatEditBindingModel model) {
+        model = this.modelMapper.map(this.boatService.findBoatById(id), BoatEditBindingModel.class);
         modelAndView.addObject("model", model);
 
         return super.view("/boats/boat-edit", modelAndView);
     }
 
+
+
+
+
+
+
+
+
+
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView saveEditedVirus(@PathVariable("id") String id,
-                                        @Valid @ModelAttribute(name = "bindingModel") BoatDetailsViewModel bindingModel){
+//                                        @Valid @ModelAttribute(name = "bindingModel")
+                                                BoatEditBindingModel bindingModel){
 
         BoatServiceModel boatServiceModel = this.modelMapper.map(bindingModel, BoatServiceModel.class);
         boatServiceModel.setId(id);
