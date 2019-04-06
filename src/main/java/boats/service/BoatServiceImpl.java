@@ -4,6 +4,9 @@ import boats.domain.entities.Boat;
 import boats.domain.models.serviceModels.BoatServiceModel;
 import boats.repository.BoatRepository;
 import org.modelmapper.ModelMapper;
+import boats.utils.ValidationUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,14 +17,22 @@ public class BoatServiceImpl implements BoatService {
 
     private final BoatRepository boatRepository;
     private final ModelMapper modelMapper;
+    private final ValidationUtil validationUtil;
 
-    public BoatServiceImpl(BoatRepository boatRepository, ModelMapper modelMapper) {
+    @Autowired
+    public BoatServiceImpl(BoatRepository boatRepository, ModelMapper modelMapper, ValidationUtil validationUtil) {
         this.boatRepository = boatRepository;
         this.modelMapper = modelMapper;
+        this.validationUtil = validationUtil;
     }
 
     @Override
     public BoatServiceModel addBoat(BoatServiceModel boatServiceModel) {
+
+        if (!this.validationUtil.isValid(boatServiceModel)) {
+            throw new IllegalArgumentException("Not valid data in add service");
+        }
+
         Boat boat = this.modelMapper.map(boatServiceModel, Boat.class);
 
         try {
@@ -51,28 +62,23 @@ public class BoatServiceImpl implements BoatService {
     @Override
     public BoatServiceModel saveEditedBoat(BoatServiceModel boatServiceModel) {
 
-//        Boat boat = this.boatRepository.findById(boatServiceModel.getId()).orElseThrow(
-//                () -> new IllegalArgumentException("Boat not found!")
-//        );
+        if (!this.validationUtil.isValid(boatServiceModel)) {
+            throw new IllegalArgumentException("Not valid edit in add service");
 
-
-        //todo add validation with validation util
+        }
 
 
         Boat boat = this.modelMapper.map(boatServiceModel, Boat.class);
 
-//        boat.setName(boatServiceModel.getName());
-//        boat.setModel(boatServiceModel.getModel());
-//        boat.setProducer(boatServiceModel.getProducer());
-//        boat.setPrice(boatServiceModel.getPrice());
-        //todo all other fields
-
         try {
-            this.boatRepository.saveAndFlush(boat);
+            boat = this.boatRepository.saveAndFlush(boat);
             return this.modelMapper.map(boat, BoatServiceModel.class);
         } catch (Exception e) {
             return null;
         }
-
     }
+
+
+
+
 }

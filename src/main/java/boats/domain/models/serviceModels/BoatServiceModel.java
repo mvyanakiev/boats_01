@@ -1,5 +1,8 @@
 package boats.domain.models.serviceModels;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -19,6 +22,8 @@ public class BoatServiceModel extends BaseServiceModel {
     public BoatServiceModel() {
     }
 
+    @NotNull
+    @Size(min = 2, max = 50)
     public String getProducer() {
         return this.producer;
     }
@@ -27,6 +32,8 @@ public class BoatServiceModel extends BaseServiceModel {
         this.producer = producer;
     }
 
+    @NotNull
+    @Size(min = 2, max = 50)
     public String getModel() {
         return this.model;
     }
@@ -35,6 +42,8 @@ public class BoatServiceModel extends BaseServiceModel {
         this.model = model;
     }
 
+    @NotNull
+    @Size(min = 2, max = 50)
     public String getName() {
         return this.name;
     }
@@ -91,6 +100,8 @@ public class BoatServiceModel extends BaseServiceModel {
         this.lastCheckedDate = lastCheckedDate;
     }
 
+    @NotNull
+    @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return this.price;
     }

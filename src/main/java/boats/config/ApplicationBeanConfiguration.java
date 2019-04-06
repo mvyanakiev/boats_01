@@ -1,5 +1,7 @@
 package boats.config;
 
+import boats.utils.ValidationUtil;
+import boats.utils.ValidationUtilImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,4 +20,8 @@ public class ApplicationBeanConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public ValidationUtil validationUtil() {
+        return new ValidationUtilImpl();
+    }
 }

@@ -13,21 +13,14 @@
         <h1>Add a new Boat</h1>
         <form th:action="@{/boats/add}" method="post" th:object="${bindingModel}">
 
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
+            <div class="form-group">
                 <label for="inputBoatName">Name</label>
                 <input type="text" th:field="*{name}" class="form-control" id="inputBoatName"
                        placeholder="Boat name must be between 2 and 50 characters">
-
-
-
                 <small id="nameHelp" style="display: none" class="form-text text-muted"></small>
-                       <!--th:each="error : ${#fields.errors('name')}" -->
-                       <!--th:text="${error}"-->
-
-
-
             </div>
 
+            <!--todo edit rest like name field-->
 
 
 

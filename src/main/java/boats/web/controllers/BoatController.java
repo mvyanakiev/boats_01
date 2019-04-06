@@ -49,14 +49,15 @@ public class BoatController extends BaseController {
     public ModelAndView addConfirm(@Valid @ModelAttribute(name = "bindingModel") BoatAddBindingModel bindingModel, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return super.redirect("/boats/add");
+            throw new IllegalArgumentException("Boat not added! (invalid data)");
         }
+
 
         BoatServiceModel boatServiceModel = this.modelMapper.map(bindingModel, BoatServiceModel.class);
         boatServiceModel = this.boatService.addBoat(boatServiceModel);
 
         if (boatServiceModel == null) {
-            throw new IllegalArgumentException("Boat not added!");
+            throw new IllegalArgumentException("Boat not added! (service)");
         }
 
         return super.redirect("/boats/show");
@@ -108,16 +109,20 @@ public class BoatController extends BaseController {
                                                 BoatEditBindingModel bindingModel,
                                         BindingResult bindingResult) {
 
+
         if (bindingResult.hasErrors()) {
-            return super.redirect("/boats/edit/" + id);
+            throw new IllegalArgumentException("Boat not edited! (invalid data)");
+//            return super.redirect("/boats/edit/" + id);
         }
+
+
 
         BoatServiceModel boatServiceModel = this.modelMapper.map(bindingModel, BoatServiceModel.class);
         boatServiceModel.setId(id);
         this.boatService.saveEditedBoat(boatServiceModel);
 
         if (boatServiceModel == null) {
-            throw new IllegalArgumentException("Boat do not saved!");
+            throw new IllegalArgumentException("Boat not saved (service)");
         }
         return super.redirect("/boats/details/" + id);
     }

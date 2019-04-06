@@ -111,7 +111,6 @@ public class BoatAddBindingModel {
     }
 
     @NotNull
-//    @NotEmpty
     @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return this.price;

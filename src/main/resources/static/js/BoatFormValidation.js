@@ -19,5 +19,7 @@ function validFormScript() {
     });
 
 
+    // todo add for others fields
+
 
 }
