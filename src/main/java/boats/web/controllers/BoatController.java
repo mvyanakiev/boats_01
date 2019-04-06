@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,8 +46,11 @@ public class BoatController extends BaseController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView addConfirm(@Valid @ModelAttribute(name = "bindingModel") BoatAddBindingModel bindingModel
-    ) {
+    public ModelAndView addConfirm(@Valid @ModelAttribute(name = "bindingModel") BoatAddBindingModel bindingModel, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return super.redirect("/boats/add");
+        }
 
         BoatServiceModel boatServiceModel = this.modelMapper.map(bindingModel, BoatServiceModel.class);
         boatServiceModel = this.boatService.addBoat(boatServiceModel);
@@ -57,6 +61,7 @@ public class BoatController extends BaseController {
 
         return super.redirect("/boats/show");
     }
+
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
@@ -96,33 +101,24 @@ public class BoatController extends BaseController {
     }
 
 
-
-
-
-
-
-
-
-
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView saveEditedVirus(@PathVariable("id") String id,
-//                                        @Valid @ModelAttribute(name = "bindingModel")
-                                                BoatEditBindingModel bindingModel){
+                                        @Valid @ModelAttribute(name = "bindingModel")
+                                                BoatEditBindingModel bindingModel,
+                                        BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return super.redirect("/boats/edit/" + id);
+        }
 
         BoatServiceModel boatServiceModel = this.modelMapper.map(bindingModel, BoatServiceModel.class);
         boatServiceModel.setId(id);
         this.boatService.saveEditedBoat(boatServiceModel);
 
-        // todo validation
-
         if (boatServiceModel == null) {
             throw new IllegalArgumentException("Boat do not saved!");
         }
-            return super.redirect("/boats/show");
-}
-
-
-
-
+        return super.redirect("/boats/details/" + id);
+    }
 }

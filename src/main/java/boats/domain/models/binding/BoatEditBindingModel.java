@@ -60,8 +60,8 @@ public class BoatEditBindingModel {
 
     @NotNull
     @NotEmpty
-    @Length(min = 1, message = "Name must be at least 1 characters long.")
-    @Length(max = 70, message = "Name must be at least 70 characters long.")
+    @Length(min = 2, message = "Name must be at least 2 characters long.")
+    @Length(max = 50, message = "Name must be at least 50 characters long.")
     public String getName() {
         return this.name;
     }

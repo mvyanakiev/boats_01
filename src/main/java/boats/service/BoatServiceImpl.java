@@ -51,11 +51,20 @@ public class BoatServiceImpl implements BoatService {
     @Override
     public BoatServiceModel saveEditedBoat(BoatServiceModel boatServiceModel) {
 
-        Boat boat = this.boatRepository.findById(boatServiceModel.getId()).orElseThrow(
-                () -> new IllegalArgumentException("Boat not found!")
-        );
+//        Boat boat = this.boatRepository.findById(boatServiceModel.getId()).orElseThrow(
+//                () -> new IllegalArgumentException("Boat not found!")
+//        );
 
-        boat.setName(boatServiceModel.getName());
+
+        //todo add validation with validation util
+
+
+        Boat boat = this.modelMapper.map(boatServiceModel, Boat.class);
+
+//        boat.setName(boatServiceModel.getName());
+//        boat.setModel(boatServiceModel.getModel());
+//        boat.setProducer(boatServiceModel.getProducer());
+//        boat.setPrice(boatServiceModel.getPrice());
         //todo all other fields
 
         try {
