@@ -92,6 +92,7 @@ public class BoatServiceModel extends BaseServiceModel {
         this.fuelTank = fuelTank;
     }
 
+    @NotNull
     public LocalDate getLastCheckedDate() {
         return this.lastCheckedDate;
     }

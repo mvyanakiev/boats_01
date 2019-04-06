@@ -101,6 +101,7 @@ public class BoatAddBindingModel {
         this.fuelTank = fuelTank;
     }
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate getLastCheckedDate() {
         return this.lastCheckedDate;

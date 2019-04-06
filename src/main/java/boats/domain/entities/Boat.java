@@ -100,7 +100,7 @@ public class Boat extends BaseEntity {
         this.fuelTank = fuelTank;
     }
 
-    @Column(name = "last_checked_date")
+    @Column(name = "last_checked_date", nullable = false)
     public LocalDate getLastCheckedDate() {
         return this.lastCheckedDate;
     }

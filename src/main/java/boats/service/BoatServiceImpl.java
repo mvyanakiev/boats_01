@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import boats.utils.ValidationUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,19 +34,12 @@ public class BoatServiceImpl implements BoatService {
             throw new IllegalArgumentException("Not valid data in add service");
         }
 
-        Boat boat = this.modelMapper.map(boatServiceModel, Boat.class);
-
-        try {
-            boat = this.boatRepository.saveAndFlush(boat);
-            return this.modelMapper.map(boat, BoatServiceModel.class);
-        } catch (Exception e) {
-            return null;
-        }
+        return saveBoatToDb(boatServiceModel);
     }
 
     @Override
     public List<BoatServiceModel> findAllBoats() {
-        return this.boatRepository.findAll()
+        return this.boatRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))
                 .stream()
                 .map(b -> this.modelMapper.map(b, BoatServiceModel.class))
                 .collect(Collectors.toList());
@@ -63,11 +57,14 @@ public class BoatServiceImpl implements BoatService {
     public BoatServiceModel saveEditedBoat(BoatServiceModel boatServiceModel) {
 
         if (!this.validationUtil.isValid(boatServiceModel)) {
-            throw new IllegalArgumentException("Not valid edit in add service");
-
+            throw new IllegalArgumentException("Not valid data in edit service");
         }
 
+        return saveBoatToDb(boatServiceModel);
+    }
 
+
+    private BoatServiceModel saveBoatToDb(BoatServiceModel boatServiceModel) {
         Boat boat = this.modelMapper.map(boatServiceModel, Boat.class);
 
         try {
@@ -77,8 +74,5 @@ public class BoatServiceImpl implements BoatService {
             return null;
         }
     }
-
-
-
 
 }

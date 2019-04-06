@@ -122,7 +122,7 @@ public class BoatController extends BaseController {
         this.boatService.saveEditedBoat(boatServiceModel);
 
         if (boatServiceModel == null) {
-            throw new IllegalArgumentException("Boat not saved (service)");
+            throw new IllegalArgumentException("Boat not edited (service)");
         }
         return super.redirect("/boats/details/" + id);
     }
