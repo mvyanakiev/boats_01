@@ -7,82 +7,14 @@
 <div class="container-fluid">
     <header>
         <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+        <script th:src="@{/js/BoatFormValidation.js}"></script>
     </header>
     <main>
         <form th:action="@{/boats/edit/{id}(id = ${model.id})}" method="post" th:object="${model}">
             <div class="form-group">
-                <h1>Edit Boat <strong th:text="*{name}"></strong></h1>
+                <h1 style="margin-top: 20px" class="text-center">Edit Boat <strong th:text="*{name}"></strong></h1>
             </div>
-
-
-            <div class="form-group">
-                <label for="inputBoatName">Name</label>
-                <input type="text" th:field="*{name}" class="form-control" id="inputBoatName">
-                <small id="nameHelp" style="display: none" class="form-text text-muted"></small>
-            </div>
-
-
-            <!--todo edit rest like name field-->
-
-
-
-
-
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
-                <label for="inputBoatProducer">Producer</label>
-
-                <input type="text" th:field="*{producer}" class="form-control" id="inputBoatProducer">
-            </div>
-
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
-                <label for="inputBoatModel">Model</label>
-
-                <input type="text" th:field="*{model}" class="form-control" id="inputBoatModel">
-            </div>
-
-
-
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
-                <label for="inputBoatNumberOfCabins">Number of Cabins</label>
-
-                <input type="number" th:field="*{cabins}" class="form-control" id="inputBoatNumberOfCabins">
-            </div>
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
-                <label for="inputBoatNumberOfToilets">Number of Toilets</label>
-
-                <input type="number" th:field="*{toilets}" class="form-control" id="inputBoatNumberOfToilets">
-            </div>
-
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
-                <label for="inputBoatDraft">Draft</label>
-
-                <input type="number" step="0.01" th:field="*{draft}" class="form-control" id="inputBoatDraft">
-            </div>
-
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
-                <label for="inputWaterTank">Water Tank</label>
-
-                <input type="number" th:field="*{waterTank}" class="form-control" id="inputWaterTank">
-            </div>
-
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
-                <label for="inputFuelTank">Fuel Tank</label>
-
-                <input type="number" th:field="*{fuelTank}" class="form-control" id="inputFuelTank">
-            </div>
-
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
-                <label for="inputLastCheckedDate">Date of last check</label>
-
-                <input type="date" class="form-control"
-                       th:field="*{lastCheckedDate}"
-                       id="inputLastCheckedDate">
-            </div>
-            <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
-                <label for="inputBoatPrice">Price</label>
-
-                <input type="number" step="0.01" th:field="*{price}" class="form-control" id="inputBoatPrice">
-            </div>
+            <th:block th:include="~{boats/boat-form}"></th:block>
             <button class="btn btn-danger">Save</button>
         </form>
     </main>
@@ -90,5 +22,8 @@
         <th:block th:include="~{fragments/footer}"></th:block>
     </footer>
 </div>
+<script>
+    validFormScript();
+</script>
 </body>
 </html>

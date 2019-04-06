@@ -1,0 +1,69 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment>
+
+    <div class="form-group">
+        <label for="inputBoatName">Name</label>
+        <input type="text" th:field="*{name}" class="form-control" id="inputBoatName"
+               placeholder="Boat name must be between 2 and 50 characters">
+        <small id="nameHelp" style="display: none" class="form-text text-muted"></small>
+    </div>
+
+    <div class="form-group">
+        <label for="inputBoatProducer">Producer</label>
+        <input type="text" th:field="*{producer}" class="form-control" id="inputBoatProducer"
+               placeholder="Producer name must be between 2 and 50 characters">
+        <small id="producerHelp" style="display: none" class="form-text text-muted"></small>
+    </div>
+
+    <div class="form-group">
+        <label for="inputBoatModel">Model</label>
+        <input type="text" th:field="*{model}" class="form-control" id="inputBoatModel"
+               placeholder="Model must be between 2 and 50 characters">
+        <small id="modelHelp" style="display: none" class="form-text text-muted"></small>
+    </div>
+
+    <div class="form-group">
+        <label for="inputBoatNumberOfCabins">Number of Cabins</label>
+        <input type="number" th:field="*{cabins}" class="form-control" id="inputBoatNumberOfCabins"
+               placeholder="Positive integer">
+    </div>
+
+    <div class="form-group">
+        <label for="inputBoatNumberOfToilets">Number of Toilets</label>
+        <input type="number" th:field="*{toilets}" class="form-control" id="inputBoatNumberOfToilets"
+               placeholder="Positive integer">
+    </div>
+
+    <div class="form-group">
+        <label for="inputBoatDraft">Draft</label>
+        <input type="number" step="0.01" th:field="*{draft}" class="form-control" id="inputBoatDraft"
+               placeholder="Positive double">
+    </div>
+
+    <div class="form-group">
+        <label for="inputWaterTank">Water Tank</label>
+        <input type="number" th:field="*{waterTank}" class="form-control" id="inputWaterTank"
+               placeholder="Positive integer">
+    </div>
+
+    <div class="form-group">
+        <label for="inputFuelTank">Fuel Tank</label>
+        <input type="number" th:field="*{fuelTank}" class="form-control" id="inputFuelTank"
+               placeholder="Positive integer">
+    </div>
+
+    <div class="form-group">
+        <label for="inputLastCheckedDate">Date of last check (yyyy-MM-dd)</label>
+        <input type="date" class="form-control" th:field="*{lastCheckedDate}" id="inputLastCheckedDate"
+               placeholder="Date">
+        <small id="dateHelp" style="display: none" class="form-text text-muted"></small>
+    </div>
+
+    <div class="form-group">
+        <label for="inputBoatPrice">Price per week</label>
+        <input type="number" step="0.01" th:field="*{price}" class="form-control" id="inputBoatPrice"
+               placeholder="Min 0.01">
+        <small id="priceHelp" style="display: none" class="form-text text-muted"></small>
+    </div>
+
+</th:block>

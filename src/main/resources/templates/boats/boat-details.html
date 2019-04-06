@@ -50,13 +50,13 @@
                             <td th:text="${#dates.format(model.lastCheckedDate, 'dd-MMM-yyyy')}"></td>
                         </tr>
                         <tr>
-                            <td>Price (EUR):</td>
+                            <td>Price per week (EUR):</td>
                             <td th:text="${model.price}"></td>
                         </tr>
                     </table>
                 </div>
-                <div class="col-md-4">
-                    <img src="https://cdn.nautal.com/media/boats/537/x/537272.jpg" class="img-fluid">
+                <div class="col-md-4" style="margin-top: 15px">
+                    <img src="https://cdn.nautal.com/media/boats/537/x/537272.jpg" class="img-fluid rounded mx-auto d-block">
                 </div>
             </div>
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
