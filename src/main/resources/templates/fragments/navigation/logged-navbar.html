@@ -49,6 +49,27 @@
                     </li>
 
 
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownDirections" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Directions
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownDirections">
+                            <a class="dropdown-item" th:href="@{/directions/show}">Show</a>
+
+                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a class="dropdown-item" th:href="@{/directions/add}">Add</a>
+                            </th:block>
+                        </div>
+                    </li>
+
+
+
+
+
+
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownProfile" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -66,7 +87,6 @@
                             <a class="dropdown-item" th:href="@{/logout}">Logout</a>
                         </div>
                     </li>
-
                 </ul>
             </div>
 

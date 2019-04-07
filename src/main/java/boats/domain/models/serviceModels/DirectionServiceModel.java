@@ -1,23 +1,20 @@
-package boats.domain.entities;
+package boats.domain.models.serviceModels;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "directions")
-public class Direction extends BaseEntity {
+public class DirectionServiceModel extends BaseServiceModel {
 
     private String destination;
     private int distance;
     private int period;
     private BigDecimal price;
 
-    public Direction() {
+    public DirectionServiceModel() {
     }
 
-    @Column(name = "destination", nullable = false, unique = true)
+    @NotNull
+    @Size(min = 2, max = 50, message = "Destination must be between 2 and 50 letters")
     public String getDestination() {
         return this.destination;
     }
@@ -26,7 +23,6 @@ public class Direction extends BaseEntity {
         this.destination = destination;
     }
 
-    @Column(name = "distance")
     public int getDistance() {
         return this.distance;
     }
@@ -34,8 +30,8 @@ public class Direction extends BaseEntity {
     public void setDistance(int distance) {
         this.distance = distance;
     }
-
-    @Column(name = "period", nullable = false)
+    @Min(value = 1, message = "Minimal period is 1 day")
+    @Max(value = 30, message = "Maximal period is 30 days")
     public int getPeriod() {
         return this.period;
     }
@@ -44,7 +40,8 @@ public class Direction extends BaseEntity {
         this.period = period;
     }
 
-    @Column(name = "price", nullable = false)
+    @NotNull
+    @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return this.price;
     }

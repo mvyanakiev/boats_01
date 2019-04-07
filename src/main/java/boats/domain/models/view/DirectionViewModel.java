@@ -1,23 +1,26 @@
-package boats.domain.entities;
+package boats.domain.models.view;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "directions")
-public class Direction extends BaseEntity {
+public class DirectionViewModel {
 
+    private String id;
     private String destination;
     private int distance;
     private int period;
     private BigDecimal price;
 
-    public Direction() {
+    public DirectionViewModel() {
     }
 
-    @Column(name = "destination", nullable = false, unique = true)
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getDestination() {
         return this.destination;
     }
@@ -26,7 +29,6 @@ public class Direction extends BaseEntity {
         this.destination = destination;
     }
 
-    @Column(name = "distance")
     public int getDistance() {
         return this.distance;
     }
@@ -35,7 +37,6 @@ public class Direction extends BaseEntity {
         this.distance = distance;
     }
 
-    @Column(name = "period", nullable = false)
     public int getPeriod() {
         return this.period;
     }
@@ -44,7 +45,6 @@ public class Direction extends BaseEntity {
         this.period = period;
     }
 
-    @Column(name = "price", nullable = false)
     public BigDecimal getPrice() {
         return this.price;
     }

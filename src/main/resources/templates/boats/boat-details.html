@@ -56,15 +56,18 @@
                     </table>
                 </div>
                 <div class="col-md-4" style="margin-top: 15px">
-                    <img src="https://cdn.nautal.com/media/boats/537/x/537272.jpg" class="img-fluid rounded mx-auto d-block">
+                    <img src="https://cdn.nautal.com/media/boats/537/x/537272.jpg"
+                         class="img-fluid rounded mx-auto d-block">
                 </div>
             </div>
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="btn btn-danger"
                    th:href="@{/boats/edit/{id}(id=${model.id})}" style="margin-bottom: 30px">Edit boat details</a>
             </th:block>
+
+
             <div class="row">
-                    <h3 style="margin-top: 15px">Equipment:</h3>
+                <h3 style="margin-top: 15px">Equipment:</h3>
                 <table class="table" id="boatEquipment">
                     <thead>
                     <tr>
@@ -84,6 +87,8 @@
                     </tbody>
                 </table>
             </div>
+
+
         </div>
     </main>
     <footer>

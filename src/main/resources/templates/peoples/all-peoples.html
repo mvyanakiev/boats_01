@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+        <script>
+            $(document).ready(function () {
+                $('#allPeoples').DataTable();
+            });
+        </script>
+    </header>
+    <main>
+        <h1 style="margin-top: 20px" class="text-center">Peoples</h1>
+
+        <table class="table" id="allPeoples">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Family</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Employee</th>
+                <th>Customer</th>
+                <th>Supplier</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block>
+            <tr th:each="people : ${peoples}" th:object="${people}">
+                <td th:text="*{firstName}" class="item"></td>
+                <td th:text="*{lastName}" class="item"></td>
+                <td th:text="*{phone}" class="item font-small"></td>
+                <td th:text="*{email}" class="item"></td>
+                <td th:text="*{address}" class="item"></td>
+                <td class="text-center" th:text="*{isEmployee} ? '&#10004;' : '-'"></td>
+                <td class="text-center" th:text="*{isCustomer} ? '&#10004;' : '-'"></td>
+                <td class="text-center" th:text="*{isSupplier} ? '&#10004;' : '-'"></td>
+                <td>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="btn btn-outline-secondary"
+                           th:href="@{/peoples/edit/{id}(id=${people.id})}" th:text="Edit"></a>
+                    </th:block>
+                </td>
+            </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>
