@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+        <script>
+            $(document).ready(function() {
+                $('#allCharters').DataTable();
+            } );
+        </script>
+    </header>
+    <main>
+        <h1 style="margin-top: 20px" class="text-center">Charters</h1>
+
+        <table class="table" id="allCharters">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Start date</th>
+                <th>Boat</th>
+                <th>Customer</th>
+                <th>Destination</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="charter, iter : ${charters}">
+                <td th:text="${iter.index} + 1" ></td>
+                <td th:text="${#dates.format(charter.startDate, 'yyyy-MMM-dd')}"></td>
+                <td th:text="${charter.boat.getName()}" class="item"></td>
+                <td th:text="${charter.customer.getFirstName() + ' ' + charter.customer.getLastName()}" class="item"></td>
+                <td th:text="${charter.direction.getDestination()}" class="item"></td>
+                <td th:text="${charter.price}" class="item"></td>
+                <td>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/charters/delete/{id}(id=${charter.id})}" th:text="Delete"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>

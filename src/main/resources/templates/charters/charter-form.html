@@ -1,0 +1,43 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment>
+
+    <div class="form-group">
+        <label for="inputStartDate">Start date</label>
+        <input type="date" class="form-control" th:field="*{startDate}" id="inputStartDate"
+               placeholder="Date">
+        <small id="dateHelp" style="display: none" class="form-text text-muted"></small>
+    </div>
+
+
+    <!--<div class="form-group">-->
+        <!--<label for="inputBoatName">Select boat</label>-->
+        <!--<select class="form-control" id="inputBoatName">-->
+            <!--<option th:each="boat : ${boats}" th:value="${boat.id}" th:text="${boat.boatName}"></option>-->
+        <!--</select>-->
+    <!--</div>-->
+
+
+    <div class="form-group">
+        <label for="inputDestinationName">Select Direction</label>
+        <select class="form-control" id="inputDestinationName">
+            <option th:each="dir : ${directions}" th:value="${dir.id}" th:text="${dir.destination}"></option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label for="inputCustomerName">Select Customer</label>
+        <select class="form-control" id="inputCustomerName">
+            <option th:each="people : ${peoples}" th:value="${people.id}" th:text="${people.firstName + ' ' + people.lastName}">
+            </option>
+        </select>
+    </div>
+
+
+    <!--<div class="form-group">-->
+        <!--<label for="inputCharterPrice">Price per week</label>-->
+        <!--<input type="number" step="0.01" th:field="*{price}" class="form-control" id="inputCharterPrice"-->
+               <!--placeholder="Min 0.01">-->
+        <!--<small id="priceHelp" style="display: none" class="form-text text-muted"></small>-->
+    <!--</div>-->
+</th:block>

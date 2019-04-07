@@ -33,4 +33,12 @@ public class DirectionsServiceImpl implements DirectionsService {
                 .map(b -> this.modelMapper.map(b, DirectionServiceModel.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public DirectionServiceModel findDirectionById(String id) {
+        Direction direction = this.directionRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Direction not found!"));
+
+        return this.modelMapper.map(direction, DirectionServiceModel.class);
+    }
 }

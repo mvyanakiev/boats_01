@@ -1,6 +1,6 @@
 package boats.service;
 
-import boats.domain.models.serviceModels.BoatServiceModel;
+import boats.domain.entities.People;
 import boats.domain.models.serviceModels.PeopleServiceModel;
 import boats.repository.PeopleRepository;
 import boats.utils.ValidationUtil;
@@ -26,7 +26,6 @@ public class PeopleServiceImpl implements PeopleService{
         this.validationUtil = validationUtil;
     }
 
-
     @Override
     public List<PeopleServiceModel> findAllPeoples() {
         return this.peopleRepository.findAll(Sort.by(Sort.Direction.ASC, "firstName"))
@@ -34,4 +33,22 @@ public class PeopleServiceImpl implements PeopleService{
                 .map(b -> this.modelMapper.map(b, PeopleServiceModel.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public PeopleServiceModel findPeopleById(String id) {
+        People people = this.peopleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("People not found!"));
+
+        return this.modelMapper.map(people, PeopleServiceModel.class);
+    }
+
+    @Override
+    public List<PeopleServiceModel> findAllCustomers() {
+        return this.peopleRepository.findPeopleByCustomerIsTrue()
+                .stream()
+                .map(p -> this.modelMapper.map(p, PeopleServiceModel.class))
+                .collect(Collectors.toList());
+    }
+
+
 }

@@ -7,4 +7,6 @@ import java.util.List;
 public interface DirectionsService {
 
     List<DirectionServiceModel> findAllDirections();
+
+    DirectionServiceModel findDirectionById(String id);
 }

@@ -51,7 +51,7 @@ function validFormScript() {
         let helpText = $(`#dateHelp`);
 
         let value = field.val().trim();
-        if (value.length < 6 || value.length > 50 || value == null || value === "") {
+        if (value.length < 1 || value.length > 50 || value == null || value === "") {
             showHelpText(field, helpText, ERROR_INVALID_DATE);
         } else {
             removeHelpText(field, helpText);

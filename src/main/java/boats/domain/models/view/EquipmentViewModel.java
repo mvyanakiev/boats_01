@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class EqupmentViewModel {
+public class EquipmentViewModel {
 
     private String id;
     private String item;
@@ -14,7 +14,7 @@ public class EqupmentViewModel {
     private Boat boat;
     private LocalDate lastCheckedDate;
 
-    public EqupmentViewModel() {
+    public EquipmentViewModel() {
     }
 
     public String getId() {

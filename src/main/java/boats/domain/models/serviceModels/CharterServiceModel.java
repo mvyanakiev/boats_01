@@ -1,12 +1,13 @@
-package boats.domain.entities;
+package boats.domain.models.serviceModels;
 
-import javax.persistence.*;
+import boats.domain.entities.Boat;
+import boats.domain.entities.Direction;
+import boats.domain.entities.People;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "charters")
-public class Charter extends BaseEntity{
+public class CharterServiceModel extends BaseServiceModel {
 
     private Boat boat;
     private LocalDate startDate;
@@ -14,14 +15,10 @@ public class Charter extends BaseEntity{
     private People customer;
     private Direction direction;
 
-    public Charter() {
+    public CharterServiceModel() {
     }
 
-    @ManyToOne(targetEntity = Boat.class)
-    @JoinColumn(
-            name = "boat_id",
-            referencedColumnName = "id"
-    )
+    //todo validation
     public Boat getBoat() {
         return this.boat;
     }
@@ -30,7 +27,6 @@ public class Charter extends BaseEntity{
         this.boat = boat;
     }
 
-    @Column(name = "start_date", nullable = false)
     public LocalDate getStartDate() {
         return this.startDate;
     }
@@ -39,7 +35,6 @@ public class Charter extends BaseEntity{
         this.startDate = startDate;
     }
 
-    @Column(name = "price", nullable = false)
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -48,11 +43,6 @@ public class Charter extends BaseEntity{
         this.price = price;
     }
 
-    @ManyToOne(targetEntity = People.class)
-    @JoinColumn(
-            name = "people_id",
-            referencedColumnName = "id"
-    )
     public People getCustomer() {
         return this.customer;
     }
@@ -61,11 +51,6 @@ public class Charter extends BaseEntity{
         this.customer = customer;
     }
 
-    @ManyToOne(targetEntity = Direction.class)
-    @JoinColumn(
-            name = "direction_id",
-            referencedColumnName = "id"
-    )
     public Direction getDirection() {
         return this.direction;
     }

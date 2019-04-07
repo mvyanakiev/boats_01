@@ -1,27 +1,36 @@
-package boats.domain.entities;
+package boats.domain.models.view;
 
-import javax.persistence.*;
+import boats.domain.entities.Boat;
+import boats.domain.entities.Direction;
+import boats.domain.entities.People;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
-@Entity
-@Table(name = "charters")
-public class Charter extends BaseEntity{
 
+
+public class CharterViewModel {
+
+    private String id;
     private Boat boat;
     private LocalDate startDate;
     private BigDecimal price;
     private People customer;
     private Direction direction;
 
-    public Charter() {
+    public CharterViewModel() {
     }
 
-    @ManyToOne(targetEntity = Boat.class)
-    @JoinColumn(
-            name = "boat_id",
-            referencedColumnName = "id"
-    )
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Boat getBoat() {
         return this.boat;
     }
@@ -30,16 +39,15 @@ public class Charter extends BaseEntity{
         this.boat = boat;
     }
 
-    @Column(name = "start_date", nullable = false)
-    public LocalDate getStartDate() {
-        return this.startDate;
+    public Date getStartDate() {
+        Date date = Date.from(this.startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return date;
     }
 
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    @Column(name = "price", nullable = false)
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -48,11 +56,6 @@ public class Charter extends BaseEntity{
         this.price = price;
     }
 
-    @ManyToOne(targetEntity = People.class)
-    @JoinColumn(
-            name = "people_id",
-            referencedColumnName = "id"
-    )
     public People getCustomer() {
         return this.customer;
     }
@@ -61,11 +64,6 @@ public class Charter extends BaseEntity{
         this.customer = customer;
     }
 
-    @ManyToOne(targetEntity = Direction.class)
-    @JoinColumn(
-            name = "direction_id",
-            referencedColumnName = "id"
-    )
     public Direction getDirection() {
         return this.direction;
     }

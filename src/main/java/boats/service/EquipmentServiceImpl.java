@@ -2,7 +2,6 @@ package boats.service;
 
 import boats.domain.entities.Equipment;
 import boats.domain.models.serviceModels.EquipmentServiceModel;
-import boats.domain.models.view.EqupmentViewModel;
 import boats.repository.EquipmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

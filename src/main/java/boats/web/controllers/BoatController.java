@@ -6,7 +6,7 @@ import boats.domain.models.binding.BoatEditBindingModel;
 import boats.domain.models.serviceModels.BoatServiceModel;
 import boats.domain.models.view.BoatAllViewModel;
 import boats.domain.models.view.BoatDetailsViewModel;
-import boats.domain.models.view.EqupmentViewModel;
+import boats.domain.models.view.EquipmentViewModel;
 import boats.service.BoatService;
 import boats.service.EquipmentService;
 import org.modelmapper.ModelMapper;
@@ -81,8 +81,8 @@ public class BoatController extends BaseController {
         model = this.modelMapper.map(this.boatService.findBoatById(id), BoatDetailsViewModel.class);
         modelAndView.addObject("model", model);
 
-        List<EqupmentViewModel> boatEquipments = this.equipmentService.findByBoatId(id).stream()
-                .map(e -> this.modelMapper.map(e, EqupmentViewModel.class))
+        List<EquipmentViewModel> boatEquipments = this.equipmentService.findByBoatId(id).stream()
+                .map(e -> this.modelMapper.map(e, EquipmentViewModel.class))
                 .collect(Collectors.toList());
 
         modelAndView.addObject("boatEquipments", boatEquipments);
