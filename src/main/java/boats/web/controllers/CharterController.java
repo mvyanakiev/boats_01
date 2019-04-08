@@ -1,6 +1,9 @@
 package boats.web.controllers;
 
-import boats.domain.models.binding.CharterAddBindingModel;
+
+import boats.domain.models.binding.CharterAddStep1BindingModel;
+import boats.domain.models.binding.CharterAdd_Step2_BindingModel;
+import boats.domain.models.serviceModels.BoatServiceModel;
 import boats.domain.models.view.*;
 import boats.service.BoatService;
 import boats.service.CharterService;
@@ -12,9 +15,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -39,37 +44,56 @@ public class CharterController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView addCharterStep1(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
-            CharterAddBindingModel bindingModel) {
+    public ModelAndView step1AddCharter(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
+            CharterAddStep1BindingModel bindingModel) {
+
+
+        List<DirectionListViewModel> directions = this.directionsService.findAllDirections()
+                .stream()
+                .map(x -> this.modelMapper.map(x,
+                        DirectionListViewModel.class))
+                .collect(Collectors.toList());
+
+        bindingModel.setDirections(directions);
 
         modelAndView.addObject("bindingModel", bindingModel);
 
-        modelAndView.addObject("boats",
-                this.boatService.findAllBoats()
-                        .stream()
-                        .map(x -> this.modelMapper.map(x,
-                                BoatListViewModel.class))
-                        .collect(Collectors.toList()));
+        String startDate = "2005-08-22";
+        String directionId = "f78f6a7e-4659-11e9-b210-d663bd873d93";
+        List<BoatServiceModel> availableBoats = this.boatService.findAvailableBoats(startDate, directionId);
 
-        modelAndView.addObject("directions",
-                this.directionsService.findAllDirections()
-                        .stream()
-                        .map(x -> this.modelMapper.map(x,
-                                DirectionListViewModel.class))
-                        .collect(Collectors.toList()));
 
-        modelAndView.addObject("peoples",
-                this.peopleService.findAllCustomers()
-                        .stream()
-                        .map(x -> this.modelMapper.map(x,
-                                PeopleListViewModel.class))
-                        .collect(Collectors.toList()));
 
         return super.view("/charters/add-charter", modelAndView);
+
+//        modelAndView.addObject("peoples",
+//                this.peopleService.findAllCustomers()
+//                        .stream()
+//                        .map(x -> this.modelMapper.map(x,
+//                                PeopleListViewModel.class))
+//                        .collect(Collectors.toList()));
+
     }
 
 
+    @PostMapping("/select-boat")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView step2FindBoat(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
+            CharterAdd_Step2_BindingModel bindingModel) {
 
+//        System.out.println("debug");
+        //todo how to get from binding model
+
+        // test only
+        String startDate = "2005-08-22";
+        String directionId = "f78f6a7e-4659-11e9-b210-d663bd873d93";
+        List<BoatServiceModel> availableBoats = this.boatService.findAvailableBoats(startDate, directionId);
+
+        modelAndView.addObject("boats", availableBoats);
+
+
+        return super.view("/charters/set-customer", modelAndView);
+    }
 
 
     @GetMapping("/show")

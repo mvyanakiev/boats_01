@@ -20,18 +20,27 @@
     <div class="form-group">
         <label for="inputDestinationName">Select Direction</label>
         <select class="form-control" id="inputDestinationName">
-            <option th:each="dir : ${directions}" th:value="${dir.id}" th:text="${dir.destination}"></option>
+            <option th:each="direction : ${bindingModel.directions}" th:value="${direction.id}"
+                    th:text="${direction.destination}"></option>
         </select>
     </div>
 
 
-    <div class="form-group">
-        <label for="inputCustomerName">Select Customer</label>
-        <select class="form-control" id="inputCustomerName">
-            <option th:each="people : ${peoples}" th:value="${people.id}" th:text="${people.firstName + ' ' + people.lastName}">
-            </option>
-        </select>
-    </div>
+    <!--<span th:each="dir : ${bindingModel.directions}" th:text="${dir.id + dir.destination}"></span>-->
+
+
+
+
+
+
+    <!--todo отива накрая при цената-->
+    <!--<div class="form-group">-->
+        <!--<label for="inputCustomerName">Select Customer</label>-->
+        <!--<select class="form-control" id="inputCustomerName">-->
+            <!--<option th:each="people : ${peoples}" th:value="${people.id}" th:text="${people.firstName + ' ' + people.lastName}">-->
+            <!--</option>-->
+        <!--</select>-->
+    <!--</div>-->
 
 
     <!--<div class="form-group">-->

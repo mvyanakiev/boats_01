@@ -1,6 +1,7 @@
 package boats.service;
 
 import boats.domain.models.serviceModels.BoatServiceModel;
+import boats.domain.models.view.BoatListViewModel;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface BoatService {
     BoatServiceModel findBoatById(String id);
 
     BoatServiceModel saveEditedBoat(BoatServiceModel boatServiceModel);
+
+    List<BoatServiceModel> findAvailableBoats(String startDate, String directionId);
 }

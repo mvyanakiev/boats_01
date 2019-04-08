@@ -2,6 +2,8 @@ package boats.service;
 
 import boats.domain.entities.Boat;
 import boats.domain.models.serviceModels.BoatServiceModel;
+import boats.domain.models.serviceModels.CharterServiceModel;
+import boats.domain.models.view.BoatListViewModel;
 import boats.repository.BoatRepository;
 import org.modelmapper.ModelMapper;
 import boats.utils.ValidationUtil;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,12 +23,16 @@ public class BoatServiceImpl implements BoatService {
     private final BoatRepository boatRepository;
     private final ModelMapper modelMapper;
     private final ValidationUtil validationUtil;
+    private final DirectionsService directionsService;
+    private final CharterService charterService;
 
     @Autowired
-    public BoatServiceImpl(BoatRepository boatRepository, ModelMapper modelMapper, ValidationUtil validationUtil) {
+    public BoatServiceImpl(BoatRepository boatRepository, ModelMapper modelMapper, ValidationUtil validationUtil, DirectionsService directionsService, CharterService charterService) {
         this.boatRepository = boatRepository;
         this.modelMapper = modelMapper;
         this.validationUtil = validationUtil;
+        this.directionsService = directionsService;
+        this.charterService = charterService;
     }
 
     @Override
@@ -61,6 +69,42 @@ public class BoatServiceImpl implements BoatService {
         }
 
         return saveBoatToDb(boatServiceModel);
+    }
+
+    @Override
+    public List<BoatServiceModel> findAvailableBoats(String startDate, String directionId) {
+
+        int period = this.directionsService.findDirectionById(directionId).getPeriod();
+        LocalDate requiredPeriodStart = LocalDate.parse(startDate);
+        LocalDate requiredPeriodEnd = requiredPeriodStart.plusDays(period);
+
+        List<BoatServiceModel> availableBoats = this.findAllBoats();
+        List<BoatServiceModel> NotAvailableBoats = new ArrayList<>();
+
+        List<CharterServiceModel> charters = this.charterService.findAllCharters();
+
+        for (CharterServiceModel charter : charters) { // po toya nachin i za remontite
+
+            LocalDate chartPeriodStart = charter.getStartDate();
+            LocalDate chartPeriodEnd = chartPeriodStart.plusDays(charter.getDirection().getPeriod());
+
+            if (!(requiredPeriodStart.isAfter(chartPeriodEnd) || requiredPeriodEnd.isBefore(chartPeriodStart))) {
+
+
+                for (BoatServiceModel boat : availableBoats) {
+                    if (boat.getId().equals(charter.getBoat().getId())) {
+                        NotAvailableBoats.add(boat);
+                    }
+                }
+
+//                availableBoats.remove(this.modelMapper.map(charter.getBoat(), BoatListViewModel.class));
+
+            }
+
+
+        }
+        availableBoats.removeAll(NotAvailableBoats);
+        return availableBoats;
     }
 
 
