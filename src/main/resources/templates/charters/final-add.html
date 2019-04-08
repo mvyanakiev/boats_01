@@ -7,22 +7,30 @@
 <div class="container-fluid">
     <header>
         <th:block th:include="~{fragments/navigation/navbar}"></th:block>
-
     </header>
     <main>
         <h1 style="margin-top: 20px" class="text-center">Add charter</h1>
         <h1 class="text-center">Step 3 of 3 (Select customer)</h1>
 
-        <p th:text="${charter.getBoat().getName()}"></p>
-        <p th:text="${charter.getDirection().getDestination()}"></p>
-        <p th:text="${charter.getStartDate()}"></p>
-        <p th:text="${charter.getPrice()}"></p>
-
-
-
-
+        <table th:class="table">
+            <tr>
+                <td>Boat: </td>
+                <td th:text="${charter.getBoat().getName()}"></td>
+            </tr>
+            <tr>
+                <td>Direction: </td>
+                <td th:text="${charter.getDirection().getDestination()}"></td>
+            </tr>
+            <tr>
+                <td>Start date: </td>
+                <td th:text="${charter.getStartDate()}"></td>
+            </tr>
+            <tr>
+                <td>Price: </td>
+                <td th:text="${charter.getPrice()}"></td>
+            </tr>
+        </table>
         <form th:action="@{/charters/complete}" method="post" th:object="${peoples}">
-
             <div class="form-group">
                 <label for="inputCustomerName">Select Customer</label>
                 <select class="form-control" id="inputCustomerName" name="id">
@@ -31,12 +39,8 @@
                     </option>
                 </select>
             </div>
-
-
             <button class="btn boats-background-background">Complete</button>
-
         </form>
-
     </main>
     <footer>
         <th:block th:include="~{fragments/footer}"></th:block>
