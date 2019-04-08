@@ -14,8 +14,10 @@
         <h1 class="text-center">Step 1 of 2</h1>
 
         <form th:action="@{/charters/select-boat}" method="post" th:object="${bindingModel}">
+
             <th:block th:include="~{charters/charter-form}"></th:block>
             <button class="btn boats-background-background">Next</button>
+
         </form>
 
     </main>

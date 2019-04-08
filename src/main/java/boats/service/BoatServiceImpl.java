@@ -90,17 +90,12 @@ public class BoatServiceImpl implements BoatService {
 
             if (!(requiredPeriodStart.isAfter(chartPeriodEnd) || requiredPeriodEnd.isBefore(chartPeriodStart))) {
 
-
                 for (BoatServiceModel boat : availableBoats) {
                     if (boat.getId().equals(charter.getBoat().getId())) {
                         NotAvailableBoats.add(boat);
                     }
                 }
-
-//                availableBoats.remove(this.modelMapper.map(charter.getBoat(), BoatListViewModel.class));
-
             }
-
 
         }
         availableBoats.removeAll(NotAvailableBoats);

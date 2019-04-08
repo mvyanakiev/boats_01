@@ -44,7 +44,7 @@ public class CharterController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView step1AddCharter(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
+    public ModelAndView step1AddCharter(ModelAndView modelAndView, @ModelAttribute (name = "bindingModel")
             CharterAddStep1BindingModel bindingModel) {
 
 
@@ -81,12 +81,18 @@ public class CharterController extends BaseController {
     public ModelAndView step2FindBoat(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
             CharterAdd_Step2_BindingModel bindingModel) {
 
-//        System.out.println("debug");
+            bindingModel.getId();
+
+        System.out.println("debug");
         //todo how to get from binding model
+
+
 
         // test only
         String startDate = "2005-08-22";
         String directionId = "f78f6a7e-4659-11e9-b210-d663bd873d93";
+
+
         List<BoatServiceModel> availableBoats = this.boatService.findAvailableBoats(startDate, directionId);
 
         modelAndView.addObject("boats", availableBoats);

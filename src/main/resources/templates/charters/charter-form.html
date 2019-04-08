@@ -19,7 +19,7 @@
 
     <div class="form-group">
         <label for="inputDestinationName">Select Direction</label>
-        <select class="form-control" id="inputDestinationName">
+        <select class="form-control" id="inputDestinationName" name="id">
             <option th:each="direction : ${bindingModel.directions}" th:value="${direction.id}"
                     th:text="${direction.destination}"></option>
         </select>

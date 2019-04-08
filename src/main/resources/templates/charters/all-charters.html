@@ -34,10 +34,15 @@
             <tr th:each="charter, iter : ${charters}">
                 <td th:text="${iter.index} + 1" ></td>
                 <td th:text="${#dates.format(charter.startDate, 'yyyy-MMM-dd')}"></td>
+
+
                 <td>
-                    <a class="btn btn-outline-secondary"
+                    <a
                        th:href="@{/boats/details/{id}(id=${charter.boat.getId()})}"  th:text="${charter.boat.getName()}"></a>
                 </td>
+
+
+
                 <td th:text="${charter.customer.getFirstName() + ' ' + charter.customer.getLastName()}" class="item"></td>
                 <td th:text="${charter.direction.getDestination()}" class="item"></td>
                 <td th:text="${charter.price}" class="item"></td>
