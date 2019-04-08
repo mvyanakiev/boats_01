@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+        <script>
+            $(document).ready(function() {
+                $('#availableBoats').DataTable();
+            } );
+        </script>
+    </header>
+    <main>
+        <h1 style="margin-top: 20px" class="text-center">Add charter</h1>
+        <h1 class="text-center">Step 2 of 3 (Select boat)</h1>
+
+        <!--<p th:text="${bindingModel.getStartDate()}"></p>-->
+
+
+        <table class="table" id="availableBoats">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Cabins</th>
+                <th>Toilets</th>
+                <th>Water Tank</th>
+                <th>Fuel Tank</th>
+                <th>Draft</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="boat : ${boats}">
+                <td>
+                    <a th:href="@{/boats/details/{id}(id=${boat.getId()})}"  th:text="${boat.getName()}"></a>
+                </td>
+                <td th:text="${boat.getProducer() + ' ' + boat.getModel()}" class="item"></td>
+                <td th:text="${boat.getCabins()}"></td>
+                <td th:text="${boat.getToilets()}"></td>
+                <td th:text="${boat.getWaterTank()}"></td>
+                <td th:text="${boat.getFuelTank()}"></td>
+                <td th:text="${boat.getDraft()}"></td>
+                <td th:text="${boat.getPrice()}"></td>
+                <td>
+                    <a class="btn btn-outline-secondary" th:href="@{/charters/create/{id}(id=${boat.getId()})}" th:text="Select"></a>
+                </td>
+            </tr>
+
+
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+
+</body>
+</html>

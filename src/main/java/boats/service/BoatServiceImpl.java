@@ -83,7 +83,9 @@ public class BoatServiceImpl implements BoatService {
 
         List<CharterServiceModel> charters = this.charterService.findAllCharters();
 
-        for (CharterServiceModel charter : charters) { // po toya nachin i za remontite
+        // same for repairs
+
+        for (CharterServiceModel charter : charters) {
 
             LocalDate chartPeriodStart = charter.getStartDate();
             LocalDate chartPeriodEnd = chartPeriodStart.plusDays(charter.getDirection().getPeriod());

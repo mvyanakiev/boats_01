@@ -1,9 +1,13 @@
 package boats.web.controllers;
 
 
+import boats.domain.entities.Boat;
+import boats.domain.entities.Direction;
+import boats.domain.entities.People;
+import boats.domain.models.binding.CharterAddBindingModel;
 import boats.domain.models.binding.CharterAddStep1BindingModel;
 import boats.domain.models.binding.CharterAdd_Step2_BindingModel;
-import boats.domain.models.serviceModels.BoatServiceModel;
+import boats.domain.models.serviceModels.CharterServiceModel;
 import boats.domain.models.view.*;
 import boats.service.BoatService;
 import boats.service.CharterService;
@@ -13,12 +17,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +49,7 @@ public class CharterController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView step1AddCharter(ModelAndView modelAndView, @ModelAttribute (name = "bindingModel")
+    public ModelAndView step1AddCharter(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
             CharterAddStep1BindingModel bindingModel) {
 
 
@@ -58,47 +63,89 @@ public class CharterController extends BaseController {
 
         modelAndView.addObject("bindingModel", bindingModel);
 
-        String startDate = "2005-08-22";
-        String directionId = "f78f6a7e-4659-11e9-b210-d663bd873d93";
-        List<BoatServiceModel> availableBoats = this.boatService.findAvailableBoats(startDate, directionId);
-
-
-
         return super.view("/charters/add-charter", modelAndView);
-
-//        modelAndView.addObject("peoples",
-//                this.peopleService.findAllCustomers()
-//                        .stream()
-//                        .map(x -> this.modelMapper.map(x,
-//                                PeopleListViewModel.class))
-//                        .collect(Collectors.toList()));
-
     }
 
 
     @PostMapping("/select-boat")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView step2FindBoat(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
-            CharterAdd_Step2_BindingModel bindingModel) {
+            CharterAdd_Step2_BindingModel bindingModel, HttpSession session) {
 
-            bindingModel.getId();
-
-        System.out.println("debug");
-        //todo how to get from binding model
-
-
-
-        // test only
-        String startDate = "2005-08-22";
-        String directionId = "f78f6a7e-4659-11e9-b210-d663bd873d93";
-
-
-        List<BoatServiceModel> availableBoats = this.boatService.findAvailableBoats(startDate, directionId);
+        List<BoatSelectViewModel> availableBoats = this.boatService
+                .findAvailableBoats(bindingModel.getStartDate(), bindingModel.getId())
+                .stream()
+                .map(b -> this.modelMapper.map(b, BoatSelectViewModel.class))
+                .collect(Collectors.toList());
 
         modelAndView.addObject("boats", availableBoats);
 
+        session.setAttribute("startDate", bindingModel.getStartDate());
+        session.setAttribute("directionId", bindingModel.getId());
 
-        return super.view("/charters/set-customer", modelAndView);
+        return super.view("/charters/select-boat", modelAndView);
+    }
+
+
+    @GetMapping("/create/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView step3AddCustomer(@PathVariable("id") String boatId,
+                                         ModelAndView modelAndView, HttpSession session,
+                                         CharterAddBindingModel charterAddBindingModel,
+                                         PeopleListViewModel customers) {
+
+        String date = (String) session.getAttribute("startDate");
+        String directionId = (String) session.getAttribute("directionId");
+
+        Boat boat = this.modelMapper.map(this.boatService.findBoatById(boatId), Boat.class);
+        Direction direction = this.modelMapper.map(this.directionsService.findDirectionById(directionId), Direction.class);
+        BigDecimal price = direction.getPrice().add(boat.getPrice());
+
+        charterAddBindingModel.setBoat(boat);
+        charterAddBindingModel.setDirection(direction);
+        charterAddBindingModel.setStartDate(LocalDate.parse(date));
+        charterAddBindingModel.setPrice(price);
+
+
+        session.setAttribute("charter", charterAddBindingModel);
+
+
+        modelAndView.addObject("peoples",
+                this.peopleService.findAllCustomers()
+                        .stream()
+                        .map(x -> this.modelMapper.map(x,
+                                PeopleListViewModel.class))
+                        .collect(Collectors.toList()));
+
+
+        modelAndView.addObject("charter", charterAddBindingModel);
+
+        //todo clear session key = null
+
+        return super.view("/charters/final-add", modelAndView);
+    }
+
+
+    @PostMapping("/complete")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView completeCharter(@ModelAttribute(name = "peopleBinding") PeopleListViewModel peopleBindingModel, HttpSession session,
+                                        BindingResult bindingResult) {
+
+
+        CharterAddBindingModel charter = (CharterAddBindingModel) session.getAttribute("charter");
+
+        People people = this.modelMapper.map(this.peopleService.findPeopleById(peopleBindingModel.getId()), People.class);
+        charter.setCustomer(people);
+
+        this.charterService.addCharter(this.modelMapper.map(charter, CharterServiceModel.class));
+
+
+//        if (bindingResult.hasErrors()) {
+//            return super.redirect("/boats/add");
+////            throw new IllegalArgumentException("Boat not added! (invalid data)");
+//        }
+
+        return redirect("/charters/show");
     }
 
 
@@ -114,4 +161,12 @@ public class CharterController extends BaseController {
     }
 
 
+    @GetMapping("/delete/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView deleteCharter(ModelAndView modelAndView, @PathVariable("id") String charterId) {
+
+        this.charterService.deleteCharter(charterId);
+
+        return super.redirect("/charters/show");
+    }
 }

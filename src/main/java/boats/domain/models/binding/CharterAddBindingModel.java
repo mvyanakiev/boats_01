@@ -9,21 +9,21 @@ import java.time.LocalDate;
 
 public class CharterAddBindingModel {
 
-    private String boatId;
+    private Boat boat;
     private LocalDate startDate;
     private BigDecimal price;
-    private String customerId;
-    private String directionId;
+    private People customer;
+    private Direction direction;
 
     public CharterAddBindingModel() {
     }
 
-    public String getBoatId() {
-        return this.boatId;
+    public Boat getBoat() {
+        return this.boat;
     }
 
-    public void setBoatId(String boatId) {
-        this.boatId = boatId;
+    public void setBoat(Boat boat) {
+        this.boat = boat;
     }
 
     public LocalDate getStartDate() {
@@ -42,19 +42,19 @@ public class CharterAddBindingModel {
         this.price = price;
     }
 
-    public String getCustomerId() {
-        return this.customerId;
+    public People getCustomer() {
+        return this.customer;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setCustomer(People customer) {
+        this.customer = customer;
     }
 
-    public String getDirectionId() {
-        return this.directionId;
+    public Direction getDirection() {
+        return this.direction;
     }
 
-    public void setDirectionId(String directionId) {
-        this.directionId = directionId;
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 }

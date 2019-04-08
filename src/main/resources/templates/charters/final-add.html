@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+
+    </header>
+    <main>
+        <h1 style="margin-top: 20px" class="text-center">Add charter</h1>
+        <h1 class="text-center">Step 3 of 3 (Select customer)</h1>
+
+        <p th:text="${charter.getBoat().getName()}"></p>
+        <p th:text="${charter.getDirection().getDestination()}"></p>
+        <p th:text="${charter.getStartDate()}"></p>
+        <p th:text="${charter.getPrice()}"></p>
+
+
+
+
+        <form th:action="@{/charters/complete}" method="post" th:object="${peoples}">
+
+            <div class="form-group">
+                <label for="inputCustomerName">Select Customer</label>
+                <select class="form-control" id="inputCustomerName" name="id">
+                    <option th:each="people : ${peoples}" th:value="${people.id}"
+                            th:text="${people.firstName + ' ' + people.lastName}">
+                    </option>
+                </select>
+            </div>
+
+
+            <button class="btn boats-background-background">Complete</button>
+
+        </form>
+
+    </main>
+    <footer>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+
+</body>
+</html>

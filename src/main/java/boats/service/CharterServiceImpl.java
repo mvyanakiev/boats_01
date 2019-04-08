@@ -52,4 +52,17 @@ public class CharterServiceImpl implements CharterService {
                 .map(b -> this.modelMapper.map(b, CharterServiceModel.class))
                 .collect(Collectors.toList());
     }
+
+
+    @Override
+    public void deleteCharter(String id) {
+
+        try {
+        this.charterRepository.deleteById(id);
+        } catch(Exception e) {
+            System.out.println(e);
+            throw new IllegalArgumentException("Not found!");
+        }
+
+    }
 }
