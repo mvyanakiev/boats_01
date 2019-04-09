@@ -1,4 +1,4 @@
-package boats.service;
+package boats.service.interfaces;
 
 import boats.domain.models.serviceModels.UserServiceModel;
 import org.springframework.security.core.userdetails.UserDetailsService;

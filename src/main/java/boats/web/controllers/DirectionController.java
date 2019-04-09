@@ -2,7 +2,7 @@ package boats.web.controllers;
 
 
 import boats.domain.models.view.DirectionViewModel;
-import boats.service.DirectionsService;
+import boats.service.interfaces.DirectionsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

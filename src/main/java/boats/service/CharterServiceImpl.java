@@ -3,6 +3,7 @@ package boats.service;
 import boats.domain.entities.Charter;
 import boats.domain.models.serviceModels.CharterServiceModel;
 import boats.repository.CharterRepository;
+import boats.service.interfaces.CharterService;
 import boats.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

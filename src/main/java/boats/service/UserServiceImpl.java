@@ -4,6 +4,8 @@ package boats.service;
 import boats.domain.entities.User;
 import boats.domain.models.serviceModels.UserServiceModel;
 import boats.repository.UserRepository;
+import boats.service.interfaces.RoleService;
+import boats.service.interfaces.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,13 +41,16 @@ public class UserServiceImpl implements UserService {
             userServiceModel.setAuthorities(this.roleService.findAllRoles());
         } else {
             userServiceModel.setAuthorities(new LinkedHashSet<>());
-
             userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
         }
 
 
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));
+
+        if (this.userRepository.findByUsername(user.getUsername()).orElse(null) != null) {
+            throw new IllegalArgumentException("There is user with this username!");
+        }
 
         return this.modelMapper.map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
     }

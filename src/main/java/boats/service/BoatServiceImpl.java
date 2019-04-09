@@ -3,8 +3,10 @@ package boats.service;
 import boats.domain.entities.Boat;
 import boats.domain.models.serviceModels.BoatServiceModel;
 import boats.domain.models.serviceModels.CharterServiceModel;
-import boats.domain.models.view.BoatListViewModel;
 import boats.repository.BoatRepository;
+import boats.service.interfaces.BoatService;
+import boats.service.interfaces.CharterService;
+import boats.service.interfaces.DirectionsService;
 import org.modelmapper.ModelMapper;
 import boats.utils.ValidationUtil;
 
@@ -27,7 +29,11 @@ public class BoatServiceImpl implements BoatService {
     private final CharterService charterService;
 
     @Autowired
-    public BoatServiceImpl(BoatRepository boatRepository, ModelMapper modelMapper, ValidationUtil validationUtil, DirectionsService directionsService, CharterService charterService) {
+    public BoatServiceImpl(BoatRepository boatRepository,
+                           ModelMapper modelMapper,
+                           ValidationUtil validationUtil,
+                           DirectionsService directionsService,
+                           CharterService charterService) {
         this.boatRepository = boatRepository;
         this.modelMapper = modelMapper;
         this.validationUtil = validationUtil;
@@ -73,7 +79,6 @@ public class BoatServiceImpl implements BoatService {
 
     @Override
     public List<BoatServiceModel> findAvailableBoats(String startDate, String directionId) {
-
         int period = this.directionsService.findDirectionById(directionId).getPeriod();
         LocalDate requiredPeriodStart = LocalDate.parse(startDate);
         LocalDate requiredPeriodEnd = requiredPeriodStart.plusDays(period);
@@ -104,7 +109,6 @@ public class BoatServiceImpl implements BoatService {
         return availableBoats;
     }
 
-
     private BoatServiceModel saveBoatToDb(BoatServiceModel boatServiceModel) {
         Boat boat = this.modelMapper.map(boatServiceModel, Boat.class);
 
@@ -115,5 +119,4 @@ public class BoatServiceImpl implements BoatService {
             return null;
         }
     }
-
 }

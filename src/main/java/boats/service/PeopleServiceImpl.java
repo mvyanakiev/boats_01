@@ -3,6 +3,7 @@ package boats.service;
 import boats.domain.entities.People;
 import boats.domain.models.serviceModels.PeopleServiceModel;
 import boats.repository.PeopleRepository;
+import boats.service.interfaces.PeopleService;
 import boats.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PeopleServiceImpl implements PeopleService{
+public class PeopleServiceImpl implements PeopleService {
 
     private final PeopleRepository peopleRepository;
     private final ModelMapper modelMapper;

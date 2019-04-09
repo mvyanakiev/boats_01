@@ -3,6 +3,7 @@ package boats.service;
 import boats.domain.entities.Equipment;
 import boats.domain.models.serviceModels.EquipmentServiceModel;
 import boats.repository.EquipmentRepository;
+import boats.service.interfaces.EquipmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

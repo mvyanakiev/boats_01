@@ -4,15 +4,15 @@ package boats.web.controllers;
 import boats.domain.entities.Boat;
 import boats.domain.entities.Direction;
 import boats.domain.entities.People;
-import boats.domain.models.binding.CharterAddBindingModel;
-import boats.domain.models.binding.CharterAddStep1BindingModel;
+import boats.domain.models.binding.CharterAdd_Step3_BindingModel;
+import boats.domain.models.binding.CharterAdd_Step1_BindingModel;
 import boats.domain.models.binding.CharterAdd_Step2_BindingModel;
 import boats.domain.models.serviceModels.CharterServiceModel;
 import boats.domain.models.view.*;
-import boats.service.BoatService;
-import boats.service.CharterService;
-import boats.service.DirectionsService;
-import boats.service.PeopleService;
+import boats.service.interfaces.BoatService;
+import boats.service.interfaces.CharterService;
+import boats.service.interfaces.DirectionsService;
+import boats.service.interfaces.PeopleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,7 +38,11 @@ public class CharterController extends BaseController {
     private final DirectionsService directionsService;
 
     @Autowired
-    public CharterController(CharterService charterService, ModelMapper modelMapper, BoatService boatService, PeopleService peopleService, DirectionsService directionsService) {
+    public CharterController(CharterService charterService,
+                             ModelMapper modelMapper,
+                             BoatService boatService,
+                             PeopleService peopleService,
+                             DirectionsService directionsService) {
         this.charterService = charterService;
         this.modelMapper = modelMapper;
         this.boatService = boatService;
@@ -49,8 +53,8 @@ public class CharterController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView step1AddCharter(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
-            CharterAddStep1BindingModel bindingModel) {
+    public ModelAndView createCharter_step1_SelectDateAndDirection(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
+            CharterAdd_Step1_BindingModel bindingModel) {
 
 
         List<DirectionListViewModel> directions = this.directionsService.findAllDirections()
@@ -69,7 +73,7 @@ public class CharterController extends BaseController {
 
     @PostMapping("/select-boat")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView step2FindBoat(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
+    public ModelAndView createCharter_step2_FindBoats(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
             CharterAdd_Step2_BindingModel bindingModel, HttpSession session) {
 
         List<BoatSelectViewModel> availableBoats = this.boatService
@@ -89,9 +93,9 @@ public class CharterController extends BaseController {
 
     @GetMapping("/create/{id}")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView step3AddCustomer(@PathVariable("id") String boatId,
+    public ModelAndView createCharter_step3_AddCustomer(@PathVariable("id") String boatId,
                                          ModelAndView modelAndView, HttpSession session,
-                                         CharterAddBindingModel charterAddBindingModel,
+                                         CharterAdd_Step3_BindingModel charterAddStep3BindingModel,
                                          PeopleListViewModel customers) {
 
         String date = (String) session.getAttribute("startDate");
@@ -101,13 +105,13 @@ public class CharterController extends BaseController {
         Direction direction = this.modelMapper.map(this.directionsService.findDirectionById(directionId), Direction.class);
         BigDecimal price = direction.getPrice().add(boat.getPrice());
 
-        charterAddBindingModel.setBoat(boat);
-        charterAddBindingModel.setDirection(direction);
-        charterAddBindingModel.setStartDate(LocalDate.parse(date));
-        charterAddBindingModel.setPrice(price);
+        charterAddStep3BindingModel.setBoat(boat);
+        charterAddStep3BindingModel.setDirection(direction);
+        charterAddStep3BindingModel.setStartDate(LocalDate.parse(date));
+        charterAddStep3BindingModel.setPrice(price);
 
 
-        session.setAttribute("charter", charterAddBindingModel);
+        session.setAttribute("charter", charterAddStep3BindingModel);
 
 
         modelAndView.addObject("peoples",
@@ -118,7 +122,7 @@ public class CharterController extends BaseController {
                         .collect(Collectors.toList()));
 
 
-        modelAndView.addObject("charter", charterAddBindingModel);
+        modelAndView.addObject("charter", charterAddStep3BindingModel);
 
         //todo clear session key = null
 
@@ -128,11 +132,11 @@ public class CharterController extends BaseController {
 
     @PostMapping("/complete")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView completeCharter(@ModelAttribute(name = "peopleBinding") PeopleListViewModel peopleBindingModel, HttpSession session,
-                                        BindingResult bindingResult) {
+    public ModelAndView createCharter_step4_completeCharterCreation(@ModelAttribute(name = "peopleBinding") PeopleListViewModel peopleBindingModel,
+                                                      HttpSession session, BindingResult bindingResult) {
 
 
-        CharterAddBindingModel charter = (CharterAddBindingModel) session.getAttribute("charter");
+        CharterAdd_Step3_BindingModel charter = (CharterAdd_Step3_BindingModel) session.getAttribute("charter");
 
         People people = this.modelMapper.map(this.peopleService.findPeopleById(peopleBindingModel.getId()), People.class);
         charter.setCustomer(people);
@@ -151,7 +155,7 @@ public class CharterController extends BaseController {
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView showAllBoats(ModelAndView modelAndView) {
+    public ModelAndView showAllCharters(ModelAndView modelAndView) {
         modelAndView.addObject("charters", this.charterService.findAllCharters()
                 .stream()
                 .map(b -> this.modelMapper.map(b, CharterViewModel.class))
@@ -164,6 +168,8 @@ public class CharterController extends BaseController {
     @GetMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView deleteCharter(ModelAndView modelAndView, @PathVariable("id") String charterId) {
+
+        //todo try-catch
 
         this.charterService.deleteCharter(charterId);
 

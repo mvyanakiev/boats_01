@@ -3,6 +3,7 @@ package boats.service;
 import boats.domain.entities.Role;
 import boats.domain.models.serviceModels.RoleServiceModel;
 import boats.repository.RoleRepository;
+import boats.service.interfaces.RoleService;
 import org.modelmapper.ModelMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;

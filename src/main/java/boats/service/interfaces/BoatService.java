@@ -1,4 +1,4 @@
-package boats.service;
+package boats.service.interfaces;
 
 import boats.domain.models.serviceModels.BoatServiceModel;
 import boats.domain.models.view.BoatListViewModel;

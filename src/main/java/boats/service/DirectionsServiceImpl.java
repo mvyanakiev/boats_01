@@ -3,6 +3,7 @@ package boats.service;
 import boats.domain.entities.Direction;
 import boats.domain.models.serviceModels.DirectionServiceModel;
 import boats.repository.DirectionRepository;
+import boats.service.interfaces.DirectionsService;
 import boats.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import boats.domain.models.binding.UserRegisterBindingModel;
 import boats.domain.models.serviceModels.UserServiceModel;
 import boats.domain.models.view.UserAllViewModel;
 import boats.domain.models.view.UserProfileViewModel;
-import boats.service.UserService;
+import boats.service.interfaces.UserService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

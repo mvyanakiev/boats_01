@@ -4,12 +4,12 @@ import boats.domain.models.view.DirectionListViewModel;
 
 import java.util.List;
 
-public class CharterAddStep1BindingModel {
+public class CharterAdd_Step1_BindingModel {
 
     private String startDate;
     private List<DirectionListViewModel> directions;
 
-    public CharterAddStep1BindingModel() {
+    public CharterAdd_Step1_BindingModel() {
     }
 
     public String getStartDate() {

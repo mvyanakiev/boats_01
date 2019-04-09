@@ -7,7 +7,7 @@ import boats.domain.entities.People;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class CharterAddBindingModel {
+public class CharterAdd_Step3_BindingModel {
 
     private Boat boat;
     private LocalDate startDate;
@@ -15,7 +15,7 @@ public class CharterAddBindingModel {
     private People customer;
     private Direction direction;
 
-    public CharterAddBindingModel() {
+    public CharterAdd_Step3_BindingModel() {
     }
 
     public Boat getBoat() {
