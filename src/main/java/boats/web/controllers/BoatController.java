@@ -30,7 +30,8 @@ public class BoatController extends BaseController {
     private final EquipmentService equipmentService;
 
     @Autowired
-    public BoatController(BoatService boatService, ModelMapper modelMapper, EquipmentService equipmentService) {
+    public BoatController(BoatService boatService, ModelMapper modelMapper,
+                          EquipmentService equipmentService) {
         this.boatService = boatService;
         this.modelMapper = modelMapper;
         this.equipmentService = equipmentService;
@@ -38,7 +39,9 @@ public class BoatController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView add(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel") BoatAddBindingModel bindingModel) {
+    public ModelAndView add(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
+            BoatAddBindingModel bindingModel) {
+
         modelAndView.addObject("bindingModel", bindingModel);
 
         return super.view("/boats/add-boat", modelAndView);
@@ -46,7 +49,8 @@ public class BoatController extends BaseController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView addConfirm(@Valid @ModelAttribute(name = "bindingModel") BoatAddBindingModel bindingModel, BindingResult bindingResult) {
+    public ModelAndView addConfirm(@Valid @ModelAttribute(name = "bindingModel") BoatAddBindingModel bindingModel,
+                                   BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return super.redirect("/boats/add");
@@ -77,7 +81,9 @@ public class BoatController extends BaseController {
 
     @GetMapping("/details/{id}")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView boatDetailsView(@PathVariable("id") String id, ModelAndView modelAndView, BoatDetailsViewModel model) {
+    public ModelAndView boatDetailsView(@PathVariable("id") String id, ModelAndView modelAndView,
+                                        BoatDetailsViewModel model) {
+
         model = this.modelMapper.map(this.boatService.findBoatById(id), BoatDetailsViewModel.class);
         modelAndView.addObject("model", model);
 
@@ -86,7 +92,6 @@ public class BoatController extends BaseController {
                 .collect(Collectors.toList());
 
         modelAndView.addObject("boatEquipments", boatEquipments);
-
 
         return super.view("/boats/boat-details", modelAndView);
     }
@@ -108,7 +113,6 @@ public class BoatController extends BaseController {
                                         @Valid @ModelAttribute(name = "bindingModel")
                                                 BoatEditBindingModel bindingModel,
                                         BindingResult bindingResult) {
-
 
         if (bindingResult.hasErrors()) {
 //            throw new IllegalArgumentException("Boat not edited! (invalid data)");

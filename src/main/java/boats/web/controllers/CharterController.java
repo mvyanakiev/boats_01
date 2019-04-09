@@ -53,9 +53,8 @@ public class CharterController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView createCharter_step1_SelectDateAndDirection(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
-            CharterAdd_Step1_BindingModel bindingModel) {
-
+    public ModelAndView createCharter_step1_SelectDateAndDirection(
+            ModelAndView modelAndView, @ModelAttribute(name = "bindingModel") CharterAdd_Step1_BindingModel bindingModel) {
 
         List<DirectionListViewModel> directions = this.directionsService.findAllDirections()
                 .stream()
@@ -67,13 +66,14 @@ public class CharterController extends BaseController {
 
         modelAndView.addObject("bindingModel", bindingModel);
 
-        return super.view("/charters/add-charter", modelAndView);
+        return super.view("/charters/step1-select-date", modelAndView);
     }
 
 
     @PostMapping("/select-boat")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView createCharter_step2_FindBoats(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
+    public ModelAndView createCharter_step2_SelectBoat(
+            ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
             CharterAdd_Step2_BindingModel bindingModel, HttpSession session) {
 
         List<BoatSelectViewModel> availableBoats = this.boatService
@@ -87,15 +87,15 @@ public class CharterController extends BaseController {
         session.setAttribute("startDate", bindingModel.getStartDate());
         session.setAttribute("directionId", bindingModel.getId());
 
-        return super.view("/charters/select-boat", modelAndView);
+        return super.view("/charters/step2-select-boat", modelAndView);
     }
 
 
     @GetMapping("/create/{id}")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView createCharter_step3_AddCustomer(@PathVariable("id") String boatId,
+    public ModelAndView createCharter_step3_SelectCustomer(@PathVariable("id") String boatId,
                                          ModelAndView modelAndView, HttpSession session,
-                                         CharterAdd_Step3_BindingModel charterAddStep3BindingModel,
+                                         CharterAdd_Step3_BindingModel charterBindingModel,
                                          PeopleListViewModel customers) {
 
         String date = (String) session.getAttribute("startDate");
@@ -105,14 +105,12 @@ public class CharterController extends BaseController {
         Direction direction = this.modelMapper.map(this.directionsService.findDirectionById(directionId), Direction.class);
         BigDecimal price = direction.getPrice().add(boat.getPrice());
 
-        charterAddStep3BindingModel.setBoat(boat);
-        charterAddStep3BindingModel.setDirection(direction);
-        charterAddStep3BindingModel.setStartDate(LocalDate.parse(date));
-        charterAddStep3BindingModel.setPrice(price);
+        charterBindingModel.setBoat(boat);
+        charterBindingModel.setDirection(direction);
+        charterBindingModel.setStartDate(LocalDate.parse(date));
+        charterBindingModel.setPrice(price);
 
-
-        session.setAttribute("charter", charterAddStep3BindingModel);
-
+        session.setAttribute("charter", charterBindingModel);
 
         modelAndView.addObject("peoples",
                 this.peopleService.findAllCustomers()
@@ -121,20 +119,19 @@ public class CharterController extends BaseController {
                                 PeopleListViewModel.class))
                         .collect(Collectors.toList()));
 
-
-        modelAndView.addObject("charter", charterAddStep3BindingModel);
+        modelAndView.addObject("charter", charterBindingModel);
 
         //todo clear session key = null
 
-        return super.view("/charters/final-add", modelAndView);
+        return super.view("/charters/step3-complete-adding", modelAndView);
     }
 
 
     @PostMapping("/complete")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView createCharter_step4_completeCharterCreation(@ModelAttribute(name = "peopleBinding") PeopleListViewModel peopleBindingModel,
-                                                      HttpSession session, BindingResult bindingResult) {
-
+    public ModelAndView createCharter_step4_completeCharterCreation(
+            @ModelAttribute(name = "peopleBinding") PeopleListViewModel peopleBindingModel,
+            HttpSession session, BindingResult bindingResult) {
 
         CharterAdd_Step3_BindingModel charter = (CharterAdd_Step3_BindingModel) session.getAttribute("charter");
 
@@ -166,10 +163,8 @@ public class CharterController extends BaseController {
 
 
     @GetMapping("/delete/{id}")
-    @PreAuthorize("isAuthenticated()")
-    public ModelAndView deleteCharter(ModelAndView modelAndView, @PathVariable("id") String charterId) {
-
-        //todo try-catch
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView deleteCharter(@PathVariable("id") String charterId) {
 
         this.charterService.deleteCharter(charterId);
 

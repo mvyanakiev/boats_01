@@ -58,12 +58,14 @@ public class CharterServiceImpl implements CharterService {
     @Override
     public void deleteCharter(String id) {
 
+        this.charterRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Charter not found!"));
+
         try {
         this.charterRepository.deleteById(id);
         } catch(Exception e) {
             System.out.println(e);
-            throw new IllegalArgumentException("Not found!");
+            throw new IllegalArgumentException("Something get wrong during deletion");
         }
-
     }
 }
