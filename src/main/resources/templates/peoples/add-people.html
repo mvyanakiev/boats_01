@@ -10,10 +10,12 @@
         <script th:src="@{/js/FormsValidation.js}"></script>
     </header>
     <main>
-        <h1>Add a new Boat</h1>
-        <form th:action="@{/boats/add}" method="post" th:object="${bindingModel}">
-            <th:block th:include="~{boats/boat-form}"></th:block>
-            <button class="btn boats-background">Add Boat</button>
+        <h1 style="margin-top: 20px" class="text-center">Add People</h1>
+
+        <form th:action="@{/peoples/add}" method="post" th:object="${bindingModel}">
+            <th:block th:include="~{peoples/people-form}"></th:block>
+        </br>
+            <button class="btn boats-background">Add People</button>
         </form>
     </main>
     <footer>
@@ -23,6 +25,5 @@
 <script>
     validFormScript();
 </script>
-
 </body>
 </html>

@@ -1,10 +1,11 @@
-package boats.domain.models.serviceModels;
+package boats.domain.models.binding;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class PeopleServiceModel extends BaseServiceModel {
+public class PeopleEditBindingModel {
 
+    private String id;
     private String firstName;
     private String lastName;
     private String phone;
@@ -14,7 +15,15 @@ public class PeopleServiceModel extends BaseServiceModel {
     private boolean isCustomer;
     private boolean isSupplier;
 
-    public PeopleServiceModel() {
+    public PeopleEditBindingModel() {
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @NotNull
@@ -44,7 +53,7 @@ public class PeopleServiceModel extends BaseServiceModel {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
+
     @NotNull
     @NotEmpty
     public String getEmail() {
@@ -63,27 +72,27 @@ public class PeopleServiceModel extends BaseServiceModel {
         this.address = address;
     }
 
-    public boolean isEmployee() {
+    public boolean getIsEmployee() {
         return this.isEmployee;
     }
 
-    public void setEmployee(boolean employee) {
+    public void setIsEmployee(boolean employee) {
         isEmployee = employee;
     }
 
-    public boolean isCustomer() {
+    public boolean getIsCustomer() {
         return this.isCustomer;
     }
 
-    public void setCustomer(boolean customer) {
+    public void setIsCustomer(boolean customer) {
         isCustomer = customer;
     }
 
-    public boolean isSupplier() {
+    public boolean getIsSupplier() {
         return this.isSupplier;
     }
 
-    public void setSupplier(boolean supplier) {
+    public void setIsSupplier(boolean supplier) {
         isSupplier = supplier;
     }
 }

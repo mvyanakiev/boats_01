@@ -38,7 +38,7 @@ public class BoatController extends BaseController {
     }
 
     @GetMapping("/add")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView add(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
             BoatAddBindingModel bindingModel) {
 
@@ -48,7 +48,7 @@ public class BoatController extends BaseController {
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView addConfirm(@Valid @ModelAttribute(name = "bindingModel") BoatAddBindingModel bindingModel,
                                    BindingResult bindingResult) {
 
@@ -109,7 +109,7 @@ public class BoatController extends BaseController {
 
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView saveEditedVirus(@PathVariable("id") String id,
+    public ModelAndView saveEditedBoat(@PathVariable("id") String id,
                                         @Valid @ModelAttribute(name = "bindingModel")
                                                 BoatEditBindingModel bindingModel,
                                         BindingResult bindingResult) {

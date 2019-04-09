@@ -12,4 +12,8 @@ public interface PeopleService {
 
     List<PeopleServiceModel> findAllCustomers();
 
+    PeopleServiceModel addPeople(PeopleServiceModel peopleServiceModel);
+
+    PeopleServiceModel editPeople(PeopleServiceModel peopleServiceModel);
+
 }

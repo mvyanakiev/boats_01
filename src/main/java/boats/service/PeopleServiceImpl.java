@@ -51,5 +51,35 @@ public class PeopleServiceImpl implements PeopleService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public PeopleServiceModel addPeople(PeopleServiceModel peopleServiceModel) {
 
+        if (!this.validationUtil.isValid(peopleServiceModel)) {
+            throw new IllegalArgumentException("Not valid data in add service");
+        }
+
+        return savePeopleToDb(peopleServiceModel);
+    }
+
+    @Override
+    public PeopleServiceModel editPeople(PeopleServiceModel peopleServiceModel) {
+
+        if (!this.validationUtil.isValid(peopleServiceModel)) {
+            throw new IllegalArgumentException("Not valid data in edit service");
+        }
+
+        return savePeopleToDb(peopleServiceModel);
+    }
+
+
+    private PeopleServiceModel savePeopleToDb(PeopleServiceModel boatServiceModel) {
+        People people = this.modelMapper.map(boatServiceModel, People.class);
+
+        try {
+            people = this.peopleRepository.saveAndFlush(people);
+            return this.modelMapper.map(people, PeopleServiceModel.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
