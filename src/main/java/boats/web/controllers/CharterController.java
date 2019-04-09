@@ -187,7 +187,7 @@ public class CharterController extends BaseController {
                 .map(b -> this.modelMapper.map(b, CharterViewModel.class))
                 .collect(Collectors.toList()));
 
-        return super.view("/charters/all-charters", modelAndView);
+        return super.view("/charters/charters-all", modelAndView);
     }
 
 

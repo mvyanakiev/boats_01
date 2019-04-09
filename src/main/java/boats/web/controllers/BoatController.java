@@ -44,7 +44,7 @@ public class BoatController extends BaseController {
 
         modelAndView.addObject("bindingModel", bindingModel);
 
-        return super.view("/boats/add-boat", modelAndView);
+        return super.view("/boats/boat-add", modelAndView);
     }
 
     @PostMapping("/add")
@@ -76,7 +76,7 @@ public class BoatController extends BaseController {
                 .map(b -> this.modelMapper.map(b, BoatAllViewModel.class))
                 .collect(Collectors.toList()));
 
-        return super.view("/boats/all-boats", modelAndView);
+        return super.view("/boats/boats-all", modelAndView);
     }
 
     @GetMapping("/details/{id}")
@@ -123,7 +123,7 @@ public class BoatController extends BaseController {
 
         BoatServiceModel boatServiceModel = this.modelMapper.map(bindingModel, BoatServiceModel.class);
         boatServiceModel.setId(id);
-        this.boatService.saveEditedBoat(boatServiceModel);
+        boatServiceModel = this.boatService.saveEditedBoat(boatServiceModel);
 
         if (boatServiceModel == null) {
             throw new IllegalArgumentException("Boat not edited (service error)");

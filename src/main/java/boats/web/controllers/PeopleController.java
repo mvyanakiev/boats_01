@@ -1,7 +1,10 @@
 package boats.web.controllers;
 
 
+import boats.domain.models.binding.BoatEditBindingModel;
 import boats.domain.models.binding.PeopleAddBindingModel;
+import boats.domain.models.binding.PeopleEditBindingModel;
+import boats.domain.models.serviceModels.BoatServiceModel;
 import boats.domain.models.serviceModels.PeopleServiceModel;
 import boats.domain.models.view.PeopleViewModel;
 import boats.service.interfaces.PeopleService;
@@ -10,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -41,7 +41,7 @@ public class PeopleController extends BaseController {
                 .map(b -> this.modelMapper.map(b, PeopleViewModel.class))
                 .collect(Collectors.toList()));
 
-        return super.view("/peoples/all-peoples", modelAndView);
+        return super.view("/peoples/peoples-all", modelAndView);
     }
 
     @GetMapping("/add")
@@ -51,7 +51,7 @@ public class PeopleController extends BaseController {
 
             modelAndView.addObject("bindingModel", bindingModel);
 
-            return super.view("/peoples/add-people", modelAndView);
+            return super.view("/peoples/people-add", modelAndView);
     }
 
     @PostMapping("/add")
@@ -72,6 +72,38 @@ public class PeopleController extends BaseController {
             throw new IllegalArgumentException("People not added! (service error)");
         }
 
+        return super.redirect("/peoples/show");
+    }
+
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView boatEditView(@PathVariable("id") String id, ModelAndView modelAndView, PeopleEditBindingModel model) {
+        model = this.modelMapper.map(this.peopleService.findPeopleById(id), PeopleEditBindingModel.class);
+        modelAndView.addObject("model", model);
+
+        return super.view("/peoples/people-edit", modelAndView);
+    }
+
+
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView saveEditedBoat(@PathVariable("id") String id,
+                                       @Valid @ModelAttribute(name = "bindingModel")
+                                               PeopleEditBindingModel bindingModel,
+                                       BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+//            throw new IllegalArgumentException("Boat not edited! (invalid data)");
+            return super.redirect("/peoples/edit/" + id);
+        }
+
+        PeopleServiceModel peopleServiceModel  = this.modelMapper.map(bindingModel, PeopleServiceModel.class);
+        peopleServiceModel.setId(id);
+        peopleServiceModel = this.peopleService.editPeople(peopleServiceModel);
+
+        if (peopleServiceModel == null) {
+            throw new IllegalArgumentException("People not edited (service error)");
+        }
         return super.redirect("/peoples/show");
     }
 }
