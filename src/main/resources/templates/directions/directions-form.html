@@ -1,0 +1,54 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment>
+    <div class="form-group">
+        <label for="inputDestination">Destination name</label>
+        <input type="text"
+               th:field="*{destination}"
+               class="form-control"
+               id="inputDestination"
+               placeholder="Enter Destination"
+               name="destination">
+        <small id="inputDestinationHelp"
+               style="display: none"
+               class="form-text text-muted"></small>
+    </div>
+
+    <div class="form-group">
+        <label for="inputDistance">Distance in nautical miles</label>
+        <input type="number"
+               th:field="*{distance}"
+               class="form-control"
+               id="inputDistance"
+               placeholder="Enter distance"
+               name="destination">
+        <small id="inputDistanceHelp"
+               style="display: none"
+               class="form-text text-muted"></small>
+    </div>
+
+    <div class="form-group">
+        <label for="inputPeriod">Period in days</label>
+        <input type="number"
+               th:field="*{period}"
+               class="form-control"
+               id="inputPeriod"
+               placeholder="Enter period"
+               name="period">
+        <small id="inputPeriodHelp"
+               style="display: none"
+               class="form-text text-muted"></small>
+    </div>
+
+    <div class="form-group">
+        <label for="inputPrice">Price</label>
+        <input type="number" step="0.01"
+               th:field="*{price}"
+               class="form-control"
+               id="inputPrice"
+               placeholder="Enter price"
+               name="price">
+        <small id="inputPricedHelp"
+               style="display: none"
+               class="form-text text-muted"></small>
+    </div>
+</th:block>

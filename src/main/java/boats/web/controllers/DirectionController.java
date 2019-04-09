@@ -1,16 +1,21 @@
 package boats.web.controllers;
 
 
+import boats.domain.models.binding.DirectionAddBindingModel;
+import boats.domain.models.binding.DirectionEditBindingModel;
+import boats.domain.models.binding.PeopleAddBindingModel;
+import boats.domain.models.serviceModels.DirectionServiceModel;
 import boats.domain.models.view.DirectionViewModel;
 import boats.service.interfaces.DirectionsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @Controller
@@ -35,11 +40,70 @@ public class DirectionController extends BaseController {
                 .map(b -> this.modelMapper.map(b, DirectionViewModel.class))
                 .collect(Collectors.toList()));
 
-        return super.view("/directions/all-directions", modelAndView);
+        return super.view("/directions/directions-all", modelAndView);
     }
 
 
+    @GetMapping("/add")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView addDirection(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
+            DirectionAddBindingModel bindingModel){
+
+        modelAndView.addObject("bindingModel", bindingModel);
+
+        return super.view("/directions/direction-add", modelAndView);
+    }
+
+    @PostMapping("/add")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView addConfirm(@Valid @ModelAttribute(name = "bindingModel") DirectionAddBindingModel bindingModel,
+                                   BindingResult bindingResult) {
 
 
+        if (bindingResult.hasErrors()) {
+            return super.redirect("/directions/add");
+//            throw new IllegalArgumentException("People not added! (invalid data)");
+        }
 
+        DirectionServiceModel directionServiceModel = this.modelMapper.map(bindingModel, DirectionServiceModel.class);
+
+        directionServiceModel = this.directionsService.addDirection(directionServiceModel);
+
+        if (directionServiceModel == null) {
+            throw new IllegalArgumentException("Direction not added! (service error)");
+        }
+
+        return super.redirect("/directions/show");
+    }
+
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView boatEditView(@PathVariable("id") String id, ModelAndView modelAndView, DirectionEditBindingModel model) {
+        model = this.modelMapper.map(this.directionsService.findDirectionById(id), DirectionEditBindingModel.class);
+        modelAndView.addObject("model", model);
+
+        return super.view("/directions/direction-edit", modelAndView);
+    }
+
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView saveEditedBoat(@PathVariable("id") String id,
+                                       @Valid @ModelAttribute(name = "bindingModel")
+                                               DirectionEditBindingModel bindingModel,
+                                       BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+//            throw new IllegalArgumentException("Not edited! (invalid data)");
+            return super.redirect("/directions/edit/" + id);
+        }
+
+        DirectionServiceModel directionServiceModel  = this.modelMapper.map(bindingModel, DirectionServiceModel.class);
+        directionServiceModel.setId(id);
+        directionServiceModel = this.directionsService.editDirection(directionServiceModel);
+
+        if (directionServiceModel == null) {
+            throw new IllegalArgumentException("Direction not edited (service error)");
+        }
+        return super.redirect("/directions/show");
+    }
 }

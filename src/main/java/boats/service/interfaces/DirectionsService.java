@@ -9,4 +9,8 @@ public interface DirectionsService {
     List<DirectionServiceModel> findAllDirections();
 
     DirectionServiceModel findDirectionById(String id);
+
+    DirectionServiceModel addDirection(DirectionServiceModel directionServiceModel);
+
+    DirectionServiceModel editDirection(DirectionServiceModel directionServiceModel);
 }

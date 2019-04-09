@@ -42,4 +42,35 @@ public class DirectionsServiceImpl implements DirectionsService {
 
         return this.modelMapper.map(direction, DirectionServiceModel.class);
     }
+
+    @Override
+    public DirectionServiceModel addDirection(DirectionServiceModel directionServiceModel) {
+
+        if (!this.validationUtil.isValid(directionServiceModel)) {
+            throw new IllegalArgumentException("Not valid data in save service");
+        }
+
+        return saveDirectionToDb(directionServiceModel);
+    }
+
+    @Override
+    public DirectionServiceModel editDirection(DirectionServiceModel directionServiceModel) {
+
+        if (!this.validationUtil.isValid(directionServiceModel)) {
+            throw new IllegalArgumentException("Not valid data in edit service");
+        }
+
+        return saveDirectionToDb(directionServiceModel);
+    }
+
+    private DirectionServiceModel saveDirectionToDb(DirectionServiceModel boatServiceModel) {
+        Direction direction = this.modelMapper.map(boatServiceModel, Direction.class);
+
+        try {
+            direction = this.directionRepository.saveAndFlush(direction);
+            return this.modelMapper.map(direction, DirectionServiceModel.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

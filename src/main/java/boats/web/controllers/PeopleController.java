@@ -1,10 +1,8 @@
 package boats.web.controllers;
 
 
-import boats.domain.models.binding.BoatEditBindingModel;
 import boats.domain.models.binding.PeopleAddBindingModel;
 import boats.domain.models.binding.PeopleEditBindingModel;
-import boats.domain.models.serviceModels.BoatServiceModel;
 import boats.domain.models.serviceModels.PeopleServiceModel;
 import boats.domain.models.view.PeopleViewModel;
 import boats.service.interfaces.PeopleService;

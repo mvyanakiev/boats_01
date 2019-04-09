@@ -1,14 +1,19 @@
 function validFormScript() {
 
     const ERROR_INVALID_BOAT_NAME = "Name must be in range of 2 and 50 characters long.";
-    const ERROR_INVALID_PRODUCER = "Producer name must be in range of 2 and 50 characters long.";
-    const ERROR_INVALID_MODEL = "Model must be in range of 2 and 50 characters long.";
-    const ERROR_INVALID_DATE = "Valid date required";
-    const ERROR_INVALID_PRICE = "Price must be bigger than 0.01";
+    const ERROR_INVALID_BOAT_PRODUCER = "Producer name must be in range of 2 and 50 characters long.";
+    const ERROR_INVALID_BOAT_MODEL = "Model must be in range of 2 and 50 characters long.";
+    const ERROR_INVALID_BOAT_CHECKED_DATE = "Valid date required";
+    const ERROR_INVALID_BOAT_PRICE = "Price must be bigger than 0.01";
 
     const ERROR_INVALID_PEOPLE_NAME = "Name can not be empty";
     const ERROR_INVALID_PEOPLE_PHONE = "Phone can not be empty";
     const ERROR_INVALID_PEOPLE_EMAIL = "E-mail can not be empty";
+
+    const ERROR_INVALID_DESTINATION_NAME = "Name must be in range of 2 and 50 characters long.";
+    const ERROR_INVALID_DESTINATION_PERIOD = "Period must be in range of 2 and 30 days long.";
+    const ERROR_INVALID_DESTINATION_PRICE = "Price must be bigger than 0.01";
+
 
 
     $(`#inputBoatName`).on(`keyup keypress`, function () {
@@ -31,7 +36,7 @@ function validFormScript() {
         let value = field.val().trim();
 
         if (value.length < 2 || value.length > 50) {
-            showHelpText(field, helpText, ERROR_INVALID_PRODUCER);
+            showHelpText(field, helpText, ERROR_INVALID_BOAT_PRODUCER);
         } else {
             removeHelpText(field, helpText);
         }
@@ -44,7 +49,7 @@ function validFormScript() {
         let value = field.val().trim();
 
         if (value.length < 2 || value.length > 50) {
-            showHelpText(field, helpText, ERROR_INVALID_MODEL);
+            showHelpText(field, helpText, ERROR_INVALID_BOAT_MODEL);
         } else {
             removeHelpText(field, helpText);
         }
@@ -57,7 +62,7 @@ function validFormScript() {
 
         let value = field.val().trim();
         if (value.length < 1 || value.length > 50 || value == null || value === "") {
-            showHelpText(field, helpText, ERROR_INVALID_DATE);
+            showHelpText(field, helpText, ERROR_INVALID_BOAT_CHECKED_DATE);
         } else {
             removeHelpText(field, helpText);
         }
@@ -70,7 +75,7 @@ function validFormScript() {
 
         let value = field.val().trim();
         if (parseFloat(value) < 0.01 || value == null || value === "") {
-            showHelpText(field, helpText, ERROR_INVALID_PRICE);
+            showHelpText(field, helpText, ERROR_INVALID_BOAT_PRICE);
         } else {
             removeHelpText(field, helpText);
         }
@@ -85,7 +90,7 @@ function validFormScript() {
         let value = field.val().trim();
 
         if (value.length < 1 || value.length > 50 || value == null || value === "") {
-            showHelpText(field, helpText, ERROR_INVALID_DATE);
+            showHelpText(field, helpText, ERROR_INVALID_BOAT_CHECKED_DATE);
         } else {
             removeHelpText(field, helpText);
         }
@@ -137,6 +142,53 @@ function validFormScript() {
     });
 
 
+    $(`#inputDestination`).on(`keyup keypress`, function () {
+
+        let field = $(`#inputDestination`);
+        let helpText = $(`#inputDestinationHelp`);
+
+        let value = field.val().trim();
+
+        if (value.length < 2 || value.length > 50) {
+            showHelpText(field, helpText, ERROR_INVALID_DESTINATION_NAME);
+        } else {
+            removeHelpText(field, helpText);
+        }
+    });
+
+
+    $(`#inputPeriod`).on(`keyup keypress`, function () {
+
+        let field = $(`#inputPeriod`);
+        let helpText = $(`#inputPeriodHelp`);
+
+        let value = field.val().trim();
+
+        if (value <= 1 || value > 30) {
+            showHelpText(field, helpText, ERROR_INVALID_DESTINATION_PERIOD);
+        } else {
+            removeHelpText(field, helpText);
+        }
+    });
+
+
+
+    $(`#inputPrice`).on(`keyup keypress`, function () {
+
+        let field = $(`#inputPrice`);
+        let helpText = $(`#inputPricedHelp`);
+
+        let value = field.val().trim();
+
+        if (parseFloat(value) < 0.01 || value == null || value === "") {
+            showHelpText(field, helpText, ERROR_INVALID_DESTINATION_PRICE);
+        } else {
+            removeHelpText(field, helpText);
+        }
+    });
+
+
+
 
 
 
@@ -152,6 +204,13 @@ function validFormScript() {
         helpText.text(message);
         helpText.show();
     }
+
+
+
+
+
+
+
 
     // Validates that the input string is a valid date formatted as "mm/dd/yyyy"
     // function isValidDate(dateString) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{fragments/head}"></th:block>
 </head>
@@ -10,13 +10,12 @@
         <script th:src="@{/js/FormsValidation.js}"></script>
     </header>
     <main>
-        <form th:action="@{/peoples/edit/{id}(id = ${model.id})}" method="post" th:object="${model}">
-            <div class="form-group">
-                <h1 style="margin-top: 20px" class="text-center">Edit People</h1>
-            </div>
-            <th:block th:include="~{peoples/people-form}"></th:block>
-        </br>
-            <button class="btn btn-danger">Save</button>
+        <h1 style="margin-top: 20px" class="text-center">Add Direction</h1>
+
+        <form th:action="@{/directions/add}" method="post" th:object="${bindingModel}">
+            <th:block th:include="~{directions/directions-form}"></th:block>
+            </br>
+            <button class="btn boats-background">Add Direction</button>
         </form>
     </main>
     <footer>

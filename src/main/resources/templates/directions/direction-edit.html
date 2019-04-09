@@ -10,11 +10,11 @@
         <script th:src="@{/js/FormsValidation.js}"></script>
     </header>
     <main>
-        <form th:action="@{/peoples/edit/{id}(id = ${model.id})}" method="post" th:object="${model}">
+        <form th:action="@{/directions/edit/{id}(id = ${model.id})}" method="post" th:object="${model}">
             <div class="form-group">
-                <h1 style="margin-top: 20px" class="text-center">Edit People</h1>
+                <h1 style="margin-top: 20px" class="text-center">Edit Direction</h1>
             </div>
-            <th:block th:include="~{peoples/people-form}"></th:block>
+            <th:block th:include="~{directions/directions-form}"></th:block>
         </br>
             <button class="btn btn-danger">Save</button>
         </form>
