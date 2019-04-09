@@ -32,9 +32,9 @@ public class CharterServiceImpl implements CharterService {
     @Override
     public CharterServiceModel addCharter(CharterServiceModel charterServiceModel) {
 
-//        if (!this.validationUtil.isValid(charterServiceModel)) {
-//            throw new IllegalArgumentException("Not valid data in edit service");
-//        }
+        if (!this.validationUtil.isValid(charterServiceModel)) {
+            throw new IllegalArgumentException("Not valid data in add service");
+        }
 
         Charter character = this.modelMapper.map(charterServiceModel, Charter.class);
 

@@ -3,7 +3,10 @@ package boats.domain.models.binding;
 import boats.domain.entities.Boat;
 import boats.domain.entities.Direction;
 import boats.domain.entities.People;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -18,6 +21,7 @@ public class CharterAdd_Step3_BindingModel {
     public CharterAdd_Step3_BindingModel() {
     }
 
+    @NotNull
     public Boat getBoat() {
         return this.boat;
     }
@@ -26,6 +30,8 @@ public class CharterAdd_Step3_BindingModel {
         this.boat = boat;
     }
 
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate getStartDate() {
         return this.startDate;
     }
@@ -34,6 +40,8 @@ public class CharterAdd_Step3_BindingModel {
         this.startDate = startDate;
     }
 
+    @NotNull
+    @DecimalMin("1")
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -42,6 +50,7 @@ public class CharterAdd_Step3_BindingModel {
         this.price = price;
     }
 
+    @NotNull
     public People getCustomer() {
         return this.customer;
     }
@@ -50,6 +59,7 @@ public class CharterAdd_Step3_BindingModel {
         this.customer = customer;
     }
 
+    @NotNull
     public Direction getDirection() {
         return this.direction;
     }

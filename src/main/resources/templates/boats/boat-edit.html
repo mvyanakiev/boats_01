@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <header>
         <th:block th:include="~{fragments/navigation/navbar}"></th:block>
-        <script th:src="@{/js/BoatFormValidation.js}"></script>
+        <script th:src="@{/js/FormsValidation.js}"></script>
     </header>
     <main>
         <form th:action="@{/boats/edit/{id}(id = ${model.id})}" method="post" th:object="${model}">

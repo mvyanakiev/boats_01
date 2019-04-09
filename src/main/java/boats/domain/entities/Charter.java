@@ -20,7 +20,8 @@ public class Charter extends BaseEntity{
     @ManyToOne(targetEntity = Boat.class)
     @JoinColumn(
             name = "boat_id",
-            referencedColumnName = "id"
+            referencedColumnName = "id",
+            nullable = false
     )
     public Boat getBoat() {
         return this.boat;
@@ -51,7 +52,9 @@ public class Charter extends BaseEntity{
     @ManyToOne(targetEntity = People.class)
     @JoinColumn(
             name = "people_id",
-            referencedColumnName = "id"
+            referencedColumnName = "id",
+            nullable = false
+
     )
     public People getCustomer() {
         return this.customer;
@@ -64,7 +67,8 @@ public class Charter extends BaseEntity{
     @ManyToOne(targetEntity = Direction.class)
     @JoinColumn(
             name = "direction_id",
-            referencedColumnName = "id"
+            referencedColumnName = "id",
+            nullable = false
     )
     public Direction getDirection() {
         return this.direction;

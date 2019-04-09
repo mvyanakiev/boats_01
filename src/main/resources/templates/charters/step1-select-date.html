@@ -7,7 +7,8 @@
 <div class="container-fluid">
     <header>
         <th:block th:include="~{fragments/navigation/navbar}"></th:block>
-        <!--<script th:src="@{/js/BoatFormValidation.js}"></script>-->
+        <script th:src="@{/js/FormsValidation.js}"></script>
+        <script> $(document).ready(validFormScript);</script>
     </header>
     <main>
         <h1 style="margin-top: 20px" class="text-center">Add charter</h1>
@@ -30,7 +31,7 @@
                 </select>
             </div>
 
-            <button class="btn boats-background-background">Next</button>
+            <button class="btn boats-background" id="nextButton">Next</button>
         </form>
     </main>
     <footer>
