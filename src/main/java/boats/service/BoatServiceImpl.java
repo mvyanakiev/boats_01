@@ -3,6 +3,7 @@ package boats.service;
 import boats.domain.entities.Boat;
 import boats.domain.models.serviceModels.BoatServiceModel;
 import boats.domain.models.serviceModels.CharterServiceModel;
+import boats.error.NotFoundExceptions;
 import boats.repository.BoatRepository;
 import boats.service.interfaces.BoatService;
 import boats.service.interfaces.CharterService;
@@ -62,7 +63,7 @@ public class BoatServiceImpl implements BoatService {
     @Override
     public BoatServiceModel findBoatById(String id) {
         Boat boat = this.boatRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Boat not found!"));
+                .orElseThrow(() -> new NotFoundExceptions("Boat not found!"));
 
         return this.modelMapper.map(boat, BoatServiceModel.class);
     }
