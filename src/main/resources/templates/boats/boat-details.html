@@ -60,10 +60,10 @@
                          class="img-fluid rounded mx-auto d-block">
                 </div>
             </div>
-            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <!--<th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
                 <a class="btn btn-danger"
                    th:href="@{/boats/edit/{id}(id=${model.id})}" style="margin-bottom: 30px">Edit boat details</a>
-            </th:block>
+            <!--</th:block>-->
 
 
             <div class="row">

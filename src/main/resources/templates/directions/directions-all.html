@@ -37,10 +37,10 @@
                 <td th:text="${direction.period}"></td>
                 <td th:text="${direction.price}"></td>
                 <td>
-                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <!--<th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
                         <a class="btn btn-outline-secondary"
                            th:href="@{/directions/edit/{id}(id=${direction.id})}" th:text="Edit"></a>
-                    </th:block>
+                    <!--</th:block>-->
                 </td>
             </tr>
             </tbody>

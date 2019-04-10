@@ -11,12 +11,8 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <!--<li class="nav-item active">-->
-                    <!--<a class="nav-link text-white" th:href="@{/}">Home <span class="sr-only">(current)</span></a>-->
-                    <!--</li>-->
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownBoats" role="button"
@@ -25,14 +21,11 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownBoats">
                             <a class="dropdown-item" th:href="@{/boats/show}">Show</a>
-
-                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                            <!--<th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
                                 <a class="dropdown-item" th:href="@{/boats/add}">Add</a>
-                            </th:block>
-
+                            <!--</th:block>-->
                         </div>
                     </li>
-
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownPeoples" role="button"
@@ -41,13 +34,11 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownPeoples">
                             <a class="dropdown-item" th:href="@{/peoples/show}">Show</a>
-
-                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                            <!--<th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
                                 <a class="dropdown-item" th:href="@{/peoples/add}">Add</a>
-                            </th:block>
+                            <!--</th:block>-->
                         </div>
                     </li>
-
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownDirections"
@@ -57,17 +48,11 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownDirections">
                             <a class="dropdown-item" th:href="@{/directions/show}">Show</a>
-
-                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                            <!--<th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
                                 <a class="dropdown-item" th:href="@{/directions/add}">Add</a>
-                            </th:block>
+                            <!--</th:block>-->
                         </div>
                     </li>
-
-
-
-
-
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownCharters"
@@ -81,33 +66,20 @@
                         </div>
                     </li>
 
-
-
-
-
-
-
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownProfile" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                            th:text="${#authentication.getPrincipal().getUsername()}">
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
-
                             <a class="dropdown-item" th:href="@{/users/profile}">Profile</a>
-
-
                             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                                 <a class="dropdown-item" th:href="@{/users/all}">All Users</a>
                             </th:block>
-
                             <a class="dropdown-item" th:href="@{/logout}">Logout</a>
                         </div>
                     </li>
                 </ul>
             </div>
-
-
         </nav>
     </th:block>

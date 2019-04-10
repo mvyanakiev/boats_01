@@ -45,10 +45,10 @@
                 <td class="text-center" th:text="*{isCustomer} ? '&#10004;' : '-'"></td>
                 <td class="text-center" th:text="*{isSupplier} ? '&#10004;' : '-'"></td>
                 <td>
-                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <!--<th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
                         <a class="btn btn-outline-secondary"
                            th:href="@{/peoples/edit/{id}(id=${people.id})}" th:text="Edit"></a>
-                    </th:block>
+                    <!--</th:block>-->
                 </td>
             </tr>
             </th:block>
