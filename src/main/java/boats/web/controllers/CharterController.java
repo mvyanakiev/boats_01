@@ -13,6 +13,7 @@ import boats.service.interfaces.BoatService;
 import boats.service.interfaces.CharterService;
 import boats.service.interfaces.DirectionsService;
 import boats.service.interfaces.PeopleService;
+import boats.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,6 +54,7 @@ public class CharterController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Add charter")
     public ModelAndView createCharter_step1_SelectDateAndDirection(
             ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
             CharterAdd_Step1_BindingModel bindingModel,
@@ -79,6 +81,7 @@ public class CharterController extends BaseController {
 
     @PostMapping("/select-boat")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Add charter")
     public ModelAndView createCharter_step2_SelectBoat(
             ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
             CharterAdd_Step2_BindingModel bindingModel, HttpSession session,
@@ -116,6 +119,7 @@ public class CharterController extends BaseController {
 
     @GetMapping("/create/{id}")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Add charter")
     public ModelAndView createCharter_step3_SelectCustomer(@PathVariable("id") String boatId,
                                                            ModelAndView modelAndView, HttpSession session,
                                                            CharterAdd_Step3_BindingModel charterBindingModel,
@@ -158,6 +162,7 @@ public class CharterController extends BaseController {
 
     @PostMapping("/complete")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Add charter")
     public ModelAndView createCharter_step4_completeCharterCreation(
             @ModelAttribute(name = "peopleBinding") PeopleListViewModel peopleBindingModel,
             HttpSession session, BindingResult bindingResult) {
@@ -181,6 +186,7 @@ public class CharterController extends BaseController {
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("All charters")
     public ModelAndView showAllCharters(ModelAndView modelAndView) {
         modelAndView.addObject("charters", this.charterService.findAllCharters()
                 .stream()

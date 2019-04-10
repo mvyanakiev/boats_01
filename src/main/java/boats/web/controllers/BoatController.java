@@ -9,6 +9,7 @@ import boats.domain.models.view.BoatDetailsViewModel;
 import boats.domain.models.view.EquipmentViewModel;
 import boats.service.interfaces.BoatService;
 import boats.service.interfaces.EquipmentService;
+import boats.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,6 +40,7 @@ public class BoatController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Add")
     public ModelAndView add(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
             BoatAddBindingModel bindingModel) {
 
@@ -70,6 +72,7 @@ public class BoatController extends BaseController {
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("All boats")
     public ModelAndView showAllBoats(ModelAndView modelAndView) {
         modelAndView.addObject("boats", this.boatService.findAllBoats()
                 .stream()
@@ -81,6 +84,7 @@ public class BoatController extends BaseController {
 
     @GetMapping("/details/{id}")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Details")
     public ModelAndView boatDetailsView(@PathVariable("id") String id, ModelAndView modelAndView,
                                         BoatDetailsViewModel model) {
 
@@ -99,6 +103,7 @@ public class BoatController extends BaseController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Edit")
     public ModelAndView boatEditView(@PathVariable("id") String id, ModelAndView modelAndView, BoatEditBindingModel model) {
         model = this.modelMapper.map(this.boatService.findBoatById(id), BoatEditBindingModel.class);
         modelAndView.addObject("model", model);

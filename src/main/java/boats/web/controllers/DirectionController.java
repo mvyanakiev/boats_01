@@ -7,6 +7,7 @@ import boats.domain.models.binding.PeopleAddBindingModel;
 import boats.domain.models.serviceModels.DirectionServiceModel;
 import boats.domain.models.view.DirectionViewModel;
 import boats.service.interfaces.DirectionsService;
+import boats.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,6 +35,7 @@ public class DirectionController extends BaseController {
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("All directions")
     public ModelAndView showAllDirections(ModelAndView modelAndView) {
         modelAndView.addObject("directions", this.directionsService.findAllDirections()
                 .stream()
@@ -46,6 +48,7 @@ public class DirectionController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Add direction")
     public ModelAndView addDirection(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
             DirectionAddBindingModel bindingModel){
 
@@ -78,6 +81,7 @@ public class DirectionController extends BaseController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Edit direction")
     public ModelAndView boatEditView(@PathVariable("id") String id, ModelAndView modelAndView, DirectionEditBindingModel model) {
         model = this.modelMapper.map(this.directionsService.findDirectionById(id), DirectionEditBindingModel.class);
         modelAndView.addObject("model", model);

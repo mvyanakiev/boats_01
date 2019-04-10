@@ -1,6 +1,7 @@
 package boats.web.controllers;
 
 
+import boats.web.annotations.PageTitle;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ public class HomeController extends BaseController {
 
     @GetMapping("/")
     @PreAuthorize("isAnonymous()")
+    @PageTitle("Welcome")
     public ModelAndView index() {
         return super.view("index");
     }
@@ -18,6 +20,7 @@ public class HomeController extends BaseController {
 
     @GetMapping("/home")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Home")
     public ModelAndView home(){
         return super.view("home");
     }

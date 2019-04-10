@@ -6,6 +6,7 @@ import boats.domain.models.binding.PeopleEditBindingModel;
 import boats.domain.models.serviceModels.PeopleServiceModel;
 import boats.domain.models.view.PeopleViewModel;
 import boats.service.interfaces.PeopleService;
+import boats.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,6 +34,7 @@ public class PeopleController extends BaseController {
 
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("All people")
     public ModelAndView showAllPeoples(ModelAndView modelAndView) {
         modelAndView.addObject("peoples", this.peopleService.findAllPeoples()
                 .stream()
@@ -44,6 +46,7 @@ public class PeopleController extends BaseController {
 
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Add people")
     public ModelAndView addPeople(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
             PeopleAddBindingModel bindingModel){
 
@@ -75,6 +78,7 @@ public class PeopleController extends BaseController {
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Edit people")
     public ModelAndView boatEditView(@PathVariable("id") String id, ModelAndView modelAndView, PeopleEditBindingModel model) {
         model = this.modelMapper.map(this.peopleService.findPeopleById(id), PeopleEditBindingModel.class);
         modelAndView.addObject("model", model);
