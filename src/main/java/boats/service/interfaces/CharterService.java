@@ -10,6 +10,8 @@ public interface CharterService {
 
     List<CharterServiceModel> findAllCharters();
 
+    List<CharterServiceModel> findActiveCharters();
+
     void deleteCharter(String id);
 
 }

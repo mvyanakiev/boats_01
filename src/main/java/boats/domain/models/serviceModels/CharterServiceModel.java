@@ -4,6 +4,7 @@ import boats.domain.entities.Boat;
 import boats.domain.entities.Direction;
 import boats.domain.entities.People;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -18,7 +19,7 @@ public class CharterServiceModel extends BaseServiceModel {
     public CharterServiceModel() {
     }
 
-    //todo validation
+    @NotNull
     public Boat getBoat() {
         return this.boat;
     }
@@ -27,6 +28,7 @@ public class CharterServiceModel extends BaseServiceModel {
         this.boat = boat;
     }
 
+    @NotNull
     public LocalDate getStartDate() {
         return this.startDate;
     }
@@ -35,6 +37,7 @@ public class CharterServiceModel extends BaseServiceModel {
         this.startDate = startDate;
     }
 
+    @NotNull
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -43,6 +46,7 @@ public class CharterServiceModel extends BaseServiceModel {
         this.price = price;
     }
 
+    @NotNull
     public People getCustomer() {
         return this.customer;
     }
@@ -51,6 +55,7 @@ public class CharterServiceModel extends BaseServiceModel {
         this.customer = customer;
     }
 
+    @NotNull
     public Direction getDirection() {
         return this.direction;
     }

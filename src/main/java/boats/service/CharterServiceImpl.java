@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,10 +65,30 @@ public class CharterServiceImpl implements CharterService {
                 .orElseThrow(() -> new NotFoundExceptions("Charter not found!"));
 
         try {
-        this.charterRepository.deleteById(id);
-        } catch(Exception e) {
+            this.charterRepository.deleteById(id);
+        } catch (Exception e) {
             System.out.println(e);
             throw new IllegalArgumentException("Something get wrong during deletion");
         }
+    }
+
+    @Override
+    public List<CharterServiceModel> findActiveCharters() {
+
+        List<CharterServiceModel> allCharters = this.findAllCharters();
+        List<CharterServiceModel> activeCharter = new ArrayList<>();
+
+        for (CharterServiceModel charter : allCharters) {
+
+            if ((charter.getStartDate().isBefore(LocalDate.now())
+                    ||
+                    charter.getStartDate().isEqual(LocalDate.now()))
+                    &&
+                    charter.getStartDate().plusDays(charter.getDirection().getPeriod()).isAfter(LocalDate.now())) {
+                activeCharter.add(charter);
+            }
+        }
+
+        return activeCharter;
     }
 }

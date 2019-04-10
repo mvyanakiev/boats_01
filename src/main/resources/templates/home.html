@@ -10,10 +10,38 @@
     </header>
 
     <main>
-        <div class="jumbotron boats-background-background mt-4">
-            <!--<h1 th:text="|Hello, ${username}|"></h1>-->
-            <h1>It's Work</h1>
+        <div class="jumbotron boats-background-back mt-4">
+            <!--<h2 th:text="|Hello, ${#authentication.getPrincipal().getUsername()}|"></h2>-->
+            <h3 style="margin-top: 20px" >Today's active charter is:</h3>
             <hr/>
+
+            <th:block th:each="charter, iter : ${charters}">
+                <div class="row>">
+                    <p th:text="|Boat: ${charter.getBoatName()}|" class="item"></p>
+                </div>
+
+                <div class="row>">
+                    <p th:text="|Customer: ${charter.getCustomerName()}|" class="item"></p>
+                </div>
+
+                <div class="row>">
+                    <p th:text="|Destination: ${charter.getDestination()}|" class="item"></p>
+                </div>
+
+                <div class="row>">
+                    <p th:text="|Date of return: ${#dates.format(charter.getEndDate(), 'dd-MM-yyyy')}|" class="item"></p>
+                </div>
+                <hr/>
+
+
+
+
+
+            </th:block>
+
+
+
+
         </div>
     </main>
 

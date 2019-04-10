@@ -1,5 +1,7 @@
 package boats.config;
 
+import boats.utils.ChartHomeView;
+import boats.utils.ChartHomeViewImpl;
 import boats.utils.ValidationUtil;
 import boats.utils.ValidationUtilImpl;
 import org.modelmapper.ModelMapper;
@@ -23,5 +25,10 @@ public class ApplicationBeanConfiguration {
     @Bean
     public ValidationUtil validationUtil() {
         return new ValidationUtilImpl();
+    }
+
+    @Bean
+    public ChartHomeView chartHomeView(){
+        return new ChartHomeViewImpl();
     }
 }
