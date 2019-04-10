@@ -46,7 +46,7 @@ public class BoatServiceImpl implements BoatService {
     public BoatServiceModel addBoat(BoatServiceModel boatServiceModel) {
 
         if (!this.validationUtil.isValid(boatServiceModel)) {
-            throw new IllegalArgumentException("Not valid data in add service");
+            throw new IllegalArgumentException("Trying to add boat with invalid data!");
         }
 
         return saveBoatToDb(boatServiceModel);
@@ -72,7 +72,7 @@ public class BoatServiceImpl implements BoatService {
     public BoatServiceModel saveEditedBoat(BoatServiceModel boatServiceModel) {
 
         if (!this.validationUtil.isValid(boatServiceModel)) {
-            throw new IllegalArgumentException("Not valid data in edit service");
+            throw new IllegalArgumentException("Trying to edit boat with invalid data!");
         }
 
         return saveBoatToDb(boatServiceModel);

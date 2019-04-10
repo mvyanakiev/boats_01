@@ -2,6 +2,7 @@ package boats.service;
 
 import boats.domain.entities.Charter;
 import boats.domain.models.serviceModels.CharterServiceModel;
+import boats.error.NotFoundExceptions;
 import boats.repository.CharterRepository;
 import boats.service.interfaces.CharterService;
 import boats.utils.ValidationUtil;
@@ -59,7 +60,7 @@ public class CharterServiceImpl implements CharterService {
     public void deleteCharter(String id) {
 
         this.charterRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Charter not found!"));
+                .orElseThrow(() -> new NotFoundExceptions("Charter not found!"));
 
         try {
         this.charterRepository.deleteById(id);

@@ -2,6 +2,7 @@ package boats.service;
 
 import boats.domain.entities.Direction;
 import boats.domain.models.serviceModels.DirectionServiceModel;
+import boats.error.NotFoundExceptions;
 import boats.repository.DirectionRepository;
 import boats.service.interfaces.DirectionsService;
 import boats.utils.ValidationUtil;
@@ -38,7 +39,7 @@ public class DirectionsServiceImpl implements DirectionsService {
     @Override
     public DirectionServiceModel findDirectionById(String id) {
         Direction direction = this.directionRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Direction not found!"));
+                .orElseThrow(() -> new NotFoundExceptions("Direction not found!"));
 
         return this.modelMapper.map(direction, DirectionServiceModel.class);
     }

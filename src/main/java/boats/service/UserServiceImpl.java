@@ -3,6 +3,7 @@ package boats.service;
 
 import boats.domain.entities.User;
 import boats.domain.models.serviceModels.UserServiceModel;
+import boats.error.NotFoundExceptions;
 import boats.repository.UserRepository;
 import boats.service.interfaces.RoleService;
 import boats.service.interfaces.UserService;
@@ -97,7 +98,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void setUserRole(String id, String role) {
         User user = this.userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User not found!"));
+                .orElseThrow(() -> new NotFoundExceptions("User not found!"));
 
         UserServiceModel userServiceModel = this.modelMapper.map(user, UserServiceModel.class);
         userServiceModel.getAuthorities().clear();

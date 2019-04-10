@@ -1,6 +1,7 @@
 package boats.web.controllers;
 
 
+import boats.config.ConfigValues;
 import boats.domain.models.binding.DirectionAddBindingModel;
 import boats.domain.models.binding.DirectionEditBindingModel;
 import boats.domain.models.binding.PeopleAddBindingModel;
@@ -50,7 +51,7 @@ public class DirectionController extends BaseController {
     @PreAuthorize("isAuthenticated()")
     @PageTitle("Add direction")
     public ModelAndView addDirection(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel")
-            DirectionAddBindingModel bindingModel){
+            DirectionAddBindingModel bindingModel) {
 
         modelAndView.addObject("bindingModel", bindingModel);
 
@@ -64,8 +65,11 @@ public class DirectionController extends BaseController {
 
 
         if (bindingResult.hasErrors()) {
+
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("Direction not added! (invalid data)");
+            }
             return super.redirect("/directions/add");
-//            throw new IllegalArgumentException("People not added! (invalid data)");
         }
 
         DirectionServiceModel directionServiceModel = this.modelMapper.map(bindingModel, DirectionServiceModel.class);
@@ -97,11 +101,13 @@ public class DirectionController extends BaseController {
                                        BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-//            throw new IllegalArgumentException("Not edited! (invalid data)");
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("Direction not edited! (invalid data)");
+            }
             return super.redirect("/directions/edit/" + id);
         }
 
-        DirectionServiceModel directionServiceModel  = this.modelMapper.map(bindingModel, DirectionServiceModel.class);
+        DirectionServiceModel directionServiceModel = this.modelMapper.map(bindingModel, DirectionServiceModel.class);
         directionServiceModel.setId(id);
         directionServiceModel = this.directionsService.editDirection(directionServiceModel);
 

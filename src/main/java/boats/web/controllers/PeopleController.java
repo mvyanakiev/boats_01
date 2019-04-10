@@ -1,6 +1,7 @@
 package boats.web.controllers;
 
 
+import boats.config.ConfigValues;
 import boats.domain.models.binding.PeopleAddBindingModel;
 import boats.domain.models.binding.PeopleEditBindingModel;
 import boats.domain.models.serviceModels.PeopleServiceModel;
@@ -62,8 +63,10 @@ public class PeopleController extends BaseController {
 
 
         if (bindingResult.hasErrors()) {
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("People not added! (invalid data)");
+            }
             return super.redirect("/peoples/add");
-//            throw new IllegalArgumentException("People not added! (invalid data)");
         }
 
         PeopleServiceModel peopleServiceModel = this.modelMapper.map(bindingModel, PeopleServiceModel.class);
@@ -95,7 +98,9 @@ public class PeopleController extends BaseController {
                                        BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-//            throw new IllegalArgumentException("Boat not edited! (invalid data)");
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("People not edited! (invalid data)");
+            }
             return super.redirect("/peoples/edit/" + id);
         }
 

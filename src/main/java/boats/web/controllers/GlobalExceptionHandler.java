@@ -29,4 +29,26 @@ public class GlobalExceptionHandler extends BaseController {
 
         return modelAndView;
     }
+
+
+    @ExceptionHandler({IllegalArgumentException.class})
+    public ModelAndView handleIllegalArgumentExceptions(RuntimeException e){
+        ModelAndView modelAndView = new ModelAndView("/errors/error-general");
+        modelAndView.addObject("message", e.getMessage());
+
+        return modelAndView;
+    }
+
+
+
+
+
+
+
+
+
+
 }
+
+
+

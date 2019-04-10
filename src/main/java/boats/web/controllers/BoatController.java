@@ -1,6 +1,7 @@
 package boats.web.controllers;
 
 
+import boats.config.ConfigValues;
 import boats.domain.models.binding.BoatAddBindingModel;
 import boats.domain.models.binding.BoatEditBindingModel;
 import boats.domain.models.serviceModels.BoatServiceModel;
@@ -55,8 +56,10 @@ public class BoatController extends BaseController {
                                    BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("Boat not added! (invalid data)");
+            }
             return super.redirect("/boats/add");
-//            throw new IllegalArgumentException("Boat not added! (invalid data)");
         }
 
         BoatServiceModel boatServiceModel = this.modelMapper.map(bindingModel, BoatServiceModel.class);
@@ -115,15 +118,17 @@ public class BoatController extends BaseController {
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView saveEditedBoat(@PathVariable("id") String id,
-                                        @Valid @ModelAttribute(name = "bindingModel")
-                                                BoatEditBindingModel bindingModel,
-                                        BindingResult bindingResult) {
+                                       @Valid @ModelAttribute(name = "bindingModel")
+                                               BoatEditBindingModel bindingModel,
+                                       BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-//            throw new IllegalArgumentException("Boat not edited! (invalid data)");
+
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("Boat not edited! (invalid data)");
+            }
             return super.redirect("/boats/edit/" + id);
         }
-
 
 
         BoatServiceModel boatServiceModel = this.modelMapper.map(bindingModel, BoatServiceModel.class);

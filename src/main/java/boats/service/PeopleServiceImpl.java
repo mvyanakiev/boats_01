@@ -2,6 +2,7 @@ package boats.service;
 
 import boats.domain.entities.People;
 import boats.domain.models.serviceModels.PeopleServiceModel;
+import boats.error.NotFoundExceptions;
 import boats.repository.PeopleRepository;
 import boats.service.interfaces.PeopleService;
 import boats.utils.ValidationUtil;
@@ -38,7 +39,7 @@ public class PeopleServiceImpl implements PeopleService {
     @Override
     public PeopleServiceModel findPeopleById(String id) {
         People people = this.peopleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("People not found!"));
+                .orElseThrow(() -> new NotFoundExceptions("People not found!"));
 
         return this.modelMapper.map(people, PeopleServiceModel.class);
     }

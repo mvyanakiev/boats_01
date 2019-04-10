@@ -1,6 +1,7 @@
 package boats.web.controllers;
 
 
+import boats.config.ConfigValues;
 import boats.domain.entities.Boat;
 import boats.domain.entities.Direction;
 import boats.domain.entities.People;
@@ -61,9 +62,12 @@ public class CharterController extends BaseController {
             BindingResult bindingResult) {
 
 
-        if (bindingResult.hasErrors()) {
-            return super.redirect("/charters/add");
-        }
+//        if (bindingResult.hasErrors()) {
+//            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+//                throw new IllegalArgumentException("Charter not added! (invalid data)");
+//            }
+//            return super.redirect("/charters/add");
+//        }
 
         List<DirectionListViewModel> directions = this.directionsService.findAllDirections()
                 .stream()
@@ -89,17 +93,24 @@ public class CharterController extends BaseController {
 
 
         if (bindingResult.hasErrors()) {
-            return super.redirect("/charters/add");
-        }
-
-
-        try {
-            if (LocalDate.parse(bindingModel.getStartDate()).isBefore(LocalDate.now())) {
-                throw new IllegalArgumentException("Date must not be in the past!");
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("Charter not added! (invalid data)");
             }
-        } catch (Exception e){
             return super.redirect("/charters/add");
         }
+
+
+        if (LocalDate.parse(bindingModel.getStartDate()).isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Date must not be in the past!");
+        }
+
+//        try {
+//            if (LocalDate.parse(bindingModel.getStartDate()).isBefore(LocalDate.now())) {
+//                throw new IllegalArgumentException("Date must not be in the past!");
+//            }
+//        } catch (Exception e){
+//            return super.redirect("/charters/add");
+//        }
 
 
         List<BoatSelectViewModel> availableBoats = this.boatService
@@ -127,6 +138,9 @@ public class CharterController extends BaseController {
                                                            BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("Charter not added! (invalid data)");
+            }
             return super.redirect("/charters/step2-select-boat");
         }
 
@@ -172,6 +186,9 @@ public class CharterController extends BaseController {
 
 
         if (bindingResult.hasErrors()) {
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("Charter not added! (invalid data)");
+            }
             return super.redirect("/charters/step3-complete-adding");
         }
 
