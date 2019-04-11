@@ -35,7 +35,7 @@
                 <td th:text="${boat.name}" class="item"></td>
                 <td th:text="${boat.producer}"></td>
                 <td th:text="${boat.model}"></td>
-                <td th:text="${#dates.format(boat.lastCheckedDate, 'yyyy-MMM-dd')}"></td>
+                <td th:text="${#dates.format(boat.lastCheckedDate, 'yyyy-MM-dd')}"></td>
                 <td>
                     <a class="btn btn-outline-secondary"
                        th:href="@{/boats/details/{id}(id=${boat.id})}" th:text="Details"></a>

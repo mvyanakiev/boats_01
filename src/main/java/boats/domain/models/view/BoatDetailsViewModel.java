@@ -101,11 +101,6 @@ public class BoatDetailsViewModel {
         return date;
     }
 
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    public LocalDate getLastCheckedDate() {
-//        return this.lastCheckedDate;
-//    }
-
     public void setLastCheckedDate(LocalDate lastCheckedDate) {
         this.lastCheckedDate = lastCheckedDate;
     }

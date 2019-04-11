@@ -11,28 +11,64 @@
     <main>
         <div class="jumbotron boats-background-back mt-4">
             <!--<h2 th:text="|Hello, ${#authentication.getPrincipal().getUsername()}|"></h2>-->
-            <h3 style="margin-top: 20px" >Today's active charters is:</h3>
-            <hr/>
 
-            <th:block th:each="charter, iter : ${charters}">
-                <div class="row>">
-                    <p th:text="|Boat: ${charter.getBoatName()}|" class="item"></p>
-                </div>
 
-                <div class="row>">
-                    <p th:text="|Customer: ${charter.getCustomerName()}|" class="item"></p>
-                </div>
+            <div class="container">
+                <div class="row">
 
-                <div class="row>">
-                    <p th:text="|Destination: ${charter.getDestination()}|" class="item"></p>
-                </div>
+                    <div class="col-md-6">
+                        <h2 style="margin-top: 20px">Active charters:</h2>
+                        <hr/>
 
-                <div class="row>">
-                    <p th:text="|Date of return: ${#dates.format(charter.getEndDate(), 'dd.MM.yyyy')}|" class="item"></p>
+                        <th:block th:each="charter, iter : ${charters}">
+                            <div class="row>">
+                                <p th:text="|Boat: ${charter.getBoatName()}|" class="item"></p>
+                            </div>
+
+                            <div class="row>">
+                                <p th:text="|Customer: ${charter.getCustomerName()}|" class="item"></p>
+                            </div>
+
+                            <div class="row>">
+                                <p th:text="|Destination: ${charter.getDestination()}|" class="item"></p>
+                            </div>
+
+                            <div class="row>">
+                                <p th:text="|Date of return: ${#dates.format(charter.getEndDate(), 'dd.MM.yyyy')}|"
+                                   class="item"></p>
+                            </div>
+                            <hr/>
+                        </th:block>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <h2 style="margin-top: 20px">Boats near to technical check date:</h2>
+                        <hr/>
+
+                        <th:block th:each="boat, iter : ${boatsToCheck}">
+                        <div class="row>">
+                            <a  th:href="@{/boats/details/{id}(id=${boat.getId()})}"
+                                th:text="${boat.getBoatName()}" class="item"></a>
+                        </div>
+                        <div class="row>">
+                        <p th:text="|Last checked date: ${#dates.format(boat.getLastCheckedDate(), 'dd.MM.yyyy')}|"
+                        class="item"></p>
+                        </div>
+                        <hr/>
+                        </th:block>
+                    </div>
                 </div>
-                <hr/>
-            </th:block>
-        </div>
+            </div>
+
+
+
+
+
+
+
+
+            </div>
     </main>
 
     <footer>

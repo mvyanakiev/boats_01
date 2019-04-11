@@ -110,6 +110,22 @@ public class BoatServiceImpl implements BoatService {
         return availableBoats;
     }
 
+    @Override
+    public List<BoatServiceModel> findBoatsNeedToCheck() {
+
+        List<BoatServiceModel> allBoats = this.findAllBoats();
+        List<BoatServiceModel> nearToCheckDateBoats = new ArrayList<>();
+
+        for (BoatServiceModel boat : allBoats) {
+
+            if (LocalDate.now().toEpochDay() - boat.getLastCheckedDate().toEpochDay() > 335) {
+                nearToCheckDateBoats.add(boat);
+            }
+        }
+
+        return nearToCheckDateBoats;
+    }
+
     private BoatServiceModel saveBoatToDb(BoatServiceModel boatServiceModel) {
         Boat boat = this.modelMapper.map(boatServiceModel, Boat.class);
 

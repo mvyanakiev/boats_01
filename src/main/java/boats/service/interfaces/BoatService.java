@@ -16,4 +16,6 @@ public interface BoatService {
     BoatServiceModel saveEditedBoat(BoatServiceModel boatServiceModel);
 
     List<BoatServiceModel> findAvailableBoats(String startDate, String directionId);
+
+    List<BoatServiceModel> findBoatsNeedToCheck();
 }
