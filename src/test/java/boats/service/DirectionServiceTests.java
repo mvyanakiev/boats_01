@@ -79,10 +79,7 @@ public class DirectionServiceTests {
     @Test(expected = Exception.class)
     public void T06_directionService_findByID_With_Incorrect_ThrowException(){
         DirectionServiceModel actual = directionsService.addDirection(testDirection);
-
         DirectionServiceModel expected = this.directionsService.findDirectionById("Invalid id");
-
-        compareResult(actual, expected);
     }
 
     @Test
