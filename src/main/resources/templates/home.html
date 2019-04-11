@@ -8,11 +8,10 @@
     <header>
         <th:block th:include="~{fragments/navigation/navbar}"></th:block>
     </header>
-
     <main>
         <div class="jumbotron boats-background-back mt-4">
             <!--<h2 th:text="|Hello, ${#authentication.getPrincipal().getUsername()}|"></h2>-->
-            <h3 style="margin-top: 20px" >Today's active charter is:</h3>
+            <h3 style="margin-top: 20px" >Today's active charters is:</h3>
             <hr/>
 
             <th:block th:each="charter, iter : ${charters}">
@@ -29,19 +28,10 @@
                 </div>
 
                 <div class="row>">
-                    <p th:text="|Date of return: ${#dates.format(charter.getEndDate(), 'dd-MM-yyyy')}|" class="item"></p>
+                    <p th:text="|Date of return: ${#dates.format(charter.getEndDate(), 'dd.MM.yyyy')}|" class="item"></p>
                 </div>
                 <hr/>
-
-
-
-
-
             </th:block>
-
-
-
-
         </div>
     </main>
 
