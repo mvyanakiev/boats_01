@@ -41,7 +41,7 @@ public class DirectionServiceTests {
     }
 
     @Test
-    public void T01_directionService_addDirectionWithCorrectValues_ReturnCorrect(){
+    public void T01_directionService_addDirection_With_Correct_Values_ReturnCorrect(){
         DirectionServiceModel actual = directionsService.addDirection(testDirection);
         DirectionServiceModel expected = this.modelMapper
                 .map(this.directionRepository.findAll().get(0), DirectionServiceModel.class);
@@ -50,25 +50,25 @@ public class DirectionServiceTests {
     }
 
     @Test(expected = Exception.class)
-    public void T02_directionService_addDirectionWithIncorrect_Destination_ThrowException(){
+    public void T02_directionService_addDirection_With_Incorrect_Destination_ThrowException(){
         testDirection.setDestination(null);
         this.directionsService.addDirection(testDirection);
     }
 
     @Test(expected = Exception.class)
-    public void T03_directionService_addDirectionWithIncorrect_Period_ThrowException(){
+    public void T03_directionService_addDirection_With_Incorrect_Period_ThrowException(){
         testDirection.setPeriod(-1);
         this.directionsService.addDirection(testDirection);
     }
 
     @Test(expected = Exception.class)
-    public void T04_directionService_addDirectionWithIncorrect_Price_ThrowException(){
+    public void T04_directionService_addDirection_With_Incorrect__Price_ThrowException(){
         testDirection.setPrice(BigDecimal.ZERO);
         this.directionsService.addDirection(testDirection);
     }
 
     @Test
-    public void T05_directionService_findByID_correct_returnCorrect(){
+    public void T05_directionService_findByID_With_Correct_Values_ReturnCorrect(){
         DirectionServiceModel actual = directionsService.addDirection(testDirection);
 
         DirectionServiceModel expected = this.directionsService.findDirectionById(actual.getId());
@@ -77,7 +77,7 @@ public class DirectionServiceTests {
     }
 
     @Test(expected = Exception.class)
-    public void T06_directionService_findByID_incorrect_ThrowException(){
+    public void T06_directionService_findByID_With_Incorrect_ThrowException(){
         DirectionServiceModel actual = directionsService.addDirection(testDirection);
 
         DirectionServiceModel expected = this.directionsService.findDirectionById("Invalid id");
@@ -86,7 +86,7 @@ public class DirectionServiceTests {
     }
 
     @Test
-    public void T07_directionService_editDirectionWithCorrectValues_ReturnCorrect(){
+    public void T07_directionService_editDirection_With_Correct_Values_ReturnCorrect(){
         DirectionServiceModel actual = directionsService.addDirection(testDirection);
         testDirection.setDestination("New Destination");
 
@@ -99,7 +99,7 @@ public class DirectionServiceTests {
     }
 
     @Test(expected = Exception.class)
-    public void T08_directionService_editDirectionWith_incorrectValues_ThrowException(){
+    public void T08_directionService_editDirection_With_incorrect_ThrowException(){
         DirectionServiceModel actual = directionsService.addDirection(testDirection);
         testDirection.setDestination(null);
 
