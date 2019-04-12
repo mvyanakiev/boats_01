@@ -62,12 +62,12 @@ public class CharterController extends BaseController {
             BindingResult bindingResult) {
 
 
-//        if (bindingResult.hasErrors()) {
-//            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-//                throw new IllegalArgumentException("Charter not added! (invalid data)");
-//            }
-//            return super.redirect("/charters/add");
-//        }
+        if (bindingResult.hasErrors()) {
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("Charter not added! (invalid data)");
+            }
+            return super.redirect("/charters/add");
+        }
 
         List<DirectionListViewModel> directions = this.directionsService.findAllDirections()
                 .stream()

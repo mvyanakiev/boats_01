@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+        <script>
+            $(document).ready(function () {
+                $('#allEquipment').DataTable();
+            });
+        </script>
+    </header>
+    <main>
+        <h1 style="margin-top: 20px" class="text-center">Equipment</h1>
+
+        <table class="table" id="allEquipment">
+            <thead>
+            <tr>
+                <th>Item</th>
+                <th>Boat</th>
+                <th>Serial</th>
+                <th>Date of last check</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block>
+            <tr th:each="e : ${equipments}" th:object="${e}">
+                <td th:text="*{item}" class="item"></td>
+
+
+                <td th:text="*{getBoat().getName()}" class="item"></td>
+
+
+
+
+                <td th:text="*{serialNumber}" class="item font-small"></td>
+                <td th:text="*{#dates.format(lastCheckedDate, 'yyyy-MM-dd')}"></td>
+                <td>
+                    <a class="btn btn-outline-secondary" th:href="@{/equipment/edit/{id}(id=*{id})}"
+                       th:text="Edit"></a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" th:href="@{/equipment/delete/{id}(id=*{id})}"
+                       th:text="Delete"></a>
+                </td>
+            </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>

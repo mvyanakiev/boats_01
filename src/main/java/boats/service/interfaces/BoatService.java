@@ -1,7 +1,6 @@
 package boats.service.interfaces;
 
 import boats.domain.models.serviceModels.BoatServiceModel;
-import boats.domain.models.view.BoatListViewModel;
 
 import java.util.List;
 

@@ -1,19 +1,20 @@
-package boats.domain.models.serviceModels;
+package boats.domain.models.binding;
 
-import boats.domain.entities.Boat;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-public class EquipmentServiceModel extends BaseServiceModel {
+public class EquipmentAddBindingModel {
 
     private String item;
     private String serialNumber;
-    private Boat boat;
+    private String boatId;
     private LocalDate lastCheckedDate;
 
-    public EquipmentServiceModel() {
+    public EquipmentAddBindingModel() {
     }
 
     @NotNull
@@ -34,14 +35,15 @@ public class EquipmentServiceModel extends BaseServiceModel {
         this.serialNumber = serialNumber;
     }
 
-    public Boat getBoat() {
-        return this.boat;
+    public String getBoatId() {
+        return this.boatId;
     }
 
-    public void setBoat(Boat boat) {
-        this.boat = boat;
+    public void setBoatId(String boatId) {
+        this.boatId = boatId;
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate getLastCheckedDate() {
         return this.lastCheckedDate;
     }

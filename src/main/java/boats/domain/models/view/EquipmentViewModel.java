@@ -50,7 +50,11 @@ public class EquipmentViewModel {
     }
 
     public Date getLastCheckedDate() {
+        if(this.lastCheckedDate != null) {
         Date date = Date.from(this.lastCheckedDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return date;
+        }
+        Date date = Date.from(LocalDate.parse("1970-01-01").atStartOfDay(ZoneId.systemDefault()).toInstant());
         return date;
     }
 

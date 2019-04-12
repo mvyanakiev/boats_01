@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+        <script th:src="@{/js/FormsValidation.js}"></script>
+    </header>
+    <main>
+        <h1 style="margin-top: 20px" class="text-center">Add Equipment</h1>
+
+        <form th:action="@{/equipment/add}" method="post" th:object="${bindingModel}">
+            <th:block th:include="~{equipment/equipment-form}"></th:block>
+        </br>
+            <button class="btn boats-background">Add Equipment</button>
+        </form>
+    </main>
+    <footer>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+<script>
+    validFormScript();
+</script>
+</body>
+</html>

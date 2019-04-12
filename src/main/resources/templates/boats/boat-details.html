@@ -61,8 +61,8 @@
                 </div>
             </div>
             <!--<th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
-                <a class="btn btn-danger"
-                   th:href="@{/boats/edit/{id}(id=${model.id})}" style="margin-bottom: 30px">Edit boat details</a>
+            <a class="btn boats-background"
+               th:href="@{/boats/edit/{id}(id=${model.id})}" style="margin-bottom: 30px">Edit boat details</a>
             <!--</th:block>-->
 
 
@@ -75,6 +75,8 @@
                         <th>Item:</th>
                         <th>Serial Number:</th>
                         <th>Date of last check:</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -83,6 +85,14 @@
                         <td th:text="${item.item}"></td>
                         <td th:text="${item.serialNumber}"></td>
                         <td th:text="${#dates.format(item.lastCheckedDate, 'dd-MMM-yyyy')}"></td>
+                        <td>
+                            <a class="btn btn-outline-secondary" th:href="@{/equipment/edit/{id}(id=${item.id})}"
+                               th:text="Edit"></a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" th:href="@{/equipment/delete/{id}(id=${item.id})}"
+                               th:text="Delete"></a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
