@@ -1,10 +1,7 @@
 package boats.service;
 
-import boats.domain.models.serviceModels.DirectionServiceModel;
 import boats.domain.models.serviceModels.PeopleServiceModel;
-import boats.repository.DirectionRepository;
 import boats.repository.PeopleRepository;
-import boats.service.interfaces.DirectionsService;
 import boats.service.interfaces.PeopleService;
 import boats.utils.ValidationUtil;
 import boats.utils.ValidationUtilImpl;
@@ -35,7 +32,7 @@ public class PeopleServiceTests {
     private ModelMapper modelMapper;
 
     @Before
-    public void init(){
+    public void init() {
         this.modelMapper = new ModelMapper();
         this.validationUtil = new ValidationUtilImpl();
         this.peopleService = new PeopleServiceImpl(this.peopleRepository, this.modelMapper, this.validationUtil);
@@ -43,7 +40,7 @@ public class PeopleServiceTests {
     }
 
     @Test
-    public void T01_peopleService_addPeople_With_Correct_Values_ReturnCorrect(){
+    public void T01_peopleService_addPeople_With_Correct_Values_ReturnCorrect() {
         PeopleServiceModel actual = peopleService.addPeople(testPeople);
         PeopleServiceModel expected = this.modelMapper
                 .map(this.peopleRepository.findAll().get(0), PeopleServiceModel.class);
@@ -52,25 +49,25 @@ public class PeopleServiceTests {
     }
 
     @Test(expected = Exception.class)
-    public void T02_peopleService_addPeople_With_Incorrect_Email_ThrowException(){
+    public void T02_peopleService_addPeople_With_Incorrect_Email_ThrowException() {
         testPeople.setEmail(null);
         this.peopleService.addPeople(testPeople);
     }
 
     @Test(expected = Exception.class)
-    public void T03_peopleService_addPeople_With_Incorrect_FirstName_ThrowException(){
+    public void T03_peopleService_addPeople_With_Incorrect_FirstName_ThrowException() {
         testPeople.setFirstName(null);
         this.peopleService.addPeople(testPeople);
     }
 
     @Test(expected = Exception.class)
-    public void T04_peopleService_addPeople_With_Incorrect__Phone_ThrowException(){
+    public void T04_peopleService_addPeople_With_Incorrect__Phone_ThrowException() {
         testPeople.setPhone("");
         this.peopleService.addPeople(testPeople);
     }
 
     @Test
-    public void T05_peopleService_findByID_With_Correct_Values_ReturnCorrect(){
+    public void T05_peopleService_findByID_With_Correct_Values_ReturnCorrect() {
         PeopleServiceModel actual = peopleService.addPeople(testPeople);
 
         PeopleServiceModel expected = this.peopleService.findPeopleById(actual.getId());
@@ -79,18 +76,19 @@ public class PeopleServiceTests {
     }
 
     @Test(expected = Exception.class)
-    public void T06_peopleService_findByID_With_Incorrect_ThrowException(){
+    public void T06_peopleService_findByID_With_Incorrect_ThrowException() {
         PeopleServiceModel actual = peopleService.addPeople(testPeople);
         PeopleServiceModel expected = this.peopleService.findPeopleById("Invalid id");
     }
 
-    //fixme
     @Test
-    public void T07_peopleService_editPeople_With_Correct_Values_ReturnCorrect(){
+    public void T07_peopleService_editPeople_With_Correct_Values_ReturnCorrect() {
         PeopleServiceModel actual = peopleService.addPeople(testPeople);
-        testPeople.setFirstName("Valid");
 
-        this.peopleService.editPeople(testPeople);
+        actual.setId(this.peopleRepository.findAll().get(0).getId());
+        actual.setFirstName("Valid");
+
+        this.peopleService.editPeople(actual);
 
         PeopleServiceModel expected = this.modelMapper
                 .map(this.peopleRepository.findAll().get(0), PeopleServiceModel.class);
@@ -98,39 +96,65 @@ public class PeopleServiceTests {
         compareResult(actual, expected);
     }
 
-//    @Test(expected = Exception.class)
-//    public void T08_directionService_editDirection_With_incorrect_ThrowException(){
-//        DirectionServiceModel actual = directionsService.addDirection(testDirection);
-//        testDirection.setDestination(null);
-//
-//        this.directionsService.editDirection(testDirection);
-//    }
+    @Test(expected = Exception.class)
+    public void T08_peopleService_editPeople_With_incorrect_ThrowException(){
+        PeopleServiceModel actual = peopleService.addPeople(testPeople);
+        actual.setFirstName(null);
 
-//    @Test
-//    public void T09_directionService_findAllDirections_With_Correct_Values_ReturnCorrect(){
-//        DirectionServiceModel actual1 = directionsService.addDirection(testDirection);
-//
-//        DirectionServiceModel actual2 = new DirectionServiceModel();
-//        actual2.setDestination("Valid destination");
-//        actual2.setPeriod(10);
-//        actual2.setDistance(100);
-//        actual2.setPrice(BigDecimal.ONE);
-//
-//        actual2 = directionsService.addDirection(actual2);
-//
-//        List<DirectionServiceModel> expectedDirections = this.directionsService.findAllDirections();
-//
-//        Assert.assertEquals(2, expectedDirections.size());
-//
-//        compareResult(actual1, expectedDirections.get(0));
-//        compareResult(actual2, expectedDirections.get(1));
-//    }
+        this.peopleService.editPeople(actual);
+    }
 
-//    @Test
-//    public void T10_directionService_findAllDirections_With_zero_ReturnCorrect(){
-//        List<DirectionServiceModel> expectedDirections = this.directionsService.findAllDirections();
-//        Assert.assertEquals(0, expectedDirections.size());
-//    }
+    @Test
+    public void T09_peopleService_findAllPeoples_With_Correct_Values_ReturnCorrect(){
+        PeopleServiceModel actual1 = peopleService.addPeople(testPeople);
+
+        PeopleServiceModel actual2 = new PeopleServiceModel();
+        actual2.setFirstName("Valid fName");
+        actual2.setLastName("Valid lName");
+        actual2.setPhone("Valid phone");
+        actual2.setEmail("Valid e-mail");
+        actual2.setAddress("Valid e-address");
+        actual2.setCustomer(true);
+        actual2.setEmployee(false);
+        actual2.setSupplier(false);
+
+        actual2 = peopleService.addPeople(actual2);
+
+        List<PeopleServiceModel> expectedPeoples = this.peopleService.findAllPeoples();
+
+        Assert.assertEquals(2, expectedPeoples.size());
+
+        compareResult(actual1, expectedPeoples.get(0));
+        compareResult(actual2, expectedPeoples.get(1));
+    }
+
+    @Test
+    public void T10_peopleService_findAllPeoples_With_zero_ReturnCorrect(){
+        List<PeopleServiceModel> expectedPeoples = this.peopleService.findAllPeoples();
+        Assert.assertEquals(0, expectedPeoples.size());
+    }
+
+    @Test
+    public void T11_peopleService_findAllCustomers_With_Correct_Values_ReturnCorrect(){
+        PeopleServiceModel actual1 = peopleService.addPeople(testPeople);
+
+        PeopleServiceModel actual2 = new PeopleServiceModel();
+        actual2.setFirstName("Valid fName");
+        actual2.setLastName("Valid lName");
+        actual2.setPhone("Valid phone");
+        actual2.setEmail("Valid e-mail");
+        actual2.setAddress("Valid e-address");
+        actual2.setCustomer(false);
+        actual2.setEmployee(true);
+        actual2.setSupplier(true);
+
+        actual2 = peopleService.addPeople(actual2);
+
+        List<PeopleServiceModel> expectedPeoples = this.peopleService.findAllCustomers();
+
+        Assert.assertEquals(1, expectedPeoples.size());
+        Assert.assertTrue(this.peopleRepository.findAll().get(0).isCustomer());
+    }
 
     private PeopleServiceModel createTestPeople() {
         PeopleServiceModel testPeople = new PeopleServiceModel();
@@ -147,7 +171,7 @@ public class PeopleServiceTests {
         return testPeople;
     }
 
-    private void compareResult(PeopleServiceModel actual, PeopleServiceModel expected){
+    private void compareResult(PeopleServiceModel actual, PeopleServiceModel expected) {
         Assert.assertEquals(expected.getId(), actual.getId());
         Assert.assertEquals(expected.getFirstName(), actual.getFirstName());
         Assert.assertEquals(expected.getLastName(), actual.getLastName());

@@ -85,9 +85,10 @@ public class DirectionServiceTests {
     @Test
     public void T07_directionService_editDirection_With_Correct_Values_ReturnCorrect(){
         DirectionServiceModel actual = directionsService.addDirection(testDirection);
-        testDirection.setDestination("New Destination");
+        actual.setDestination("New Destination");
+        actual.setId(this.directionRepository.findAll().get(0).getId());
 
-        this.directionsService.editDirection(testDirection);
+        this.directionsService.editDirection(actual);
 
         DirectionServiceModel expected = this.modelMapper
                 .map(this.directionRepository.findAll().get(0), DirectionServiceModel.class);
@@ -98,9 +99,9 @@ public class DirectionServiceTests {
     @Test(expected = Exception.class)
     public void T08_directionService_editDirection_With_incorrect_ThrowException(){
         DirectionServiceModel actual = directionsService.addDirection(testDirection);
-        testDirection.setDestination(null);
+        actual.setDestination(null);
 
-        this.directionsService.editDirection(testDirection);
+        this.directionsService.editDirection(actual);
     }
 
     @Test
