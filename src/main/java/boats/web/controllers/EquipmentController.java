@@ -89,7 +89,7 @@ public class EquipmentController extends BaseController {
         EquipmentServiceModel equipmentServiceModel = this.modelMapper.map(bindingAddModel, EquipmentServiceModel.class);
 
         if (bindingAddModel.getBoatId() != null) {
-            equipmentServiceModel.setBoat(findBoatIfExist(bindingAddModel.getBoatId()));
+        equipmentServiceModel.setBoat(findBoatIfExist(bindingAddModel.getBoatId()));
         } else {
             throw new NotFoundExceptions("Boat not found!");
         }

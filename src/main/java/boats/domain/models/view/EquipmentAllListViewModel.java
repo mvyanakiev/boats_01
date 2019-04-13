@@ -6,15 +6,15 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class EquipmentViewModel {
+public class EquipmentAllListViewModel {
 
     private String id;
     private String item;
     private String serialNumber;
-    private Boat boat;
+    private String boat;
     private LocalDate lastCheckedDate;
 
-    public EquipmentViewModel() {
+    public EquipmentAllListViewModel() {
     }
 
     public String getId() {
@@ -41,12 +41,12 @@ public class EquipmentViewModel {
         this.serialNumber = serialNumber;
     }
 
-    public Boat getBoat() {
-        return this.boat;
+    public String getBoat(Boat boat) {
+        return boat.getName();
     }
 
     public void setBoat(Boat boat) {
-        this.boat = boat;
+        this.boat = boat.getName();
     }
 
     public Date getLastCheckedDate() {
