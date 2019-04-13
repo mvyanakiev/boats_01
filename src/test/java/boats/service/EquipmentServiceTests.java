@@ -1,6 +1,7 @@
 package boats.service;
 
 import boats.domain.entities.Boat;
+import boats.domain.entities.Equipment;
 import boats.domain.models.serviceModels.EquipmentServiceModel;
 import boats.domain.models.serviceModels.PeopleServiceModel;
 import boats.repository.BoatRepository;
@@ -10,6 +11,7 @@ import boats.service.interfaces.EquipmentService;
 import boats.service.interfaces.PeopleService;
 import boats.utils.ValidationUtil;
 import boats.utils.ValidationUtilImpl;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,129 +51,125 @@ public class EquipmentServiceTests {
         this.testEquipment = createTestEquipment();
     }
 
-//    @Test
-//    public void T00_peopleService_addPeople_With_Correct_Values_ReturnCorrect() {
-//
-//        Assert.assertEquals(testEquipment.getBoat().getName(), this.boatRepository.findAll().get(0).getName());
-//    }
+    @After
+    public void reset(){
+        this.testEquipment = null;
+    }
+
+    @Test
+    public void T00_verify_boat_added_correct() {
+
+        Assert.assertEquals(
+                testEquipment.getBoat().getName(),
+                this.boatRepository.findAll().get(0).getName()
+        );
+    }
+
+    @Test
+    public void T01_equipmentService_addEquipment_With_Correct_Values_ReturnCorrect() {
+        EquipmentServiceModel actual = equipmentService.addEquipment(testEquipment);
+        EquipmentServiceModel expected = this.modelMapper
+                .map(this.equipmentRepository.findAll().get(0), EquipmentServiceModel.class);
+
+        compareResult(actual, expected);
+    }
+
+    @Test(expected = Exception.class)
+    public void T02_equipmentService_addEquipment_With_Incorrect_Item_ThrowException() {
+        testEquipment.setItem(null);
+        this.equipmentService.addEquipment(testEquipment);
+    }
+
+    @Test
+    public void T03_equipmentService_editEquipment_With_Correct_Values_ReturnCorrect() {
+
+        EquipmentServiceModel actual = this.equipmentService.addEquipment(testEquipment);
+
+        actual = this.modelMapper.map(this.equipmentRepository.findAll().get(0), EquipmentServiceModel.class);
+        actual.setItem("New valid item");
+        this.equipmentService.editEquipment(actual);
+
+        EquipmentServiceModel expected = this.modelMapper.map(this.equipmentRepository.findAll().get(0), EquipmentServiceModel.class);
+
+        compareResult(actual, expected);
+    }
 
 
-//    @Test
-//    public void T01_peopleService_addPeople_With_Correct_Values_ReturnCorrect() {
-//        PeopleServiceModel actual = peopleService.addPeople(testPeople);
-//        PeopleServiceModel expected = this.modelMapper
-//                .map(this.peopleRepository.findAll().get(0), PeopleServiceModel.class);
-//
-//        compareResult(actual, expected);
-//    }
-//
-//    @Test(expected = Exception.class)
-//    public void T02_peopleService_addPeople_With_Incorrect_Email_ThrowException() {
-//        testPeople.setEmail(null);
-//        this.peopleService.addPeople(testPeople);
-//    }
-//
-//    @Test(expected = Exception.class)
-//    public void T03_peopleService_addPeople_With_Incorrect_FirstName_ThrowException() {
-//        testPeople.setFirstName(null);
-//        this.peopleService.addPeople(testPeople);
-//    }
-//
-//    @Test(expected = Exception.class)
-//    public void T04_peopleService_addPeople_With_Incorrect__Phone_ThrowException() {
-//        testPeople.setPhone("");
-//        this.peopleService.addPeople(testPeople);
-//    }
-//
-//    @Test
-//    public void T05_peopleService_findByID_With_Correct_Values_ReturnCorrect() {
-//        PeopleServiceModel actual = peopleService.addPeople(testPeople);
-//
-//        PeopleServiceModel expected = this.peopleService.findPeopleById(actual.getId());
-//
-//        compareResult(actual, expected);
-//    }
-//
-//    @Test(expected = Exception.class)
-//    public void T06_peopleService_findByID_With_Incorrect_ThrowException() {
-//        PeopleServiceModel actual = peopleService.addPeople(testPeople);
-//        PeopleServiceModel expected = this.peopleService.findPeopleById("Invalid id");
-//    }
-//
-//    @Test
-//    public void T07_peopleService_editPeople_With_Correct_Values_ReturnCorrect() {
-//        PeopleServiceModel actual = peopleService.addPeople(testPeople);
-//
-//        actual.setId(this.peopleRepository.findAll().get(0).getId());
-//        actual.setFirstName("Valid");
-//
-//        this.peopleService.editPeople(actual);
-//
-//        PeopleServiceModel expected = this.modelMapper
-//                .map(this.peopleRepository.findAll().get(0), PeopleServiceModel.class);
-//
-//        compareResult(actual, expected);
-//    }
-//
-//    @Test(expected = Exception.class)
-//    public void T08_peopleService_editPeople_With_incorrect_ThrowException(){
-//        PeopleServiceModel actual = peopleService.addPeople(testPeople);
-//        actual.setFirstName(null);
-//
-//        this.peopleService.editPeople(actual);
-//    }
-//
-//    @Test
-//    public void T09_peopleService_findAllPeoples_With_Correct_Values_ReturnCorrect(){
-//        PeopleServiceModel actual1 = peopleService.addPeople(testPeople);
-//
-//        PeopleServiceModel actual2 = new PeopleServiceModel();
-//        actual2.setFirstName("Valid fName");
-//        actual2.setLastName("Valid lName");
-//        actual2.setPhone("Valid phone");
-//        actual2.setEmail("Valid e-mail");
-//        actual2.setAddress("Valid e-address");
-//        actual2.setCustomer(true);
-//        actual2.setEmployee(false);
-//        actual2.setSupplier(false);
-//
-//        actual2 = peopleService.addPeople(actual2);
-//
-//        List<PeopleServiceModel> expectedPeoples = this.peopleService.findAllPeoples();
-//
-//        Assert.assertEquals(2, expectedPeoples.size());
-//
-//        compareResult(actual1, expectedPeoples.get(0));
-//        compareResult(actual2, expectedPeoples.get(1));
-//    }
-//
-//    @Test
-//    public void T10_peopleService_findAllPeoples_With_zero_ReturnCorrect(){
-//        List<PeopleServiceModel> expectedPeoples = this.peopleService.findAllPeoples();
-//        Assert.assertEquals(0, expectedPeoples.size());
-//    }
-//
-//    @Test
-//    public void T11_peopleService_findAllCustomers_With_Correct_Values_ReturnCorrect(){
-//        PeopleServiceModel actual1 = peopleService.addPeople(testPeople);
-//
-//        PeopleServiceModel actual2 = new PeopleServiceModel();
-//        actual2.setFirstName("Valid fName");
-//        actual2.setLastName("Valid lName");
-//        actual2.setPhone("Valid phone");
-//        actual2.setEmail("Valid e-mail");
-//        actual2.setAddress("Valid e-address");
-//        actual2.setCustomer(false);
-//        actual2.setEmployee(true);
-//        actual2.setSupplier(true);
-//
-//        actual2 = peopleService.addPeople(actual2);
-//
-//        List<PeopleServiceModel> expectedPeoples = this.peopleService.findAllCustomers();
-//
-//        Assert.assertEquals(1, expectedPeoples.size());
-//        Assert.assertTrue(this.peopleRepository.findAll().get(0).isCustomer());
-//    }
+    @Test(expected = Exception.class)
+    public void T04_equipmentService_editEquipment_With_Incorrect_Item_ThrowException() {
+        EquipmentServiceModel actual = this.equipmentService.addEquipment(testEquipment);
+
+        actual = this.modelMapper.map(this.equipmentRepository.findAll().get(0), EquipmentServiceModel.class);
+        actual.setItem(null);
+        this.equipmentService.editEquipment(actual);
+    }
+
+    @Test
+    public void T05_equipmentService_findByBoatId_With_Correct_Values_ReturnCorrect(){
+        String boatId = testEquipment.getBoat().getId();
+
+        //todo
+//        List<EquipmentServiceModel> expected = this.equipmentService.findByBoatId(boatId);
+//        compareResult(testEquipment, this.modelMapper.map(expected.get(0), ));
+    }
+
+    @Test
+    public void T06_equipmentService_findEquipmentById_With_Correct_Values_ReturnCorrect(){
+
+        Equipment eq = this.equipmentRepository.saveAndFlush(this.modelMapper.map(testEquipment, Equipment.class));
+        EquipmentServiceModel expected = this.equipmentService.findEquipmentById(eq.getId());
+
+        compareResult(this.modelMapper.map(eq, EquipmentServiceModel.class), expected);
+    }
+
+
+    @Test(expected = Exception.class)
+    public void T07_equipmentService_findEquipmentById_With_With_Incorrect_Id_ThrowException(){
+
+        Equipment eq = this.equipmentRepository.saveAndFlush(this.modelMapper.map(testEquipment, Equipment.class));
+        EquipmentServiceModel expected = this.equipmentService.findEquipmentById("invalid id");
+
+        compareResult(this.modelMapper.map(eq, EquipmentServiceModel.class), expected);
+    }
+
+    @Test
+    public void T08_equipmentService_findAllEquipment_ReturnCorrect(){
+        this.equipmentRepository.saveAndFlush(this.modelMapper.map(testEquipment, Equipment.class));
+        this.equipmentRepository.saveAndFlush(this.modelMapper.map(testEquipment, Equipment.class));
+
+        List<EquipmentServiceModel> expected = this.equipmentService.findAllEquipment();
+
+        Assert.assertEquals(2, expected.size());
+    }
+
+    @Test
+    public void T09_equipmentService_findAllEquipment_ReturnCorrect(){
+        List<EquipmentServiceModel> expected = this.equipmentService.findAllEquipment();
+
+        Assert.assertEquals(0, expected.size());
+    }
+
+    @Test
+    public void T10_equipmentService_deleteEquipment_With_Correct_Id_ReturnCorrect(){
+        this.equipmentRepository.saveAndFlush(this.modelMapper.map(testEquipment, Equipment.class));
+        this.equipmentRepository.saveAndFlush(this.modelMapper.map(testEquipment, Equipment.class));
+
+        Equipment equipmentToDelete = this.equipmentRepository.findAll().get(0);
+
+        this.equipmentService.deleteEquipment(equipmentToDelete.getId());
+        Assert.assertEquals(1, this.equipmentRepository.findAll().size());
+    }
+
+
+    @Test(expected = Exception.class)
+    public void T11_equipmentService_deleteEquipment_With_Incorrect_Id_ThrowException(){
+        this.equipmentRepository.saveAndFlush(this.modelMapper.map(testEquipment, Equipment.class));
+
+        this.equipmentService.deleteEquipment("invalid id");
+    }
+
+
+
 
     private EquipmentServiceModel createTestEquipment() {
         EquipmentServiceModel testEquipment = new EquipmentServiceModel();
@@ -183,7 +181,6 @@ public class EquipmentServiceTests {
         testBoat.setLastCheckedDate(LocalDate.parse("2018-08-08"));
         testBoat.setPrice(BigDecimal.valueOf(1200));
         this.boatRepository.saveAndFlush(testBoat);
-
 
         testEquipment.setItem("Valid equipment");
         testEquipment.setSerialNumber("123");

@@ -81,11 +81,7 @@ public class EquipmentServiceImpl implements EquipmentService {
         this.equipmentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundExceptions("Equipment not found!"));
 
-        try {
-            this.equipmentRepository.deleteById(id);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Something get wrong during deletion");
-        }
+        this.equipmentRepository.deleteById(id);
     }
 
     private EquipmentServiceModel saveEquipmentToDb(EquipmentServiceModel equipmentServiceModel) {
