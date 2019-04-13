@@ -57,6 +57,30 @@ public class UserServiceTests {
         Assert.assertEquals(1, expected);
     }
 
+    @Test
+    public void T02_userService_findByUsername_with_correct_data_return_ok() {
+        this.userService.registerUser(testUser);
+        UserServiceModel expected = this.userService.findByUsername(testUser.getUsername());
+
+        Assert.assertEquals(testUser.getUsername(), expected.getUsername());
+    }
+
+    @Test(expected = Exception.class)
+    public void T03_userService_findByUsername_with_incorrect_data_throw_exception() {
+        this.userService.registerUser(testUser);
+        this.userService.findByUsername("invalid username");
+    }
+
+    @Test
+    public void T04_userService_findAllUsers_with_correct_data_return_ok() {
+        this.userService.registerUser(testUser);
+        long expected = this.userService.findAllUsers().size();
+
+        Assert.assertEquals(1, expected);
+    }
+
+
+
 
 
 
