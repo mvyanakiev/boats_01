@@ -3,6 +3,7 @@ package boats.web.controllers;
 import boats.config.ConfigValues;
 import boats.domain.entities.Boat;
 import boats.domain.models.binding.EquipmentAddBindingModel;
+import boats.domain.models.binding.EquipmentEditBindingModel;
 import boats.domain.models.serviceModels.EquipmentServiceModel;
 import boats.domain.models.view.BoatListViewModel;
 import boats.domain.models.view.EquipmentViewModel;
@@ -67,13 +68,7 @@ public class EquipmentController extends BaseController {
 
         modelAndView.addObject("bindingModel", bindingModel);
 
-        List<BoatListViewModel> boats = this.boatService.findAllBoats()
-                .stream()
-                .map(x -> this.modelMapper
-                        .map(x, BoatListViewModel.class))
-                .collect(Collectors.toList());
-
-        modelAndView.addObject("boats", boats);
+        modelAndView.addObject("boats", findAllBoatsForDropDown());
 
         return super.view("/equipment/equipment-add", modelAndView);
     }
@@ -81,7 +76,7 @@ public class EquipmentController extends BaseController {
 
     @PostMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView addConfirm(@Valid @ModelAttribute(name = "bindingModel") EquipmentAddBindingModel bindingModel,
+    public ModelAndView addConfirm(@Valid @ModelAttribute(name = "bindingModel") EquipmentAddBindingModel bindingAddModel,
                                    BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -91,35 +86,85 @@ public class EquipmentController extends BaseController {
             return super.redirect("/equipment/add");
         }
 
-        Boat boat = null;
-        EquipmentServiceModel equipmentServiceModel = this.modelMapper.map(bindingModel, EquipmentServiceModel.class);
+        EquipmentServiceModel equipmentServiceModel = this.modelMapper.map(bindingAddModel, EquipmentServiceModel.class);
 
-
-        try {
-            boat = this.modelMapper.map(this.boatService.findBoatById(bindingModel.getBoatId()), Boat.class);
-            equipmentServiceModel.setBoat(boat);
-        } catch (Exception e) {
+        if (bindingAddModel.getBoatId() != null) {
+            equipmentServiceModel.setBoat(findBoatIfExist(bindingAddModel.getBoatId()));
+        } else {
             throw new NotFoundExceptions("Boat not found!");
         }
 
-
-        this.equipmentService.addEquipment(equipmentServiceModel);
-
+        equipmentServiceModel = this.equipmentService.addEquipment(equipmentServiceModel);
 
         if (equipmentServiceModel == null) {
             throw new IllegalArgumentException("Equipment not added! (service error)");
         }
-
         return super.redirect("/equipment/show");
     }
 
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView saveEditedEquipment(@PathVariable("id") String id,
+                                       @Valid @ModelAttribute(name = "bindingModel") EquipmentEditBindingModel bindingModel,
+                                       BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
+                throw new IllegalArgumentException("Equipment not edited! (invalid data)");
+            }
+            return super.redirect("/equipment/edit/" + id);
+        }
+        EquipmentServiceModel equipmentServiceModel = this.modelMapper.map(bindingModel, EquipmentServiceModel.class);
+
+        if (bindingModel.getBoatId() != null) {
+            equipmentServiceModel.setBoat(findBoatIfExist(bindingModel.getBoatId()));
+        } else {
+            throw new NotFoundExceptions("Boat not found!");
+        }
+
+        this.equipmentService.editEquipment(equipmentServiceModel);
+
+        if (equipmentServiceModel == null) {
+            throw new IllegalArgumentException("Equipment not edited (service error)");
+        }
+        return super.redirect("/equipment/show");
+    }
+
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Edit equipment")
+    public ModelAndView equipmentEditView(@PathVariable("id") String id, ModelAndView modelAndView, EquipmentEditBindingModel model) {
+        model = this.modelMapper.map(this.equipmentService.findEquipmentById(id), EquipmentEditBindingModel.class);
+        modelAndView.addObject("model", model);
+
+        modelAndView.addObject("boats", findAllBoatsForDropDown());
+
+        return super.view("/equipment/equipment-edit", modelAndView);
+    }
 
     @GetMapping("/delete/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView deleteCharter(@PathVariable("id") String charterId) {
+    public ModelAndView deleteEquipment(@PathVariable("id") String charterId) {
 
         this.equipmentService.deleteEquipment(charterId);
 
         return super.redirect("/equipment/show");
+    }
+
+    private List<BoatListViewModel> findAllBoatsForDropDown() {
+
+        return this.boatService.findAllBoats()
+                .stream()
+                .map(x -> this.modelMapper
+                        .map(x, BoatListViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    private Boat findBoatIfExist(String boatId){
+        try {
+            return this.modelMapper.map(this.boatService.findBoatById(boatId), Boat.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

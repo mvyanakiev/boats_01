@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navigation/navbar}"></th:block>
+        <script th:src="@{/js/FormsValidation.js}"></script>
+    </header>
+    <main>
+        <form th:action="@{/equipment/edit/{id}(id = ${model.id})}" method="post" th:object="${model}">
+            <div class="form-group">
+                <h1 style="margin-top: 20px" class="text-center">Edit Equipment</h1>
+            </div>
+            <th:block th:include="~{equipment/equipment-form}"></th:block>
+        </br>
+            <button class="btn btn-danger">Save</button>
+        </form>
+    </main>
+    <footer>
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+<script>
+    validFormScript();
+</script>
+</body>
+</html>

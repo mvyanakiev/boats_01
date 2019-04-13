@@ -8,6 +8,8 @@ public interface EquipmentService {
 
     List<EquipmentServiceModel> findByBoatId(String boatId);
 
+    EquipmentServiceModel findEquipmentById(String id);
+
     List<EquipmentServiceModel> findAllEquipment();
 
     EquipmentServiceModel addEquipment(EquipmentServiceModel equipmentServiceModel);

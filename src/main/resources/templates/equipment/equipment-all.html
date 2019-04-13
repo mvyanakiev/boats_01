@@ -34,7 +34,9 @@
             <th:block>
             <tr th:each="e : ${equipments}" th:object="${e}">
                 <td th:text="*{item}" class="item"></td>
-                <td th:text="*{getBoat().getName()}" class="item"></td>
+                <td>
+                    <a th:href="@{/boats/details/{id}(id=*{getBoat().getId()})}"  th:text="*{getBoat().getName()}"></a>
+                </td>
                 <td th:text="*{serialNumber}" class="item font-small"></td>
                 <td th:text="*{#dates.format(lastCheckedDate, 'yyyy-MM-dd')}"></td>
                 <td>

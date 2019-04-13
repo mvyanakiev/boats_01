@@ -1,4 +1,4 @@
-package boats.domain.entities;
+package boats.domain.enums;
 
 public enum RepairType {
 

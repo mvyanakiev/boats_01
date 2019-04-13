@@ -1,5 +1,7 @@
 package boats.domain.entities;
 
+import boats.domain.enums.RepairType;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;

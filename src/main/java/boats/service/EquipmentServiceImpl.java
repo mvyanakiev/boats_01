@@ -43,6 +43,14 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
+    public EquipmentServiceModel findEquipmentById(String id) {
+        Equipment equipment = this.equipmentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundExceptions("Equipment not found!"));
+
+        return this.modelMapper.map(equipment, EquipmentServiceModel.class);
+    }
+
+    @Override
     public List<EquipmentServiceModel> findAllEquipment() {
         return this.equipmentRepository.findAll().stream()
                 .map(e -> this.modelMapper.map(e, EquipmentServiceModel.class))

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class ConfigValues {
 
-    //false = redirect
+    //false = redirect, true = throw exception
     public static final boolean THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER = true;
 
     //for test usages

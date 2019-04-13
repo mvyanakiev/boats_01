@@ -82,7 +82,7 @@ public class PeopleController extends BaseController {
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PageTitle("Edit people")
-    public ModelAndView boatEditView(@PathVariable("id") String id, ModelAndView modelAndView, PeopleEditBindingModel model) {
+    public ModelAndView peopleEditView(@PathVariable("id") String id, ModelAndView modelAndView, PeopleEditBindingModel model) {
         model = this.modelMapper.map(this.peopleService.findPeopleById(id), PeopleEditBindingModel.class);
         modelAndView.addObject("model", model);
 
@@ -92,7 +92,7 @@ public class PeopleController extends BaseController {
 
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView saveEditedBoat(@PathVariable("id") String id,
+    public ModelAndView saveEditedPeople(@PathVariable("id") String id,
                                        @Valid @ModelAttribute(name = "bindingModel")
                                                PeopleEditBindingModel bindingModel,
                                        BindingResult bindingResult) {
