@@ -79,4 +79,6 @@ INSERT INTO charters(id,boat_id,people_id,direction_id,start_date,price) VALUES 
 
 
 
+
+
 # http://convertcsv.com/csv-to-sql.htm
