@@ -14,6 +14,9 @@ function validFormScript() {
     const ERROR_INVALID_DESTINATION_PERIOD = "Period must be in range of 2 and 30 days long.";
     const ERROR_INVALID_DESTINATION_PRICE = "Price must be bigger than 0.01";
 
+    const ERROR_INVALID_EQUIPMENT_NAME = "Name must not be empty.";
+
+
 
 
     $(`#inputBoatName`).on(`keyup keypress`, function () {
@@ -172,7 +175,6 @@ function validFormScript() {
     });
 
 
-
     $(`#inputPrice`).on(`keyup keypress`, function () {
 
         let field = $(`#inputPrice`);
@@ -188,8 +190,20 @@ function validFormScript() {
     });
 
 
+    $(`#inputItem`).on(`keyup keypress`, function () {
 
+        let field = $(`#inputItem`);
+        let helpText = $(`#inputItemHelp`);
 
+        let value = field.val().trim();
+
+        if (value.length < 2 || value.length > 50 || value == null || value === "")
+         {
+            showHelpText(field, helpText, ERROR_INVALID_EQUIPMENT_NAME);
+        } else {
+            removeHelpText(field, helpText);
+        }
+    });
 
 
 
@@ -204,13 +218,6 @@ function validFormScript() {
         helpText.text(message);
         helpText.show();
     }
-
-
-
-
-
-
-
 
     // Validates that the input string is a valid date formatted as "mm/dd/yyyy"
     // function isValidDate(dateString) {
