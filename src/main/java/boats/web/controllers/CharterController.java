@@ -2,6 +2,7 @@ package boats.web.controllers;
 
 
 import boats.config.ConfigValues;
+import boats.config.ErrorMessages;
 import boats.domain.entities.Boat;
 import boats.domain.entities.Direction;
 import boats.domain.entities.People;
@@ -64,7 +65,10 @@ public class CharterController extends BaseController {
 
         if (bindingResult.hasErrors()) {
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Charter not added! (invalid data)");
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_CHARTER
+                                + ErrorMessages.NOT_ADDED
+                                + ErrorMessages.ARGUMENT_BINDING);
             }
             return super.redirect("/charters/add");
         }
@@ -94,19 +98,21 @@ public class CharterController extends BaseController {
 
         if (bindingResult.hasErrors()) {
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Charter not added! (invalid data)");
-            }
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_CHARTER
+                                + ErrorMessages.NOT_ADDED
+                                + ErrorMessages.ARGUMENT_BINDING);            }
             return super.redirect("/charters/add");
         }
 
 
         if (LocalDate.parse(bindingModel.getStartDate()).isBefore(LocalDate.now())) {
-            throw new IllegalArgumentException("Date must not be in the past!");
+            throw new IllegalArgumentException(ErrorMessages.NOT_ACTUAL_DATE);
         }
 
 //        try {
 //            if (LocalDate.parse(bindingModel.getStartDate()).isBefore(LocalDate.now())) {
-//                throw new IllegalArgumentException("Date must not be in the past!");
+//        throw new IllegalArgumentException(ErrorMessages.NOT_ACTUAL_DATE);
 //            }
 //        } catch (Exception e){
 //            return super.redirect("/charters/add");
@@ -139,8 +145,10 @@ public class CharterController extends BaseController {
 
         if (bindingResult.hasErrors()) {
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Charter not added! (invalid data)");
-            }
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_CHARTER
+                                + ErrorMessages.NOT_ADDED
+                                + ErrorMessages.ARGUMENT_BINDING);                     }
             return super.redirect("/charters/step2-select-boat");
         }
 
@@ -187,8 +195,10 @@ public class CharterController extends BaseController {
 
         if (bindingResult.hasErrors()) {
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Charter not added! (invalid data)");
-            }
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_CHARTER
+                                + ErrorMessages.NOT_ADDED
+                                + ErrorMessages.ARGUMENT_BINDING);                     }
             return super.redirect("/charters/step3-complete-adding");
         }
 

@@ -2,6 +2,7 @@ package boats.web.controllers;
 
 
 import boats.config.ConfigValues;
+import boats.config.ErrorMessages;
 import boats.domain.models.binding.BoatAddBindingModel;
 import boats.domain.models.binding.BoatEditBindingModel;
 import boats.domain.models.serviceModels.BoatServiceModel;
@@ -57,7 +58,10 @@ public class BoatController extends BaseController {
 
         if (bindingResult.hasErrors()) {
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Boat not added! (invalid data)");
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_BOAT
+                                + ErrorMessages.NOT_ADDED
+                                + ErrorMessages.ARGUMENT_BINDING);
             }
             return super.redirect("/boats/add");
         }
@@ -66,7 +70,10 @@ public class BoatController extends BaseController {
         boatServiceModel = this.boatService.addBoat(boatServiceModel);
 
         if (boatServiceModel == null) {
-            throw new IllegalArgumentException("Boat not added! (service error)");
+            throw new IllegalArgumentException(
+                    ErrorMessages.ITEM_BOAT
+                            + ErrorMessages.NOT_ADDED
+                            + ErrorMessages.ARGUMENT_SERVICE);
         }
 
         return super.redirect("/boats/show");
@@ -125,7 +132,10 @@ public class BoatController extends BaseController {
         if (bindingResult.hasErrors()) {
 
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Boat not edited! (invalid data)");
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_BOAT
+                                + ErrorMessages.NOT_EDITED
+                                + ErrorMessages.ARGUMENT_BINDING);
             }
             return super.redirect("/boats/edit/" + id);
         }
@@ -136,7 +146,10 @@ public class BoatController extends BaseController {
         boatServiceModel = this.boatService.saveEditedBoat(boatServiceModel);
 
         if (boatServiceModel == null) {
-            throw new IllegalArgumentException("Boat not edited (service error)");
+            throw new IllegalArgumentException(
+                    ErrorMessages.ITEM_BOAT
+                            + ErrorMessages.NOT_EDITED
+                            + ErrorMessages.ARGUMENT_SERVICE);
         }
         return super.redirect("/boats/details/" + id);
     }
