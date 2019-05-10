@@ -40,6 +40,10 @@
                 <td th:text="${charter.customer.getFirstName() + ' ' + charter.customer.getLastName()}" class="item"></td>
                 <td th:text="${charter.direction.getDestination()}" class="item"></td>
                 <td th:text="${charter.price}" class="item"></td>
+
+
+
+
                 <td>
                     <a class="btn btn-outline-secondary"
                        th:href="@{/charters/delete/{id}(id=${charter.id})}" th:text="Delete"></a>

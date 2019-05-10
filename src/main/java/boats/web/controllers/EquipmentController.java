@@ -1,6 +1,7 @@
 package boats.web.controllers;
 
 import boats.config.ConfigValues;
+import boats.config.ErrorMessages;
 import boats.domain.entities.Boat;
 import boats.domain.models.binding.EquipmentAddBindingModel;
 import boats.domain.models.binding.EquipmentEditBindingModel;
@@ -61,7 +62,11 @@ public class EquipmentController extends BaseController {
 
         if (bindingResult.hasErrors()) {
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Equipment not added! (invalid data)");
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_EQUIPMENT
+                                + ErrorMessages.NOT_ADDED
+                                + ErrorMessages.ARGUMENT_BINDING
+                );
             }
             return super.redirect("/equipment/add");
         }
@@ -81,7 +86,11 @@ public class EquipmentController extends BaseController {
 
         if (bindingResult.hasErrors()) {
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Equipment not added! (invalid data)");
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_EQUIPMENT
+                                + ErrorMessages.NOT_ADDED
+                                + ErrorMessages.ARGUMENT_BINDING
+                );
             }
             return super.redirect("/equipment/add");
         }
@@ -91,13 +100,20 @@ public class EquipmentController extends BaseController {
         if (bindingAddModel.getBoatId() != null) {
         equipmentServiceModel.setBoat(findBoatIfExist(bindingAddModel.getBoatId()));
         } else {
-            throw new NotFoundExceptions("Boat not found!");
+            throw new NotFoundExceptions(
+                    ErrorMessages.ITEM_BOAT
+                            + ErrorMessages.NOT_FOUND
+            );
         }
 
         equipmentServiceModel = this.equipmentService.addEquipment(equipmentServiceModel);
 
         if (equipmentServiceModel == null) {
-            throw new IllegalArgumentException("Equipment not added! (service error)");
+            throw new IllegalArgumentException(
+                    ErrorMessages.ITEM_EQUIPMENT
+                            + ErrorMessages.NOT_ADDED
+                            + ErrorMessages.ARGUMENT_SERVICE
+            );
         }
         return super.redirect("/equipment/show");
     }
@@ -110,7 +126,11 @@ public class EquipmentController extends BaseController {
 
         if (bindingResult.hasErrors()) {
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Equipment not edited! (invalid data)");
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_EQUIPMENT
+                                + ErrorMessages.NOT_EDITED
+                                + ErrorMessages.ARGUMENT_BINDING
+                );
             }
             return super.redirect("/equipment/edit/" + id);
         }
@@ -119,13 +139,20 @@ public class EquipmentController extends BaseController {
         if (bindingModel.getBoatId() != null) {
             equipmentServiceModel.setBoat(findBoatIfExist(bindingModel.getBoatId()));
         } else {
-            throw new NotFoundExceptions("Boat not found!");
+            throw new NotFoundExceptions(
+                    ErrorMessages.ITEM_BOAT
+                            + ErrorMessages.NOT_FOUND
+            );
         }
 
         this.equipmentService.editEquipment(equipmentServiceModel);
 
         if (equipmentServiceModel == null) {
-            throw new IllegalArgumentException("Equipment not edited (service error)");
+            throw new IllegalArgumentException(
+                    ErrorMessages.ITEM_EQUIPMENT
+                            + ErrorMessages.NOT_EDITED
+                            + ErrorMessages.ARGUMENT_SERVICE
+            );
         }
         return super.redirect("/equipment/show");
     }

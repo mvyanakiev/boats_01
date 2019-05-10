@@ -30,9 +30,9 @@ INSERT INTO boats_db.directions (id, destination, distance, period, price) VALUE
 INSERT INTO boats_db.directions (id, destination, distance, period, price) VALUES ('f78f7708-4659-11e9-b210-d663bd873d93', 'Samotraki', 190, 14, 350.00);
 INSERT INTO boats_db.directions (id, destination, distance, period, price) VALUES ('f78f791a-4659-11e9-b210-d663bd873d93', 'Limnos', 200, 14, 300.00);
 
-INSERT INTO boats_db.employees (id, note, position, salary, people_id) VALUES ('11f7430c-4662-11e9-b210-d663bd873d93', 'until june', 'hostess', 1200.00, 'b3d047c9-8b30-4fac-8ec2-1131f6fed320');
-INSERT INTO boats_db.employees (id, note, position, salary, people_id) VALUES ('11f74654-4662-11e9-b210-d663bd873d93', 'like Skopelos', 'skipper', 2400.00, '32ce322c-6647-46a8-991c-d8731ac23a68');
-INSERT INTO boats_db.employees (id, note, position, salary, people_id) VALUES ('11f748b6-4662-11e9-b210-d663bd873d93', 'smoker', 'mechanic', 2000.00, 'd9fd3c9a-70c0-4675-9693-50dcbdfe7c80');
+# INSERT INTO boats_db.employees (id, note, position, salary, people_id) VALUES ('11f7430c-4662-11e9-b210-d663bd873d93', 'until june', 'hostess', 1200.00, 'b3d047c9-8b30-4fac-8ec2-1131f6fed320');
+# INSERT INTO boats_db.employees (id, note, position, salary, people_id) VALUES ('11f74654-4662-11e9-b210-d663bd873d93', 'like Skopelos', 'skipper', 2400.00, '32ce322c-6647-46a8-991c-d8731ac23a68');
+# INSERT INTO boats_db.employees (id, note, position, salary, people_id) VALUES ('11f748b6-4662-11e9-b210-d663bd873d93', 'smoker', 'mechanic', 2000.00, 'd9fd3c9a-70c0-4675-9693-50dcbdfe7c80');
 
 INSERT INTO boats_db.equipments (id, item, last_checked_date, serial_number, boat_id) VALUES ('cca800ce-4662-11e9-b210-d663bd873d93', 'Outboard engine', '2005-03-20', '123456', '0767aaf6-464b-11e9-b210-d663bd873d93');
 INSERT INTO boats_db.equipments (id, item, last_checked_date, serial_number, boat_id) VALUES ('cca803bc-4662-11e9-b210-d663bd873d93', 'Safety raft', '2001-12-20', 'ASD112568', '0767ac4a-464b-11e9-b210-d663bd873d93');
@@ -78,3 +78,5 @@ INSERT INTO boats_db.charters (id, price, start_date, boat_id, people_id, direct
 INSERT INTO boats_db.charters (id, price, start_date, boat_id, people_id, direction_id) VALUES ('7c5d14a6-ea03-4fdd-b82f-812c142c64f3', 1610.00, '2019-04-21', '0767adb2-464b-11e9-b210-d663bd873d93', '643279f4-eef3-4f98-9f61-38d58bdfcd4a', 'f78f6f10-4659-11e9-b210-d663bd873d93');
 INSERT INTO boats_db.charters (id, price, start_date, boat_id, people_id, direction_id) VALUES ('8917f545-fa95-4e2f-91ef-9bb857f56480', 1950.00, '2019-05-01', '0767a34e-464b-11e9-b210-d663bd873d93', '4331f1a3-584f-4da7-ba73-d6f1c49d798d', 'f78f706e-4659-11e9-b210-d663bd873d93');
 INSERT INTO boats_db.charters (id, price, start_date, boat_id, people_id, direction_id) VALUES ('e7094f53-5b10-4bcb-a8cd-10bd39dd4e65', 2150.00, '2019-04-12', '07678e40-464b-11e9-b210-d663bd873d93', 'fdc9a5f0-3e3f-47f1-a81f-4f1feb74eb81', 'f78f6a7e-4659-11e9-b210-d663bd873d93');
+
+

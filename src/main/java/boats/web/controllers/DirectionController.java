@@ -2,6 +2,7 @@ package boats.web.controllers;
 
 
 import boats.config.ConfigValues;
+import boats.config.ErrorMessages;
 import boats.domain.models.binding.DirectionAddBindingModel;
 import boats.domain.models.binding.DirectionEditBindingModel;
 import boats.domain.models.binding.PeopleAddBindingModel;
@@ -67,7 +68,11 @@ public class DirectionController extends BaseController {
         if (bindingResult.hasErrors()) {
 
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Direction not added! (invalid data)");
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_DIRECTION
+                                + ErrorMessages.NOT_ADDED
+                                + ErrorMessages.ARGUMENT_BINDING
+                );
             }
             return super.redirect("/directions/add");
         }
@@ -77,7 +82,11 @@ public class DirectionController extends BaseController {
         directionServiceModel = this.directionsService.addDirection(directionServiceModel);
 
         if (directionServiceModel == null) {
-            throw new IllegalArgumentException("Direction not added! (service error)");
+            throw new IllegalArgumentException(
+                    ErrorMessages.ITEM_DIRECTION
+                            + ErrorMessages.NOT_ADDED
+                            + ErrorMessages.ARGUMENT_SERVICE
+            );
         }
 
         return super.redirect("/directions/show");
@@ -102,7 +111,11 @@ public class DirectionController extends BaseController {
 
         if (bindingResult.hasErrors()) {
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
-                throw new IllegalArgumentException("Direction not edited! (invalid data)");
+                throw new IllegalArgumentException(
+                        ErrorMessages.ITEM_DIRECTION
+                                + ErrorMessages.NOT_EDITED
+                                + ErrorMessages.ARGUMENT_BINDING
+                );
             }
             return super.redirect("/directions/edit/" + id);
         }
@@ -112,7 +125,11 @@ public class DirectionController extends BaseController {
         directionServiceModel = this.directionsService.editDirection(directionServiceModel);
 
         if (directionServiceModel == null) {
-            throw new IllegalArgumentException("Direction not edited (service error)");
+            throw new IllegalArgumentException(
+                    ErrorMessages.ITEM_DIRECTION
+                            + ErrorMessages.NOT_EDITED
+                            + ErrorMessages.ARGUMENT_SERVICE
+            );
         }
         return super.redirect("/directions/show");
     }
