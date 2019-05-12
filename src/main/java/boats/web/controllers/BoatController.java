@@ -24,6 +24,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static boats.config.ErrorMessages.*;
+
 @Controller
 @RequestMapping("/boats")
 public class BoatController extends BaseController {
@@ -59,9 +61,8 @@ public class BoatController extends BaseController {
         if (bindingResult.hasErrors()) {
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
                 throw new IllegalArgumentException(
-                        ErrorMessages.ITEM_BOAT
-                                + ErrorMessages.NOT_ADDED
-                                + ErrorMessages.ARGUMENT_BINDING);
+                        //fixme like this
+                        ITEM_BOAT + NOT_ADDED + ARGUMENT_BINDING);
             }
             return super.redirect("/boats/add");
         }
@@ -71,7 +72,7 @@ public class BoatController extends BaseController {
 
         if (boatServiceModel == null) {
             throw new IllegalArgumentException(
-                    ErrorMessages.ITEM_BOAT
+                    ITEM_BOAT
                             + ErrorMessages.NOT_ADDED
                             + ErrorMessages.ARGUMENT_SERVICE);
         }
@@ -133,7 +134,7 @@ public class BoatController extends BaseController {
 
             if (ConfigValues.THROW_EXCEPTION_FOR_INVALID_DATA_IN_CONTROLLER) {
                 throw new IllegalArgumentException(
-                        ErrorMessages.ITEM_BOAT
+                        ITEM_BOAT
                                 + ErrorMessages.NOT_EDITED
                                 + ErrorMessages.ARGUMENT_BINDING);
             }
@@ -147,7 +148,7 @@ public class BoatController extends BaseController {
 
         if (boatServiceModel == null) {
             throw new IllegalArgumentException(
-                    ErrorMessages.ITEM_BOAT
+                    ITEM_BOAT
                             + ErrorMessages.NOT_EDITED
                             + ErrorMessages.ARGUMENT_SERVICE);
         }

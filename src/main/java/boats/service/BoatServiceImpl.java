@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+//todo edit error messages
+
 @Service
 public class BoatServiceImpl implements BoatService {
 
@@ -118,7 +121,7 @@ public class BoatServiceImpl implements BoatService {
 
         for (BoatServiceModel boat : allBoats) {
 
-            if (LocalDate.now().toEpochDay() - boat.getLastCheckedDate().toEpochDay() > 335) {
+            if (LocalDate.now().toEpochDay() - boat.getLastCheckedDate().toEpochDay() > (365 - 30)) { //fixme add to config values
                 nearToCheckDateBoats.add(boat);
             }
         }
