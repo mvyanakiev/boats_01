@@ -15,6 +15,8 @@ import boats.service.interfaces.BoatService;
 import boats.service.interfaces.CharterService;
 import boats.service.interfaces.DirectionsService;
 import boats.service.interfaces.PeopleService;
+import boats.utils.ContractConverter;
+import boats.utils.ContractConverterImpl;
 import boats.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -215,6 +217,7 @@ public class CharterController extends BaseController {
     @PreAuthorize("isAuthenticated()")
     @PageTitle("All charters")
     public ModelAndView showAllCharters(ModelAndView modelAndView) {
+
         modelAndView.addObject("charters", this.charterService.findAllCharters()
                 .stream()
                 .map(b -> this.modelMapper.map(b, CharterViewModel.class))
@@ -232,4 +235,24 @@ public class CharterController extends BaseController {
 
         return super.redirect("/charters/show");
     }
+
+
+    @GetMapping("/contract/{id}")
+    @PreAuthorize("isAuthenticated()")
+    @PageTitle("Contract")
+    public ModelAndView contract(@PathVariable("id") String charterId, ModelAndView modelAndView){
+
+        ContractConverter contractConverter = new ContractConverterImpl();
+        ContractViewModel model = contractConverter.convertCharterToContract(this.charterService.findByCharterId(charterId));
+
+        //todo send to ContractGenerator
+
+
+
+        modelAndView.addObject("contract", model);
+
+        return super.view("/charters/contract", modelAndView);
+
+    }
+
 }

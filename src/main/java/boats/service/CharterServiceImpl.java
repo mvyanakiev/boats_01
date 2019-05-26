@@ -11,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static boats.config.ErrorMessages.*;
 
 @Service
 public class CharterServiceImpl implements CharterService {
@@ -62,7 +65,7 @@ public class CharterServiceImpl implements CharterService {
     public void deleteCharter(String id) {
 
         this.charterRepository.findById(id)
-                .orElseThrow(() -> new NotFoundExceptions("Charter not found!"));
+                .orElseThrow(() -> new NotFoundExceptions(ITEM_CHARTER + NOT_FOUND));
 
         try {
             this.charterRepository.deleteById(id);
@@ -70,6 +73,16 @@ public class CharterServiceImpl implements CharterService {
             System.out.println(e);
             throw new IllegalArgumentException("Something get wrong during deletion");
         }
+    }
+
+
+    @Override
+    public CharterServiceModel findByCharterId(String id) {
+
+        Charter charter = this.charterRepository.findById(id)
+                .orElseThrow(() -> new NotFoundExceptions(ITEM_CHARTER + NOT_FOUND));
+
+        return this.modelMapper.map(charter, CharterServiceModel.class);
     }
 
     @Override

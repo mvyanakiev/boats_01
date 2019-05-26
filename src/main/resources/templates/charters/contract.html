@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+</head>
+<body>
+<div class="container-fluid">
+    <main>
+        <h1 style="margin-top: 20px" class="text-center">C O N T R A C T</h1>
+        <div class="contract">
+
+
+<!--            <p th:text="${#dates.format(charter.startDate, 'yyyy-MMM-dd')}"></p>-->
+            <p th:text="${contract.getBoatName()}"></p>
+            <p th:text="${contract.getCustomerName()}"></p>
+            <p th:text="${contract.getPrice()}"></p>
+            <p th:text="${contract.getStartDate()}"></p>
+
+
+
+
+
+        </div>
+    </main>
+    <footer style="text-align: center">
+        <small>Created with <b>Boats</b> by Milko Yanakiev</small>
+    </footer>
+</div>
+</body>
+</html>

@@ -30,3 +30,22 @@ img.img-thumbnail {
     max-width: 40px;
     max-height: 40px;
 }
+
+.homePageCharter{
+    margin: 0;
+    font-weight: bold;
+}
+
+.homePageCharter span{
+    font-weight: normal;
+}
+
+.contract{
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.2;
+}
+
+.contract p{
+    margin: 0;
+}

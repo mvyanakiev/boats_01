@@ -28,6 +28,7 @@
                 <th>Destination</th>
                 <th>Price</th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -41,7 +42,10 @@
                 <td th:text="${charter.direction.getDestination()}" class="item"></td>
                 <td th:text="${charter.price}" class="item"></td>
 
-
+                <td>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/charters/contract/{id}(id=${charter.id})}" th:text="Contract" target="_blank"></a>
+                </td>
 
 
                 <td>

@@ -14,4 +14,5 @@ public interface CharterService {
 
     void deleteCharter(String id);
 
+    CharterServiceModel findByCharterId(String id);
 }
