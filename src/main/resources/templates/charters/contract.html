@@ -12,11 +12,12 @@
         <div class="contract">
 
 
-<!--            <p th:text="${#dates.format(charter.startDate, 'yyyy-MMM-dd')}"></p>-->
+<!--            <p th:text="${#dates.format(contract.getStartDate(), 'dd.MMM.yyyy')}"></p>-->
             <p th:text="${contract.getBoatName()}"></p>
             <p th:text="${contract.getCustomerName()}"></p>
             <p th:text="${contract.getPrice()}"></p>
-            <p th:text="${contract.getStartDate()}"></p>
+            <p th:text="${#dates.format(contract.getStartDate(), 'dd.MMM.yyyy')}"></p>
+            <p th:text="${#dates.format(contract.getToday(), 'dd.MMM.yyyy')}"></p>
 
 
 

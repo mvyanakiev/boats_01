@@ -242,8 +242,7 @@ public class CharterController extends BaseController {
     @PageTitle("Contract")
     public ModelAndView contract(@PathVariable("id") String charterId, ModelAndView modelAndView){
 
-        ContractConverter contractConverter = new ContractConverterImpl();
-        ContractViewModel model = contractConverter.convertCharterToContract(this.charterService.findByCharterId(charterId));
+        ContractViewModel model = this.charterService.createContract(charterId);
 
         //todo send to ContractGenerator
 

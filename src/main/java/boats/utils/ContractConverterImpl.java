@@ -1,35 +1,39 @@
 package boats.utils;
 
 import boats.domain.models.serviceModels.CharterServiceModel;
+import boats.domain.models.serviceModels.EquipmentServiceModel;
 import boats.domain.models.view.ContractViewModel;
+import boats.service.EquipmentServiceImpl;
+import boats.service.interfaces.EquipmentService;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class ContractConverterImpl implements ContractConverter {
+
+//    private final EquipmentService equipmentService;
+
+//    public ContractConverterImpl() {
+//        this.equipmentService = new EquipmentServiceImpl();
+//    }
+
 
     @Override
     public ContractViewModel convertCharterToContract(CharterServiceModel charter) {
 
         ContractViewModel model = new ContractViewModel();
-        //todo
 
         model.setBoatName(charter.getBoat().getName());
         model.setBoatProducer(charter.getBoat().getProducer());
+        model.setBoatModel(charter.getBoat().getModel());
         model.setCustomerName(charter.getCustomer().getFirstName() + " " + charter.getCustomer().getLastName());
+        model.setDirection(charter.getDirection().getDestination());
         model.setPrice(String.valueOf(charter.getPrice()));
-
-
-        model.setStartDate(String.valueOf(charter.getStartDate()));
+        model.setPeriod(String.valueOf(charter.getDirection().getPeriod()));
+        model.setStartDate(charter.getStartDate());
+        model.setToday(LocalDate.now());
+//        model.setEquipment(this.equipmentService.findByBoatId(charter.getBoat().getId())); //fixme
 
         return model;
     }
-
-
 }
-
-
-//private String boatName;
-//    private String boatModel;
-//    private String boatProducer;
-//    private String customerName;
-//    private String destination;
-//    private String startDate;
-//    private String today;

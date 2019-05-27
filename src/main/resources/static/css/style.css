@@ -49,3 +49,12 @@ img.img-thumbnail {
 .contract p{
     margin: 0;
 }
+
+footer{
+    border-radius: 8px;
+}
+
+nav{
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}

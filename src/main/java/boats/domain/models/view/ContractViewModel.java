@@ -3,6 +3,8 @@ package boats.domain.models.view;
 
 import boats.domain.models.serviceModels.EquipmentServiceModel;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,9 +15,10 @@ public class ContractViewModel {
     private String boatModel;
     private String boatProducer;
     private String customerName;
-    private String destination;
-    private String startDate;
-    private String today;
+    private String direction;
+    private LocalDate startDate;
+    private String period;
+    private LocalDate today;
     private String price;
     private List<EquipmentServiceModel> equipment;
 
@@ -55,27 +58,37 @@ public class ContractViewModel {
         this.customerName = customerName;
     }
 
-    public String getDestination() {
-        return this.destination;
+    public String getDirection() {
+        return this.direction;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
-    public String getStartDate() {
-        return this.startDate;
+    public Date getStartDate() {
+        Date date = Date.from(this.startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return date;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public String getToday() {
-        return this.today;
+    public String getPeriod() {
+        return this.period;
     }
 
-    public void setToday(String today) {
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+
+    public Date getToday() {
+        Date date = Date.from(this.today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return date;
+    }
+
+    public void setToday(LocalDate today) {
         this.today = today;
     }
 

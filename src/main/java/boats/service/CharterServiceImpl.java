@@ -2,9 +2,12 @@ package boats.service;
 
 import boats.domain.entities.Charter;
 import boats.domain.models.serviceModels.CharterServiceModel;
+import boats.domain.models.view.ContractViewModel;
 import boats.error.NotFoundExceptions;
 import boats.repository.CharterRepository;
 import boats.service.interfaces.CharterService;
+import boats.utils.ContractConverter;
+import boats.utils.ContractConverterImpl;
 import boats.utils.ValidationUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,5 +106,12 @@ public class CharterServiceImpl implements CharterService {
         }
 
         return activeCharter;
+    }
+
+    @Override
+    public ContractViewModel createContract(String id) {
+
+        ContractConverter contractConverter = new ContractConverterImpl();
+        return contractConverter.convertCharterToContract(this.findByCharterId(id));
     }
 }
