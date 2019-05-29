@@ -40,6 +40,10 @@ img.img-thumbnail {
     font-weight: normal;
 }
 
+.boatIndex{
+    color: #117a8b;
+}
+
 .contract{
     font-family: "Times New Roman", Times, serif;
     font-size: 12pt;
@@ -50,8 +54,13 @@ img.img-thumbnail {
     margin: 0;
 }
 
-footer{
+.jumbotron{
     border-radius: 8px;
+}
+
+footer{
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 nav{
