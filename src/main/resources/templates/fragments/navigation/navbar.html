@@ -1,8 +1,3 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
     <th:block th:fragment sec:authorize="isAnonymous()">
         <th:block th:include="~{fragments/navigation/guest-navbar}"></th:block>
     </th:block>
@@ -10,70 +5,3 @@
     <th:block sec:authorize="isAuthenticated()">
         <th:block th:include="~{fragments/navigation/logged-navbar}"></th:block>
     </th:block>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-            <!--<ul class="navbar-nav mr-auto">-->
-                <!--&lt;!&ndash;<li class="nav-item active">&ndash;&gt;-->
-                <!--&lt;!&ndash;<a class="nav-link text-white" th:href="@{/}">Home <span class="sr-only">(current)</span></a>&ndash;&gt;-->
-                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-
-
-                <!--<li class="nav-item dropdown">-->
-                    <!--<a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownBoats" role="button"-->
-                       <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--Boats-->
-                    <!--</a>-->
-                    <!--<div class="dropdown-menu" aria-labelledby="navbarDropdownBoats">-->
-                        <!--<a class="dropdown-item" th:href="@{/boats/show}">Show</a>-->
-                        <!--<a class="dropdown-item" th:href="@{/boats/add}">Add</a>-->
-                    <!--</div>-->
-                <!--</li>-->
-
-
-                <!--<li class="nav-item dropdown">-->
-                    <!--<a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownPeoples" role="button"-->
-                       <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--Peoples-->
-                    <!--</a>-->
-                    <!--<div class="dropdown-menu" aria-labelledby="navbarDropdownPeoples">-->
-                        <!--<a class="dropdown-item" th:href="@{/peoples/show}">Show</a>-->
-                        <!--<a class="dropdown-item" th:href="@{/peoples/add}">Add</a>-->
-                    <!--</div>-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</div>-->
-    <!--</nav>-->
-<!--</th:block>-->

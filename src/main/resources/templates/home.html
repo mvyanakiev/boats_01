@@ -17,10 +17,14 @@
                         <h2 style="margin-top: 20px">Active charters:</h2>
                         <hr/>
                         <th:block th:each="charter, iter : ${charters}">
-                            <p class="homePageCharter">Boat: <span class="boatIndex" th:text="${charter.getBoatName()}"></span></p>
-                            <p class="homePageCharter">Customer: <span th:text="${charter.getCustomerName()}"></span></p>
-                            <p class="homePageCharter">Destination: <span th:text="${charter.getDestination()}"></span></p>
-                            <p class="homePageCharter">Date of return: <span th:text="${#dates.format(charter.getEndDate(), 'dd.MM.yyyy')}"></span></p>
+                            <p class="homePageCharter">Boat: <span class="boatIndex"
+                                                                   th:text="${charter.getBoatName()}"></span></p>
+                            <p class="homePageCharter">Customer: <span th:text="${charter.getCustomerName()}"></span>
+                            </p>
+                            <p class="homePageCharter">Destination: <span th:text="${charter.getDestination()}"></span>
+                            </p>
+                            <p class="homePageCharter">Date of return: <span
+                                    th:text="${#dates.format(charter.getEndDate(), 'dd.MM.yyyy')}"></span></p>
                             <hr/>
                         </th:block>
                     </div>
