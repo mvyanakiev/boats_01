@@ -29,6 +29,7 @@
                 <th>Price</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -44,9 +45,13 @@
 
                 <td>
                     <a class="btn btn-outline-secondary"
-                       th:href="@{/charters/contract/{id}(id=${charter.id})}" th:text="Contract" target="_blank"></a>
+                       th:href="@{/contract/{id}(id=${charter.id})}" th:text="ContractAPI" target="_blank"></a>
                 </td>
 
+                <td>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/charters/contract/{id}(id=${charter.id})}" th:text="Contract" target="_blank"></a>
+                </td>
 
                 <td>
                     <a class="btn btn-outline-secondary"

@@ -15,8 +15,6 @@ import boats.service.interfaces.BoatService;
 import boats.service.interfaces.CharterService;
 import boats.service.interfaces.DirectionsService;
 import boats.service.interfaces.PeopleService;
-import boats.utils.ContractConverter;
-import boats.utils.ContractConverterImpl;
 import boats.web.annotations.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +53,6 @@ public class CharterController extends BaseController {
         this.directionsService = directionsService;
     }
 
-
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
     @PageTitle("Add charter")
@@ -87,7 +84,6 @@ public class CharterController extends BaseController {
 
         return super.view("/charters/step1-select-date", modelAndView);
     }
-
 
     @PostMapping("/select-boat")
     @PreAuthorize("isAuthenticated()")
@@ -134,7 +130,6 @@ public class CharterController extends BaseController {
 
         return super.view("/charters/step2-select-boat", modelAndView);
     }
-
 
     @GetMapping("/create/{id}")
     @PreAuthorize("isAuthenticated()")
@@ -183,7 +178,6 @@ public class CharterController extends BaseController {
         return super.view("/charters/step3-complete-adding", modelAndView);
     }
 
-
     @PostMapping("/complete")
     @PreAuthorize("isAuthenticated()")
     @PageTitle("Add charter")
@@ -212,7 +206,6 @@ public class CharterController extends BaseController {
         return redirect("/charters/show");
     }
 
-
     @GetMapping("/show")
     @PreAuthorize("isAuthenticated()")
     @PageTitle("All charters")
@@ -226,7 +219,6 @@ public class CharterController extends BaseController {
         return super.view("/charters/charters-all", modelAndView);
     }
 
-
     @GetMapping("/delete/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView deleteCharter(@PathVariable("id") String charterId) {
@@ -235,7 +227,6 @@ public class CharterController extends BaseController {
 
         return super.redirect("/charters/show");
     }
-
 
     @GetMapping("/contract/{id}")
     @PreAuthorize("isAuthenticated()")
@@ -246,12 +237,8 @@ public class CharterController extends BaseController {
 
         //todo send to ContractGenerator
 
-
-
         modelAndView.addObject("contract", model);
 
         return super.view("/charters/contract", modelAndView);
-
     }
-
 }
